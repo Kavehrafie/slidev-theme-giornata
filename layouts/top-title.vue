@@ -19,7 +19,7 @@ const alignment = computed(() => {
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 
 const marginClass = computed(() => {
@@ -28,7 +28,7 @@ const marginClass = computed(() => {
 </script>
 <template>
   <div v-if="alignment == 'error'" class="slidev-layout default error">
-    <span class="ns-c-warning"><b>Error</b>: invalid layout params.</span>
+    <span class="g-c-warning"><b>Error</b>: invalid layout params.</span>
     <hr />
     <p>
       There are two parameters: <code>color</code> <code>align</code>. Currently:

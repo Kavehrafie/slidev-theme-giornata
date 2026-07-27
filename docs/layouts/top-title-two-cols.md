@@ -83,10 +83,10 @@ This is a configurable layout which is very common in presentations. It differs 
 
 In terms of parameters:
 
-- `columns` is the relative spacing given to the left versus right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+- `columns` is the relative spacing given to the left versus right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/top-title-two-cols))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/top-title-two-cols))
 
 - `color` is the color scheme to the title bar.
 ```

@@ -87,13 +87,13 @@ This is a configurable layout which is very common in presentations.
 
 - `color` is the color scheme.
 
-- `columns` is the relative spacing given to the left versus right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title)).
+- `columns` is the relative spacing given to the left versus right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title)).
 
 :: right ::
 
-- The <code>align</code> parameter determines how the columns look. The notation is for example <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title)).
+- The <code>align</code> parameter determines how the columns look. The notation is for example <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title)).
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t` ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title)).
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t` ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title)).
 ```
 
 Renders as:
@@ -121,12 +121,12 @@ This is a configurable layout which is very common in presentations.
 
 :: right ::
 
-- `columns` is the relative spacing given to the left versus right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+- `columns` is the relative spacing given to the left versus right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 ```
 
 Renders as:
@@ -217,9 +217,9 @@ This is a configurable layout which is very common in presentations.
 :: right ::
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 ```
 
 <img src="/screenshots/12.png" alt="two-cols-header slide example" width="600" style="border: 1px solid #ccc;"/>
@@ -242,9 +242,9 @@ This is a configurable layout which is very common in presentations.
 :: right ::
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 ```
 
 <img src="/screenshots/13.png" alt="two-cols-header slide example" width="600" style="border: 1px solid #ccc;"/>
@@ -265,9 +265,9 @@ align: r-lt-lt
 :: right ::
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 ```
 
 <img src="/screenshots/14.png" alt="two-cols-header slide example" width="600" style="border: 1px solid #ccc;"/>

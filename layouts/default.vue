@@ -12,7 +12,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 
 const marginClass = computed(() => {

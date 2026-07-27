@@ -39,7 +39,7 @@ This is kind of the basic slide. The main content is interpreted as
 markdown and rendered in the center of the slide.
 
 Speaking of markdown, you can use markdown to make things **bold** or
-_italic_ or even `code` like `this`. In **Neversink** you can also
+_italic_ or even `code` like `this`. In **Giornata** you can also
 ==highlight things using the double equals signs like this== thanks
 to the `markdown-it-mark` plugin.
 
@@ -70,7 +70,7 @@ This is kind of the basic slide. The main content is interpreted as
 markdown and rendered in the center of the slide.
 
 Speaking of markdown, you can use markdown to make things **bold** or
-_italic_ or even `code` like `this`. In **Neversink** you can also
+_italic_ or even `code` like `this`. In **Giornata** you can also
 ==highlight things using the double equals signs like this== thanks
 to the `markdown-it-mark` plugin.
 

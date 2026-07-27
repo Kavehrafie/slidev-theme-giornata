@@ -8,7 +8,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 </script>
 
@@ -27,7 +27,7 @@ const colorscheme = computed(() => {
 /* intro slide type */
 
 .slidev-layout.intro {
-  font-family: var(--neversink-main-font);
+  font-family: var(--giornata-main-font);
   font-weight: 300;
 }
 
@@ -35,21 +35,21 @@ const colorscheme = computed(() => {
   font-weight: 500;
 }
 .slidev-layout.intro h1 {
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   font-size: 3em;
   line-height: 5rem;
 }
 
 .slidev-layout.intro h2 {
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   font-size: 2.5em;
   line-height: 5rem;
 }
 
 .slidev-layout.intro h3 {
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   font-size: 1.9em;
   line-height: 5rem;

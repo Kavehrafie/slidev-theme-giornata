@@ -6,18 +6,18 @@ import { version } from '../../package.json'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'Slidev Theme Neversink',
+  title: 'Slidev Theme Giornata',
   description: 'An education/academic oriented Slidev theme',
-  base: '/slidev-theme-neversink/',
+  base: '/slidev-theme-giornata/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Getting started', link: '/getting-started' },
-      { text: 'Example Deck', link: 'https://gureckis.github.io/slidev-theme-neversink/example/#1', target: '_self' },
+      { text: 'Example Deck', link: 'https://Kavehrafie.github.io/slidev-theme-giornata/example/#1', target: '_self' },
       {
         text: `v${version}`,
-        items: [{ text: 'Release Notes', link: 'https://github.com/gureckis/slidev-theme-neversink/releases' }],
+        items: [{ text: 'Release Notes', link: 'https://github.com/Kavehrafie/slidev-theme-giornata/releases' }],
       },
     ],
 
@@ -75,7 +75,7 @@ export default defineConfig({
       },
     ],
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/gureckis/slidev-theme-neversink' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/Kavehrafie/slidev-theme-giornata' }],
   },
   markdown: {
     config: (md) => {

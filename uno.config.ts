@@ -1,8 +1,6 @@
 // uno.config.ts
-import { defineConfig } from 'unocss'
-import presetUno from '@unocss/preset-uno'
+import { defineConfig, presetWind3, transformerDirectives } from 'unocss'
 import { colors } from '@unocss/preset-mini'
-import transformerDirectives from '@unocss/transformer-directives'
 import { version } from './package.json'
 
 // Tailwind CSS color palette
@@ -60,112 +58,112 @@ const generate_color_schemes = (colors) => {
     classes.push(longName, shortName)
   }
 
-  addScheme('neversink-black-scheme', 'ns-c-bk-scheme', {
-    '--neversink-bg-color': colors['black'],
-    '--neversink-bg-code-color': colors['gray'][600],
-    '--neversink-fg-code-color': colors['white'],
-    '--neversink-fg-color': colors['white'],
-    '--neversink-text-color': colors['white'],
-    '--neversink-border-color': colors['white'],
-    '--neversink-highlight-color': '#FFA500',
-    '--neversink-admon-bg-color': colors['black'],
-    '--neversink-admon-border-color': colors['white'],
-    '--neversink-admon-text-color': colors['white'],
+  addScheme('giornata-black-scheme', 'g-c-bk-scheme', {
+    '--giornata-bg-color': colors['black'],
+    '--giornata-bg-code-color': colors['gray'][600],
+    '--giornata-fg-code-color': colors['white'],
+    '--giornata-fg-color': colors['white'],
+    '--giornata-text-color': colors['white'],
+    '--giornata-border-color': colors['white'],
+    '--giornata-highlight-color': '#FFA500',
+    '--giornata-admon-bg-color': colors['black'],
+    '--giornata-admon-border-color': colors['white'],
+    '--giornata-admon-text-color': colors['white'],
   })
 
-  addScheme('neversink-white-scheme', 'ns-c-wh-scheme', {
-    '--neversink-bg-color': colors['white'],
-    '--neversink-bg-code-color': colors['gray'][100],
-    '--neversink-fg-code-color': colors['black'],
-    '--neversink-fg-color': colors['black'],
-    '--neversink-text-color': colors['black'],
-    '--neversink-border-color': colors['gray'][950],
-    '--neversink-highlight-color': '#FFA500',
-    '--neversink-admon-bg-color': colors['white'],
-    '--neversink-admon-border-color': colors['gray'][950],
-    '--neversink-admon-text-color': colors['black'],
+  addScheme('giornata-white-scheme', 'g-c-wh-scheme', {
+    '--giornata-bg-color': colors['white'],
+    '--giornata-bg-code-color': colors['gray'][100],
+    '--giornata-fg-code-color': colors['black'],
+    '--giornata-fg-color': colors['black'],
+    '--giornata-text-color': colors['black'],
+    '--giornata-border-color': colors['gray'][950],
+    '--giornata-highlight-color': '#FFA500',
+    '--giornata-admon-bg-color': colors['white'],
+    '--giornata-admon-border-color': colors['gray'][950],
+    '--giornata-admon-text-color': colors['black'],
   })
 
-  addScheme('neversink-dark-scheme', 'ns-c-dk-scheme', {
-    '--neversink-bg-color': colors['gray'][800],
-    '--neversink-bg-code-color': colors['gray'][600],
-    '--neversink-fg-code-color': colors['white'],
-    '--neversink-fg-color': colors['gray'][100],
-    '--neversink-text-color': colors['gray'][100],
-    '--neversink-border-color': colors['gray'][100],
-    '--neversink-highlight-color': '#FFA500',
-    '--neversink-admon-bg-color': colors['gray'][800],
-    '--neversink-admon-border-color': colors['gray'][100],
-    '--neversink-admon-text-color': colors['gray'][100],
+  addScheme('giornata-dark-scheme', 'g-c-dk-scheme', {
+    '--giornata-bg-color': colors['gray'][800],
+    '--giornata-bg-code-color': colors['gray'][600],
+    '--giornata-fg-code-color': colors['white'],
+    '--giornata-fg-color': colors['gray'][100],
+    '--giornata-text-color': colors['gray'][100],
+    '--giornata-border-color': colors['gray'][100],
+    '--giornata-highlight-color': '#FFA500',
+    '--giornata-admon-bg-color': colors['gray'][800],
+    '--giornata-admon-border-color': colors['gray'][100],
+    '--giornata-admon-text-color': colors['gray'][100],
   })
 
-  addScheme('neversink-light-scheme', 'ns-c-lt-scheme', {
-    '--neversink-bg-color': colors['gray'][100],
-    '--neversink-bg-code-color': colors['gray'][200],
-    '--neversink-fg-code-color': colors['gray'][800],
-    '--neversink-fg-color': colors['gray'][800],
-    '--neversink-text-color': colors['gray'][800],
-    '--neversink-border-color': colors['gray'][800],
-    '--neversink-highlight-color': '#FFA500',
-    '--neversink-admon-bg-color': colors['gray'][100],
-    '--neversink-admon-border-color': colors['gray'][800],
-    '--neversink-admon-text-color': colors['gray'][800],
+  addScheme('giornata-light-scheme', 'g-c-lt-scheme', {
+    '--giornata-bg-color': colors['gray'][100],
+    '--giornata-bg-code-color': colors['gray'][200],
+    '--giornata-fg-code-color': colors['gray'][800],
+    '--giornata-fg-color': colors['gray'][800],
+    '--giornata-text-color': colors['gray'][800],
+    '--giornata-border-color': colors['gray'][800],
+    '--giornata-highlight-color': '#FFA500',
+    '--giornata-admon-bg-color': colors['gray'][100],
+    '--giornata-admon-border-color': colors['gray'][800],
+    '--giornata-admon-text-color': colors['gray'][800],
   })
 
   for (const color of colornames) {
     if (color == 'navy') {
-      addScheme('neversink-navy-scheme', 'ns-c-nv-scheme', {
-        '--neversink-bg-color': '#2a373a',
-        '--neversink-bg-code-color': colors['gray'][200],
-        '--neversink-fg-code-color': colors['gray'][800],
-        '--neversink-fg-color': colors['gray'][300],
-        '--neversink-text-color': colors['gray'][300],
-        '--neversink-border-color': colors['gray'][300],
-        '--neversink-highlight-color': '#FFA500',
-        '--neversink-admon-bg-color': '#2a373a',
-        '--neversink-admon-border-color': colors['gray'][300],
-        '--neversink-admon-text-color': colors['gray'][300],
+      addScheme('giornata-navy-scheme', 'g-c-nv-scheme', {
+        '--giornata-bg-color': '#2a373a',
+        '--giornata-bg-code-color': colors['gray'][200],
+        '--giornata-fg-code-color': colors['gray'][800],
+        '--giornata-fg-color': colors['gray'][300],
+        '--giornata-text-color': colors['gray'][300],
+        '--giornata-border-color': colors['gray'][300],
+        '--giornata-highlight-color': '#FFA500',
+        '--giornata-admon-bg-color': '#2a373a',
+        '--giornata-admon-border-color': colors['gray'][300],
+        '--giornata-admon-text-color': colors['gray'][300],
       })
 
-      addScheme('neversink-navy-light-scheme', 'ns-c-nv-lt-scheme', {
-        '--neversink-bg-color': colors['gray'][50],
-        '--neversink-bg-code-color': colors['gray'][400],
-        '--neversink-fg-code-color': colors['gray'][50],
-        '--neversink-fg-color': '#2a373a',
-        '--neversink-text-color': '#2a373a',
-        '--neversink-border-color': '#2a373a',
-        '--neversink-highlight-color': '#FFA500',
-        '--neversink-admon-bg-color': colors['gray'][50],
-        '--neversink-admon-border-color': '#2a373a',
-        '--neversink-admon-text-color': '#2a373a',
+      addScheme('giornata-navy-light-scheme', 'g-c-nv-lt-scheme', {
+        '--giornata-bg-color': colors['gray'][50],
+        '--giornata-bg-code-color': colors['gray'][400],
+        '--giornata-fg-code-color': colors['gray'][50],
+        '--giornata-fg-color': '#2a373a',
+        '--giornata-text-color': '#2a373a',
+        '--giornata-border-color': '#2a373a',
+        '--giornata-highlight-color': '#FFA500',
+        '--giornata-admon-bg-color': colors['gray'][50],
+        '--giornata-admon-border-color': '#2a373a',
+        '--giornata-admon-text-color': '#2a373a',
       })
     } else {
       const shortColor = color.slice(0, 2)
 
-      addScheme(`neversink-${color}-scheme`, `ns-c-${shortColor}-scheme`, {
-        '--neversink-bg-color': colors[color][500],
-        '--neversink-bg-code-color': colors[color][600],
-        '--neversink-fg-code-color': colors[color][100],
-        '--neversink-fg-color': colors[color][100],
-        '--neversink-text-color': colors[color][100],
-        '--neversink-border-color': colors[color][100],
-        '--neversink-highlight-color': colors[color][100],
-        '--neversink-admon-bg-color': colors[color][500],
-        '--neversink-admon-border-color': colors[color][300],
-        '--neversink-admon-text-color': colors[color][100],
+      addScheme(`giornata-${color}-scheme`, `g-c-${shortColor}-scheme`, {
+        '--giornata-bg-color': colors[color][500],
+        '--giornata-bg-code-color': colors[color][600],
+        '--giornata-fg-code-color': colors[color][100],
+        '--giornata-fg-color': colors[color][100],
+        '--giornata-text-color': colors[color][100],
+        '--giornata-border-color': colors[color][100],
+        '--giornata-highlight-color': colors[color][100],
+        '--giornata-admon-bg-color': colors[color][500],
+        '--giornata-admon-border-color': colors[color][300],
+        '--giornata-admon-text-color': colors[color][100],
       })
 
-      addScheme(`neversink-${color}-light-scheme`, `ns-c-${shortColor}-lt-scheme`, {
-        '--neversink-bg-color': colors[color][100],
-        '--neversink-bg-code-color': colors[color][200],
-        '--neversink-fg-code-color': colors[color][500],
-        '--neversink-fg-color': colors[color][600],
-        '--neversink-text-color': colors[color][500],
-        '--neversink-border-color': colors[color][500],
-        '--neversink-highlight-color': colors[color][500],
-        '--neversink-admon-bg-color': colors[color][100],
-        '--neversink-admon-border-color': colors[color][300],
-        '--neversink-admon-text-color': colors[color][600],
+      addScheme(`giornata-${color}-light-scheme`, `g-c-${shortColor}-lt-scheme`, {
+        '--giornata-bg-color': colors[color][100],
+        '--giornata-bg-code-color': colors[color][200],
+        '--giornata-fg-code-color': colors[color][500],
+        '--giornata-fg-color': colors[color][600],
+        '--giornata-text-color': colors[color][500],
+        '--giornata-border-color': colors[color][500],
+        '--giornata-highlight-color': colors[color][500],
+        '--giornata-admon-bg-color': colors[color][100],
+        '--giornata-admon-border-color': colors[color][300],
+        '--giornata-admon-text-color': colors[color][600],
       })
     }
   }
@@ -191,10 +189,10 @@ const generateRows = (max) => {
 
 const schemes = generate_color_schemes(colors)
 
-console.log(`Loading Neversink ${version} theme uno.config.ts...`)
+console.log(`Loading Giornata ${version} theme uno.config.ts...`)
 export default defineConfig({
   // ...UnoCSS options
-  presets: [presetUno()],
+  presets: [presetWind3()],
   rules: [...schemes.schemes],
   safelist: [
     ...generateColors(prefixes, colornames, values),

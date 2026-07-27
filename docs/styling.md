@@ -1,56 +1,56 @@
 # Styling
 
-In addition to [layouts](/layouts) and [components](/components), **Neversink** also
+In addition to [layouts](/layouts) and [components](/components), **Giornata** also
 provides some helpful CSS classes to help with common slide formatting tasks.
 
-These are included in `styles/neversink.css`. Each class in this file begins with `ns-c-` to indicate that it is a Neversink class.
+These are included in `styles/giornata-c.css`. Each class in this file begins with `g-c-` to indicate that it is a Giornata class.
 
 ## Colors
 
 In addition to the main color [schemes](/colors) there are some additional short hand classes you can use in your slides content.
 
-| Alias                  | Equivalent                     |
-| ---------------------- | ------------------------------ |
-| `ns-c-bk-scheme`       | `neversink-black-scheme`       |
-| `ns-c-wh-scheme`       | `neversink-white-scheme`       |
-| `ns-c-dk-scheme`       | `neversink-dark-scheme`        |
-| `ns-c-lt-scheme`       | `neversink-light-scheme`       |
-| `ns-c-nv-scheme`       | `neversink-navy-scheme`        |
-| `ns-c-nv-lt-scheme`    | `neversink-navy-light-scheme`  |
-| `ns-c-COLOR-scheme`    | `neversink-COLOR-scheme`       |
-| `ns-c-COLOR-lt-scheme` | `neversink-COLOR-light-scheme` |
+| Alias                 | Equivalent                    |
+| --------------------- | ----------------------------- |
+| `g-c-bk-scheme`       | `giornata-black-scheme`       |
+| `g-c-wh-scheme`       | `giornata-white-scheme`       |
+| `g-c-dk-scheme`       | `giornata-dark-scheme`        |
+| `g-c-lt-scheme`       | `giornata-light-scheme`       |
+| `g-c-nv-scheme`       | `giornata-navy-scheme`        |
+| `g-c-nv-lt-scheme`    | `giornata-navy-light-scheme`  |
+| `g-c-COLOR-scheme`    | `giornata-COLOR-scheme`       |
+| `g-c-COLOR-lt-scheme` | `giornata-COLOR-light-scheme` |
 
-where color is the **first two letters** of the [colors](/colors) in the project (e.g., `ns-c-pi-scheme` for `neversink-pink-scheme`).
+where color is the **first two letters** of the [colors](/colors) in the project (e.g., `g-c-pi-scheme` for `giornata-pink-scheme`).
 
 ## Color bind
 
 When you want to apply a theme color to an element on a page you can use the
-`ns-c-bind-scheme` class. This will apply the color to the text and the background.
+`g-c-bind-scheme` class. This will apply the color to the text and the background.
 
 It has a definition like this:
 
 ```css
-.ns-c-bind-scheme {
-  background-color: var(--neversink-bg-color);
-  color: var(--neversink-text-color);
-  border-color: var(--neversink-border-color);
+.g-c-bind-scheme {
+  background-color: var(--giornata-bg-color);
+  color: var(--giornata-text-color);
+  border-color: var(--giornata-border-color);
 }
 ```
 
 so to bind the color to a `div` element you can do this:
 
 ```md
-<div class="ns-c-bind-scheme ns-c-sk-scheme">
-  This is a with the `ns-c-sk-scheme` (i.e., `neversink-sky-scheme`) color applied.
+<div class="g-c-bind-scheme g-c-sk-scheme">
+  This is a with the `g-c-sk-scheme` (i.e., `giornata-sky-scheme`) color applied.
 </div>
 ```
 
 ## Tight bullets
 
-If you want to make bullets a little closer together to make spaceadd the `class='ns-c-tight'`
+If you want to make bullets a little closer together to make spaceadd the `class='g-c-tight'`
 
 ```md
-<div class="ns-c-tight">
+<div class="g-c-tight">
 
 - Hi
 - There
@@ -58,11 +58,11 @@ If you want to make bullets a little closer together to make spaceadd the `class
 </div>
 ```
 
-Other options are `ns-c-verytight` and `ns-c-supertight`.
+Other options are `g-c-verytight` and `g-c-supertight`.
 
 ## Slide Margins
 
-Sometimes you need more space on a slide to fit extra content. Neversink provides two ways to reduce slide margins:
+Sometimes you need more space on a slide to fit extra content. Giornata provides two ways to reduce slide margins:
 
 ### Frontmatter Option
 
@@ -75,12 +75,12 @@ margin: tight
 ---
 ```
 
-| Value | Description | Top Padding | Side Padding |
-|-------|-------------|-------------|--------------|
-| `normal` | Default margins (no change) | 1.8rem | default |
-| `tight` | Reduced padding for more content space | 0.8rem | 1.5rem |
-| `tighter` | Even smaller margins | 0.4rem | 1rem |
-| `none` | Remove all padding | 0 | 0 |
+| Value     | Description                            | Top Padding | Side Padding |
+| --------- | -------------------------------------- | ----------- | ------------ |
+| `normal`  | Default margins (no change)            | 1.8rem      | default      |
+| `tight`   | Reduced padding for more content space | 0.8rem      | 1.5rem       |
+| `tighter` | Even smaller margins                   | 0.4rem      | 1rem         |
+| `none`    | Remove all padding                     | 0           | 0            |
 
 This works with layouts: `default`, `full`, `section`, `top-title`, `top-title-two-cols`, `side-title`, and `two-cols-title`.
 
@@ -123,18 +123,16 @@ Here's how each margin setting affects slide content:
 
 You can also apply margin classes directly to elements:
 
-| Class | Effect |
-|-------|--------|
-| `ns-c-tight-margin` | Reduced padding (same as `margin: tight`) |
-| `ns-c-tighter-margin` | Even smaller margins (same as `margin: tighter`) |
-| `ns-c-no-margin` | Remove all padding (same as `margin: none`) |
+| Class                | Effect                                           |
+| -------------------- | ------------------------------------------------ |
+| `g-c-tight-margin`   | Reduced padding (same as `margin: tight`)        |
+| `g-c-tighter-margin` | Even smaller margins (same as `margin: tighter`) |
+| `g-c-no-margin`      | Remove all padding (same as `margin: none`)      |
 
 Example using a class on a div:
 
 ```html
-<div class="ns-c-tight-margin">
-  Content with reduced margins
-</div>
+<div class="g-c-tight-margin">Content with reduced margins</div>
 ```
 
 ### When to Use Each Option
@@ -149,7 +147,7 @@ Example using a class on a div:
 If you have a div and want to to appear in the center of enclosing element:
 
 ```md
-<div class="ns-c-center-item">
+<div class="g-c-center-item">
   This is centered
 </div>
 ```
@@ -158,10 +156,10 @@ This sets the `margin-left` and `margin-right` to `auto` and the `width` to `fit
 
 ## `v-clicks` faders
 
-If you want to fade out a bullet as you step through, add the `class='ns-c-fader'`
+If you want to fade out a bullet as you step through, add the `class='g-c-fader'`
 
 ```md
-<v-clicks at="+0" class="ns-c-fader">
+<v-clicks at="+0" class="g-c-fader">
 
 - This one appears immediately on slide load
 - This is a second click
@@ -172,21 +170,21 @@ If you want to fade out a bullet as you step through, add the `class='ns-c-fader
 
 ## References
 
-Including references often you want to include them but have them fade a bit relative to the main content of the tslide for this `ns-c-cite` is useful as it
+Including references often you want to include them but have them fade a bit relative to the main content of the tslide for this `g-c-cite` is useful as it
 applies a smaller, italic, and gray color to the text.
 
 ```css
-.ns-c-cite {
+.g-c-cite {
   font-size: 0.75em;
   font-style: italic;
   @apply text-gray-400;
 }
 ```
 
-To position the cittion on the bottom left of the slide add `ns-c-cite-bl` for `bottom-left`.
+To position the cittion on the bottom left of the slide add `g-c-cite-bl` for `bottom-left`.
 
 ```css
-.ns-c-cite-bl {
+.g-c-cite-bl {
   text-align: left;
   margin-bottom: 0.85em;
   margin-left: 1.5em;
@@ -196,11 +194,11 @@ To position the cittion on the bottom left of the slide add `ns-c-cite-bl` for `
 
 ## Quote
 
-For quotes that appear outside the context of a [quote layout](/layouts/quote) you can use `ns-c-quote` to apply a larger font size and italic style.
+For quotes that appear outside the context of a [quote layout](/layouts/quote) you can use `g-c-quote` to apply a larger font size and italic style.
 
 ```css
-.ns-c-quote {
-  font-family: var(--neversink-quote-font);
+.g-c-quote {
+  font-family: var(--giornata-quote-font);
   font-weight: 300;
   @apply leading-relaxed;
 }
@@ -209,21 +207,21 @@ For quotes that appear outside the context of a [quote layout](/layouts/quote) y
 ## Icon links
 
 If you write an icon in a link it includes the underline styleing. To remove that use
-`ns-c-iconlink`.
+`g-c-iconlink`.
 
 ```css
 /* for links that are icons.  removes underlining which is default for links in markdown parser */
-.ns-c-iconlink a {
+.g-c-iconlink a {
   border-style: none !important;
   border-bottom: none !important;
 }
 ```
 
-Aliases include `ns-c-plainlink` and `ns-c-nounderline`.
+Aliases include `g-c-plainlink` and `g-c-nounderline`.
 
 ## Grids
 
-This is not a specific `ns-c-` class but a general unocss/tailwind utility for making grids.
+This is not a specific `g-c-` class but a general unocss/tailwind utility for making grids.
 
 ```html
 <div class="grid grid-cols-2 gap-4  w-full">
@@ -236,10 +234,10 @@ This is not a specific `ns-c-` class but a general unocss/tailwind utility for m
 
 ### For putting images in grids
 
-If you want to put images in a grid and have them fill the space you can use the `ns-c-imgtile` class.
+If you want to put images in a grid and have them fill the space you can use the `g-c-imgtile` class.
 
 ```css
-.ns-c-imgtile img {
+.g-c-imgtile img {
   width: 100%;
   height: fit-content;
   object-fit: cover;
@@ -288,10 +286,10 @@ To add a border
 I forgot why i made this utility
 
 ```css
-.ns-c-border {
-  border-left: 0.25em solid var(--neversink-text-color);
-  background-color: var(--neversink-bg-color);
-  color: var(--neversink-text-color);
+.g-c-border {
+  border-left: 0.25em solid var(--giornata-text-color);
+  background-color: var(--giornata-bg-color);
+  color: var(--giornata-text-color);
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   padding-left: 1em;

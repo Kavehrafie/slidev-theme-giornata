@@ -36,7 +36,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 
 const bubbleClasses = computed(() => {
@@ -44,9 +44,9 @@ const bubbleClasses = computed(() => {
 })
 
 const bubbleStyles = computed(() => ({
-  '--bubble-color': 'var(--neversink-bg-color)',
-  '--border-color': 'var(--neversink-fg-color)',
-  '--text-color': 'var(--neversink-text-color)',
+  '--bubble-color': 'var(--giornata-bg-color)',
+  '--border-color': 'var(--giornata-fg-color)',
+  '--text-color': 'var(--giornata-text-color)',
   '--text-align': props.textAlign,
 }))
 </script>

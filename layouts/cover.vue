@@ -14,7 +14,7 @@ const props = defineProps({
 //const style = computed(() => handleBackground(props.background, true))
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 </script>
 
@@ -33,7 +33,7 @@ const colorscheme = computed(() => {
 /* cover slide type */
 
 .slidev-layout.cover {
-  font-family: var(--neversink-main-font);
+  font-family: var(--giornata-main-font);
   font-weight: 300;
 }
 
@@ -58,7 +58,7 @@ const colorscheme = computed(() => {
 }
 
 .slidev-layout.cover h1 {
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   font-size: 3em;
   line-height: normal;
@@ -67,7 +67,7 @@ const colorscheme = computed(() => {
 }
 
 .slidev-layout.cover h2 {
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   font-size: 2.5em;
   line-height: normal;
@@ -76,7 +76,7 @@ const colorscheme = computed(() => {
 }
 
 .slidev-layout.cover h3 {
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   font-size: 1.9em;
   line-height: normal;
@@ -107,6 +107,6 @@ const colorscheme = computed(() => {
 .slidev-layout.cover h2,
 .slidev-layout.cover h3 {
   padding-bottom: 0.3em;
-  border-bottom: 1px solid var(--neversink-highlight-color);
+  border-bottom: 1px solid var(--giornata-highlight-color);
 }
 </style>

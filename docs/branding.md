@@ -2,30 +2,30 @@
 
 ## Slide numbers
 
-Neversink provides a simple and color-responsive slide counter in the lower right corner of the slides.
+Giornata provides a simple and color-responsive slide counter in the lower right corner of the slides.
 It will show the current slide number and the total number of slides. In addition it can display a slug or
 string of your choice.
 
-To configure the slug simply add `neversink_slug` to your frontmatter of your entire slug deck. For example:
+To configure the slug simply add `giornata_slug` to your frontmatter of your entire slug deck. For example:
 
 ```yaml
 ---
 colorSchema: light
 layout: cover
 title: Base Template
-theme: neversink
-neversink_slug: 'Neversink Example Deck'
+theme: giornata
+giornata_slug: 'Giornata Example Deck'
 ---
 ```
 
 If this appears in the frontmatter for the first slide the slug will be set for all slides.
-You can override it on any specific slide by just adding `neversink_slug` to the frontmatter of that slide.
+You can override it on any specific slide by just adding `giornata_slug` to the frontmatter of that slide.
 
 ```yaml
 ---
 layout: cover
 color: light
-neversink_slug: 'Neversink Example Deck!!!!'
+giornata_slug: 'Giornata Example Deck!!!!'
 ---
 ```
 

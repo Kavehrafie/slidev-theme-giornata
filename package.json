@@ -1,5 +1,5 @@
 {
-  "name": "slidev-theme-neversink",
+  "name": "slidev-theme-giornata",
   "version": "0.4.1",
   "author": "gureckis",
   "type": "module",
@@ -12,7 +12,7 @@
     "slidev": ">=52.11.3"
   },
   "scripts": {
-    "build": "slidev build example.md -o docs/public/example --base /slidev-theme-neversink/example/",
+    "build": "slidev build example.md -o docs/public/example --base /slidev-theme-giornata/example/",
     "dev": "slidev example.md",
     "export": "slidev export example.md",
     "screenshot": "slidev export screenshot.md --format png --output docs/public/screenshots/",
@@ -20,7 +20,7 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "ci:publish": "pnpm publish --access public --no-git-checks",
+    "ci:publish": "npm publish --access public --no-git-checks",
     "release": "bumpp package.json"
   },
   "dependencies": {
@@ -37,12 +37,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gureckis/slidev-theme-neversink.git"
+    "url": "git+https://github.com/Kavehrafie/slidev-theme-giornata.git"
   },
   "bugs": {
-    "url": "https://github.com/gureckis/slidev-theme-neversink/issues"
+    "url": "https://github.com/Kavehrafie/slidev-theme-giornata/issues"
   },
-  "homepage": "https://gureckis.github.io/slidev-theme-neversink/",
+  "homepage": "https://Kavehrafie.github.io/slidev-theme-giornata/",
   "slidev": {
     "colorSchema": "both",
     "highlighter": "all"
@@ -51,10 +51,8 @@
     "@slidev/cli": "^52.11.3",
     "bumpp": "^9.11.1",
     "playwright-chromium": "^1.55.0",
-    "pnpm": "^9.15.9",
     "prettier": "^3.8.0",
     "prettier-plugin-slidev": "^1.0.5",
     "vitepress": "^1.6.4"
-  },
-  "packageManager": "pnpm@9.6.0"
+  }
 }

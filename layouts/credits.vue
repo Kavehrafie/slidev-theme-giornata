@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 </script>
 <template>
@@ -28,8 +28,8 @@ const colorscheme = computed(() => {
 
 <style scoped>
 .quote {
-  background-color: var(--neversink-bg-color);
-  color: var(--neversink-text-color);
-  border-color: var(--neversink-border-color);
+  background-color: var(--giornata-bg-color);
+  color: var(--giornata-text-color);
+  border-color: var(--giornata-border-color);
 }
 </style>

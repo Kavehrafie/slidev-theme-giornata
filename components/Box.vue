@@ -70,7 +70,7 @@ const style = computed(() => {
   }
 
   // color scheme
-  s += `neversink-${props.color}-scheme binder `
+  s += `giornata-${props.color}-scheme binder `
 
   // add custom class
   s += props.custom
@@ -88,10 +88,10 @@ const trans = computed(() => {
 </template>
 <style scoped>
 .binder {
-  --new-color: color-mix(in srgb, var(--neversink-bg-color), v-bind(trans) transparent);
-  border-color: var(--neversink-border-color);
+  --new-color: color-mix(in srgb, var(--giornata-bg-color), v-bind(trans) transparent);
+  border-color: var(--giornata-border-color);
   background-color: var(--new-color);
-  color: var(--neversink-text-color);
+  color: var(--giornata-text-color);
   width: v-bind(size);
   height: v-bind(size);
   border-width: v-bind(borderwidth);

@@ -85,7 +85,7 @@ For example,
 - [`layout: fact`](https://sli.dev/builtin/layouts#fact)
 
 All act in the same ways as the default Slidev theme currently. One limitation is that these layouts
-cannot be customized by the Neversink [color schemes](/colors). In future will make themed versions of these.
+cannot be customized by the Giornata [color schemes](/colors). In future will make themed versions of these.
 
 ## Don't know what it is called? Pick your layout
 

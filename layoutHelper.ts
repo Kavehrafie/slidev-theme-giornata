@@ -71,29 +71,29 @@ export function handleBackground(background?: string, dim = false): CSSPropertie
 export function compute_alignment(val) {
   switch (val) {
     case 'ct':
-      return 'ns-c-center ns-c-top'
+      return 'g-c-center g-c-top'
     case 'cm':
-      return 'ns-c-center ns-c-middle'
+      return 'g-c-center g-c-middle'
     case 'cb':
-      return 'ns-c-center ns-c-bottom'
+      return 'g-c-center g-c-bottom'
     case 'lt':
-      return 'ns-c-left ns-c-top'
+      return 'g-c-left g-c-top'
     case 'lm':
-      return 'ns-c-left ns-c-middle'
+      return 'g-c-left g-c-middle'
     case 'lb':
-      return 'ns-c-left ns-c-bottom'
+      return 'g-c-left g-c-bottom'
     case 'rt':
-      return 'ns-c-right ns-c-top'
+      return 'g-c-right g-c-top'
     case 'rm':
-      return 'ns-c-right ns-c-middle'
+      return 'g-c-right g-c-middle'
     case 'rb':
-      return 'ns-c-right ns-c-bottom'
+      return 'g-c-right g-c-bottom'
     case 'c':
-      return 'ns-c-center ns-c-top'
+      return 'g-c-center g-c-top'
     case 'l':
-      return 'ns-c-left ns-c-top'
+      return 'g-c-left g-c-top'
     case 'r':
-      return 'ns-c-right ns-c-top'
+      return 'g-c-right g-c-top'
     default:
       return 'error'
   }
@@ -106,11 +106,11 @@ function compute_size(left) {
 export function compute_margin_class(val) {
   switch (val) {
     case 'tight':
-      return 'ns-c-tight-margin'
+      return 'g-c-tight-margin'
     case 'tighter':
-      return 'ns-c-tighter-margin'
+      return 'g-c-tighter-margin'
     case 'none':
-      return 'ns-c-no-margin'
+      return 'g-c-no-margin'
     default:
       return ''
   }

@@ -16,7 +16,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 </script>
 <template>
@@ -34,15 +34,15 @@ const colorscheme = computed(() => {
 
 <style>
 .quotecolor {
-  background-color: var(--neversink-bg-color);
-  color: var(--neversink-text-color);
-  border-color: var(--neversink-border-color);
+  background-color: var(--giornata-bg-color);
+  color: var(--giornata-text-color);
+  border-color: var(--giornata-border-color);
   /* add a drop shadow */
   box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .quote_author {
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 400;
   text-align: right;
 }
@@ -54,7 +54,7 @@ const colorscheme = computed(() => {
 
 .slidev-layout.quote p {
   font-size: 1.5em;
-  font-family: var(--neversink-quote-font);
+  font-family: var(--giornata-quote-font);
   line-height: 1.2em;
   font-weight: 400;
   text-align: left;

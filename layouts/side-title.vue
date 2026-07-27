@@ -46,7 +46,7 @@ const alignment = computed(() => {
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 
 const marginClass = computed(() => {
@@ -55,7 +55,7 @@ const marginClass = computed(() => {
 </script>
 <template>
   <div v-if="side == 'error' || colwidth == 'error'" class="slidev-layout default error">
-    <span class="ns-c-warning"><b>Error</b>: invalid layout params.</span>
+    <span class="g-c-warning"><b>Error</b>: invalid layout params.</span>
     <hr />
     <p>
       There are three parameters: <code>color</code>, <code>columns</code> and <code>align</code>. Currently:
@@ -121,7 +121,7 @@ const marginClass = computed(() => {
 
 .slidev-layout.sidetitle hr {
   border: 0;
-  border-top: 1px solid var(--neversink-border-color);
+  border-top: 1px solid var(--giornata-border-color);
   margin: 0;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;

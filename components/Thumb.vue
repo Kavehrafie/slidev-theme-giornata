@@ -16,7 +16,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 
 const thumbRotation = computed(() => {
@@ -49,12 +49,12 @@ const thumbRotation = computed(() => {
 
 <style scoped>
 .cls-1 {
-  fill: var(--neversink-bg-color);
+  fill: var(--giornata-bg-color);
   stroke-miterlimit: 10;
 }
 
 .cls-2 {
-  fill: var(--neversink-border-color);
+  fill: var(--giornata-border-color);
   stroke-width: 0px;
 }
 </style>

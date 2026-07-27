@@ -4,7 +4,7 @@ import { sub } from '@mdit/plugin-sub'
 import Mark from 'markdown-it-mark'
 import { version } from './package.json'
 
-console.log(`Loading Neversink ${version} theme vite.config.ts...`)
+console.log(`Loading Giornata ${version} theme vite.config.ts...`)
 export default defineConfig({
   slidev: {
     markdown: {

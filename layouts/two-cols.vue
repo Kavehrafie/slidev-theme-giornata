@@ -23,7 +23,7 @@ const alignment = computed(() => {
 const colwidth = computed(() => compute_column_size(props.columns))
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 </script>
 
@@ -33,7 +33,7 @@ const colorscheme = computed(() => {
     v-if="colwidth == 'error' || alignment.l == 'error' || alignment.r == 'error'"
     class="slidev-layout default error"
   >
-    <span class="ns-c-warning"><b>Error</b>: invalid layout params.</span>
+    <span class="g-c-warning"><b>Error</b>: invalid layout params.</span>
     <hr />
     <p>
       There are two parameters: <code>columns</code> and <code>align</code>. Currently:

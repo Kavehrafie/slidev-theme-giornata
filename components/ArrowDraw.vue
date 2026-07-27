@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 </script>
 
@@ -33,6 +33,6 @@ const colorscheme = computed(() => {
 
 <style scoped>
 .st0 {
-  fill: var(--neversink-bg-color);
+  fill: var(--giornata-bg-color);
 }
 </style>

@@ -1,6 +1,6 @@
 # Dark Mode
 
-Neversink supports Slidev's built-in dark mode feature, allowing your presentations to adapt to light and dark viewing preferences.
+Giornata supports Slidev's built-in dark mode feature, allowing your presentations to adapt to light and dark viewing preferences.
 
 ## Enabling Dark Mode
 
@@ -8,18 +8,18 @@ To enable dark mode support in your presentation, set the `colorSchema` option i
 
 ```md
 ---
-theme: neversink
+theme: giornata
 colorSchema: auto
 ---
 ```
 
 ### Color Schema Options
 
-| Value | Description |
-|-------|-------------|
-| `auto` | Automatically switches based on system preference (recommended) |
-| `light` | Forces light mode only |
-| `dark` | Forces dark mode only |
+| Value   | Description                                                     |
+| ------- | --------------------------------------------------------------- |
+| `auto`  | Automatically switches based on system preference (recommended) |
+| `light` | Forces light mode only                                          |
+| `dark`  | Forces dark mode only                                           |
 
 ## Toggling Dark Mode
 
@@ -31,7 +31,7 @@ When `colorSchema` is set to `auto` or when both modes are available, you can to
 
 ## How Color Schemes Work in Dark Mode
 
-Neversink's [color schemes](/colors) automatically adapt when dark mode is enabled. Each scheme has been roughly designed to maintain readability and visual appeal in both modes.  Suggested improvements are welcome!
+Giornata's [color schemes](/colors) automatically adapt when dark mode is enabled. Each scheme has been roughly designed to maintain readability and visual appeal in both modes. Suggested improvements are welcome!
 
 For example, when you use a layout with `color: amber`:
 
@@ -50,12 +50,8 @@ The theme's CSS variables are redefined in dark mode to ensure proper contrast:
 
 ```css
 /* Light mode (default) */
---neversink-bg-color: /* light background */
---neversink-text-color: /* dark text */
-
-/* Dark mode (html.dark) */
---neversink-bg-color: /* dark background */
---neversink-text-color: /* light text */
+--giornata-bg-color: /* light background */ --giornata-text-color: /* dark text */ /* Dark mode (html.dark) */
+  --giornata-bg-color: /* dark background */ --giornata-text-color: /* light text */;
 ```
 
 ## Conditional Content with LightOrDark
@@ -108,7 +104,7 @@ Use the `<LightOrDark>` component to show different images:
 
 ## Components in Dark Mode
 
-All Neversink components (StickyNote, Admonition, SpeechBubble, etc.) automatically adapt to dark mode when using color schemes:
+All Giornata components (StickyNote, Admonition, SpeechBubble, etc.) automatically adapt to dark mode when using color schemes:
 
 ```vue
 <StickyNote color="amber-light" title="Note">
@@ -131,4 +127,3 @@ import { isDark, toggleDark } from '@slidev/client/logic/dark'
   </button>
 </template>
 ```
-

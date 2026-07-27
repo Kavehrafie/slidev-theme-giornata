@@ -31,7 +31,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 </script>
 
@@ -55,7 +55,7 @@ const colorscheme = computed(() => {
   border-radius: 6px;
   font-size: 0.75em;
   width: v-bind(props.width);
-  font-family: var(--neversink-main-font);
+  font-family: var(--giornata-main-font);
   font-size: 0.85rem;
 }
 
@@ -70,17 +70,17 @@ const colorscheme = computed(() => {
   margin-bottom: 0;
 }
 .markdown-alert.markdown-alert-custom {
-  background-color: var(--neversink-admon-bg-color);
-  color: var(--neversink-admon-text-color);
-  border: 1px solid var(--neversink-admon-border-color);
-  border-left: 6px solid var(--neversink-admon-border-color);
+  background-color: var(--giornata-admon-bg-color);
+  color: var(--giornata-admon-text-color);
+  border: 1px solid var(--giornata-admon-border-color);
+  border-left: 6px solid var(--giornata-admon-border-color);
 }
 .markdown-alert .markdown-alert-title-custom {
   display: flex;
   align-items: center;
   position: relative;
   font-weight: 700;
-  color: var(--neversink-admon-text-color);
+  color: var(--giornata-admon-text-color);
 }
 @media print {
   .markdown-alert .markdown-alert-title:before {

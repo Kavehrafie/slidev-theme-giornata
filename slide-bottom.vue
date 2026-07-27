@@ -76,10 +76,10 @@ function checkvars() {
 }
 
 function getlabel() {
-  if ($frontmatter.neversink_slug) {
-    label.value = $frontmatter.neversink_slug
-  } else if ($slidev.configs.neversink_slug) {
-    label.value = $slidev.configs.neversink_slug
+  if ($frontmatter.giornata_slug) {
+    label.value = $frontmatter.giornata_slug
+  } else if ($slidev.configs.giornata_slug) {
+    label.value = $slidev.configs.giornata_slug
   } else {
     label.value = ''
   }

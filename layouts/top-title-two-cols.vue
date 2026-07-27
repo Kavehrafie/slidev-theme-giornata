@@ -25,7 +25,7 @@ const alignment = computed(() => {
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 
 const marginClass = computed(() => {
@@ -37,7 +37,7 @@ const marginClass = computed(() => {
     v-if="colwidth == 'error' || alignment.t == 'error' || alignment.l == 'error' || alignment.r == 'error'"
     class="slidev-layout default error"
   >
-    <span class="ns-c-warning"><b>Error</b>: invalid layout params.</span>
+    <span class="g-c-warning"><b>Error</b>: invalid layout params.</span>
     <hr />
     <p>
       There are three parameters: <code>columns</code>, <code>align</code>, and <code>color</code>. Currently:
@@ -110,21 +110,21 @@ li li {
 
 .slidev-layout.toptitlecontent h1 {
   font-size: 1.4em;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   margin-bottom: 0rem;
 }
 
 .slidev-layout.toptitle .content h2 {
   font-size: 1.4em;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   margin-bottom: 0rem;
 }
 
 .slidev-layout.toptitle .content h3 {
   font-size: 1.1em;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   margin-bottom: 0rem;
 }
@@ -138,21 +138,21 @@ li li {
 
 .slidev-layout.toptitle.title h1 {
   font-size: 1.8em;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 500;
   letter-spacing: 0.07em;
 }
 
 .slidev-layout.toptitle.title h2 {
   font-size: 1.5em;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 300;
   letter-spacing: 0.07em;
 }
 
 .slidev-layout.toptitle.title h3 {
   font-size: 1.1em;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   font-weight: 300;
   letter-spacing: 0.07em;
 }

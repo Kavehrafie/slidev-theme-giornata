@@ -41,7 +41,7 @@ const isVisible = computed(() => {
 })
 
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 
 const stickyClasses = computed(() => {
@@ -49,9 +49,9 @@ const stickyClasses = computed(() => {
 })
 
 const stickyStyles = computed(() => ({
-  '--sticky-color': 'var(--neversink-bg-color)',
-  '--border-color': 'var(--neversink-fg-color)',
-  '--text-color': 'var(--neversink-text-color)',
+  '--sticky-color': 'var(--giornata-bg-color)',
+  '--border-color': 'var(--giornata-fg-color)',
+  '--text-color': 'var(--giornata-text-color)',
   '--text-align': props.textAlign,
   '--width': props.width,
 }))

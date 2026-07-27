@@ -3,27 +3,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@50;100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --neversink-title-font: 'Inter', sans-serif;
-  --neversink-main-font: 'Inter', sans-serif;
-  --neversink-mono-font: 'Fira Code', monospace;
-  --neversink-quote-font: 'Fira Code', monospace;
+  --giornata-title-font: 'Inter', sans-serif;
+  --giornata-main-font: 'Inter', sans-serif;
+  --giornata-mono-font: 'Fira Code', monospace;
+  --giornata-quote-font: 'Fira Code', monospace;
   --font-mono: 'Courier New', Courier, monospace;
   color-scheme: light only; /* prevent browser dark mode auto-adjustments */
-  @apply neversink-white-scheme; /* apply the default white scheme everywhere */
+  @apply giornata-white-scheme; /* apply the default white scheme everywhere */
 }
 
 /* layout specific customizations are shared in the layout file (e.g., layouts/cover.vue) */
 
 /* sets the default font */
 #page-root {
-  font-family: var(--neversink-main-font);
+  font-family: var(--giornata-main-font);
   font-weight: 400;
 }
 
 /* binds variable to the color of a slide*/
 .slidecolor {
-  background-color: var(--neversink-bg-color);
-  color: var(--neversink-text-color);
+  background-color: var(--giornata-bg-color);
+  color: var(--giornata-text-color);
 }
 
 .slidev-layout p {
@@ -42,7 +42,7 @@
 /* change the bold and strong fonts */
 .slidev-layout strong,
 .slidev-layout b {
-  font-family: var(--neversink-main-font);
+  font-family: var(--giornata-main-font);
   font-weight: 700;
 }
 
@@ -63,11 +63,11 @@
 }
 
 /* inline code blocks (not syntax-highlighted code in pre blocks) */
-.slidev-layout :not(pre) > code:not([class*="language-"]) {
+.slidev-layout :not(pre) > code:not([class*='language-']) {
   font-size: 0.9em;
-  background: var(--neversink-bg-code-color) !important;
+  background: var(--giornata-bg-code-color) !important;
   border-radius: var(--slidev-code-radius);
-  color: var(--neversink-fg-code-color) !important;
+  color: var(--giornata-fg-code-color) !important;
   padding-top: 0.125rem;
   padding-bottom: 0.125rem;
   padding-left: 0.375rem;
@@ -96,7 +96,7 @@
   font-weight: 600;
   font-size: 1.7em;
   padding-bottom: 0;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   margin-bottom: 0;
 }
 
@@ -104,7 +104,7 @@
   font-weight: 600;
   font-size: 1.5em;
   padding-bottom: 0;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   margin-bottom: 0;
 }
 
@@ -112,7 +112,7 @@
   font-weight: 600;
   font-size: 1.2em;
   padding-bottom: 0;
-  font-family: var(--neversink-title-font);
+  font-family: var(--giornata-title-font);
   margin-bottom: 0;
 }
 
@@ -146,11 +146,11 @@
 
 html.dark {
   /* dark mode default CSS variables (for when no scheme class is present) */
-  --neversink-bg-color: #1e293b;
-  --neversink-bg-code-color: #334155;
-  --neversink-fg-code-color: #e2e8f0;
-  --neversink-fg-color: #e2e8f0;
-  --neversink-text-color: #e2e8f0;
+  --giornata-bg-color: #1e293b;
+  --giornata-bg-code-color: #334155;
+  --giornata-fg-code-color: #e2e8f0;
+  --giornata-fg-color: #e2e8f0;
+  --giornata-text-color: #e2e8f0;
 
   .lectureno {
     background-color: #9a9a9a;

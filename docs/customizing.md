@@ -30,9 +30,9 @@ To customize the fonts used in the theme, you can set the following CSS variable
 
 ```css
 :root {
-  --neversink-title-font: 'Inter', sans-serif;
-  --neversink-main-font: 'Inter', sans-serif;
-  --neversink-mono-font: 'Fira Code', monospace;
-  --neversink-quote-font: 'Fira Code', monospace;
+  --giornata-title-font: 'Inter', sans-serif;
+  --giornata-main-font: 'Inter', sans-serif;
+  --giornata-mono-font: 'Fira Code', monospace;
+  --giornata-quote-font: 'Fira Code', monospace;
 }
 ```

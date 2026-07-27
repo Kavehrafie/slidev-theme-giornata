@@ -4,11 +4,10 @@ layout: cover
 routerMode: hash
 title: Screenshot Deck
 theme: ./
-neversink_slug: 'Neversink Example Deck'
+giornata_slug: 'Giornata Example Deck'
 ---
 
-# Screenshot deck for the Neversink theme
-
+# Screenshot deck for the Giornata theme
 
 ---
 layout: cover
@@ -22,7 +21,6 @@ by **My Author**
 :: note ::
 
 \* This is a note about the slide.
-
 
 ---
 layout: cover
@@ -50,7 +48,6 @@ by **My Author**
 
 \* This is a note about the slide.
 
-
 ---
 layout: intro
 color: indigo
@@ -64,7 +61,6 @@ by **My Author**
 
 \* This is a note about the slide.
 
-
 ---
 layout: default
 ---
@@ -75,7 +71,7 @@ This is kind of the basic slide. The main content is interpreted as
 markdown and rendered in the center of the slide.
 
 Speaking of markdown, you can use markdown to make things **bold** or
-_italic_ or even `code` like `this`. In **Neversink** you can also
+_italic_ or even `code` like `this`. In **Giornata** you can also
 ==highlight things using the double equals signs like this== thanks
 to the `markdown-it-mark` plugin.
 
@@ -98,7 +94,7 @@ This is kind of the basic slide. The main content is interpreted as
 markdown and rendered in the center of the slide.
 
 Speaking of markdown, you can use markdown to make things **bold** or
-_italic_ or even `code` like `this`. In **Neversink** you can also
+_italic_ or even `code` like `this`. In **Giornata** you can also
 ==highlight things using the double equals signs like this== thanks
 to the `markdown-it-mark` plugin.
 
@@ -131,14 +127,13 @@ This is a configurable layout which is very common in presentations.
 
 - `color` is the color scheme.
 
-- `columns` is the relative spacing given to the left versus right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title)).
+- `columns` is the relative spacing given to the left versus right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title)).
 
 :: right ::
 
-- The <code>align</code> parameter determines how the columns look. The notation is for example <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title)).
+- The <code>align</code> parameter determines how the columns look. The notation is for example <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title)).
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden.  The default is `t` ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title)).
-
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t` ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title)).
 
 ---
 layout: two-cols-title
@@ -156,18 +151,14 @@ This is a configurable layout which is very common in presentations.
 
 - There are three slots: `:: title ::`, `:: left ::`, and `:: right ::` along with the default which is implicit before any named slots.
 
-
-
 :: right ::
 
-
-- `columns` is the relative spacing given to the left versus right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+- `columns` is the relative spacing given to the left versus right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden.  The default is `t`.([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
-
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
 ---
 layout: two-cols-title
@@ -235,22 +226,18 @@ This is a configurable layout which is very common in presentations.
 
 - There are three slots: `:: title ::`, `:: left ::`, and `:: right ::` along with the default which is implicit before any named slots.
 
-
-
 :: right ::
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden.  The default is `t`.([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
-
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
 ---
 layout: two-cols-title
 columns: is-3
 align: r-lt-lt
 ---
-
 
 :: left ::
 
@@ -258,15 +245,12 @@ This is a configurable layout which is very common in presentations.
 
 - There are three slots: `:: title ::`, `:: left ::`, and `:: right ::` along with the default which is implicit before any named slots.
 
-
-
 :: right ::
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden.  The default is `t`.([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
-
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
 ---
 layout: two-cols-title
@@ -274,19 +258,16 @@ columns: is-3
 align: r-lt-lt
 ---
 
-
 :: title ::
 
 # This is `two-cols-title`
 
-
 :: right ::
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
-- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden.  The default is `t`.([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
-
+- The <code>titlepos</code> parameter determines where the title appears. The options are `t` for top, `b` for bottom, or `n` for none/hidden. The default is `t`.([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
 ---
 layout: top-title
@@ -329,12 +310,9 @@ layout: top-title
 color: pink
 ---
 
-
 :: content ::
 
 See this has no title, but still has a color band.
-
-
 
 ---
 layout: top-title-two-cols
@@ -351,30 +329,25 @@ color: violet
 
 :: left ::
 
-This is a configurable layout which is very common in presentations.  It differs from `two-cols-title` in that there is a color band for the title.
+This is a configurable layout which is very common in presentations. It differs from `two-cols-title` in that there is a color band for the title.
 
 - There are three slots: `:: title ::`, `:: left ::`, and `:: right ::` along with the default which is implicit before any named slots.
-
-
 
 :: right ::
 
 In terms of parameters:
 
-- `columns` is the relative spacing given to the left versus right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/two-cols-title))
+- `columns` is the relative spacing given to the left versus right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/two-cols-title))
 
 - The <code>align</code> parameter determines how the columns look. The notation is for example
-  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://gureckis.github.io/slidev-theme-neversink/layouts/top-title-two-cols))
-
+  <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column ([see docs](https://Kavehrafie.github.io/slidev-theme-giornata/layouts/top-title-two-cols))
 
 - `color` is the color scheme to the title bar.
-
 
 ---
 layout: top-title-two-cols
 color: pink
 ---
-
 
 :: right ::
 
@@ -388,6 +361,7 @@ columns: is-3
 ---
 
 :: title ::
+
 # This is `two-cols-title`
 
 :: left ::
@@ -395,9 +369,9 @@ This is a note
 
 :: right ::
 About this content on the right
+
 - Which has various things to say
 - This layout is nice to look at!
-
 
 ---
 layout: top-title-two-cols
@@ -434,7 +408,7 @@ align: rm-lm
 title: Side Title Layout (Another)
 ---
 
-:: title :: 
+:: title ::
 
 # `side-title`
 
@@ -443,7 +417,6 @@ title: Side Title Layout (Another)
 :: content ::
 
 This is `layout: side-title` with `side: l` in the front matter.
-
 
 ---
 layout: side-title
@@ -467,8 +440,6 @@ and the right column `lb` (left-bottom) aligned.
 Notice that when the title is on the right, the slide number and info
 panel at the lower right has changed to match the color scheme!
 
-
-
 ---
 layout: side-title
 side: l
@@ -489,8 +460,6 @@ title: Side Title Layout (Another)
 This is `layout: side-title` with `side: l` in the front matter
 and the left column `lt` (left-top) and the right column `lb` (left-bottom) aligned.
 
-
-
 ---
 layout: side-title
 side: l
@@ -505,7 +474,6 @@ align: auto
 
 This slide doesn't have a title but still has a color block.
 
-
 ---
 layout: quote
 color: sky-light
@@ -514,8 +482,7 @@ authorsize: text-s
 author: 'Todd Gureckis'
 ---
 
-"This is a quote slide.  It has a frontmatter options for the size of the text (`quotesize: text2xl` and `authorsize: text-l`).  I feel it is a little uninspired but might save you some time."
-
+"This is a quote slide. It has a frontmatter options for the size of the text (`quotesize: text2xl` and `authorsize: text-l`). I feel it is a little uninspired but might save you some time."
 
 ---
 layout: section
@@ -523,9 +490,7 @@ layout: section
 
 # The `section` layout
 
-This is a section slide.  It can be use to make a noticable point or break between sections.
-
-
+This is a section slide. It can be use to make a noticable point or break between sections.
 
 ---
 layout: section
@@ -535,6 +500,7 @@ color: navy
 <div class="w-1/2 ml-30">
 
 # The `section` layout
+
 <hr>
 
 <span class='text-amber-300'>
@@ -542,7 +508,6 @@ You can use HTML and inline CSS to modify the look and feel.
 </span>
 
 </div>
-
 
 ---
 layout: full
@@ -561,7 +526,6 @@ This is an example of using unocss atomic classes to put two figures side by sid
 </div>
 </div>
 
-
 ---
 layout: full
 color: neutral
@@ -576,7 +540,6 @@ Full can be useful for arbitrary layouts such as on the next slide which uses
 the `v-drag` directive to position elements.
 
 </div>
-
 
 ---
 layout: full
@@ -627,7 +590,6 @@ I'm v-dragged out and ==floating==.
 
 </div>
 
-
 ---
 layout: credits
 color: light
@@ -661,8 +623,6 @@ Vite<br/>
 </div>
 <div class="grid-item col-span-3 text-center mt-180px mb-auto font-size-1.5rem"><strong>Questions?</strong></div>
 </div>
-
-
 
 ---
 layout: credits
@@ -699,7 +659,6 @@ Vite<br/>
 </div>
 <div class="grid-item col-span-3 text-center mt-180px mb-auto font-size-1.5rem"><strong>Questions?</strong></div>
 </div>
-
 
 ---
 layout: two-cols-title
@@ -959,4 +918,3 @@ layout: default
 margin: none
 ---
 ```
-

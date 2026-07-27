@@ -41,7 +41,7 @@ const props = defineProps({
 
 const emit = defineEmits(['dblclick', 'clickOutside'])
 const colorscheme = computed(() => {
-  return `neversink-${props.color}-scheme`
+  return `giornata-${props.color}-scheme`
 })
 
 const clickArea = ref()
@@ -66,6 +66,6 @@ onClickOutside(clickArea, () => emit('clickOutside'))
 </template>
 <style scoped>
 .cls-1 {
-  stroke: var(--neversink-bg-color);
+  stroke: var(--giornata-bg-color);
 }
 </style>

@@ -7,14 +7,14 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="ns-c-email text-0.85rem text-gray-700 mt-0 tracking-wide leading-none ns-c-iconlink">
+  <div class="g-c-email text-0.85rem text-gray-700 mt-0 tracking-wide leading-none g-c-iconlink">
     {{ props.v }} <a href="mailto:" class=""><mdi-email /></a>
   </div>
 </template>
 
 <style>
-.ns-c-email {
-  font-family: var(--neversink-font-mono);
+.g-c-email {
+  font-family: var(--giornata-mono-font);
   font-weight: 300;
   letter-spacing: 0.09em;
 }

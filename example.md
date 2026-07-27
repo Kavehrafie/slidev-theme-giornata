@@ -4,31 +4,29 @@ layout: cover
 routerMode: hash
 title: Base Template
 theme: ./
-neversink_string: "Neversink Example Deck"
+giornata_string: 'Giornata Example Deck'
 ---
 
-# Neversink
+# Giornata
 
-A [Slidev](https://sli.dev) theme designed by **Todd Gureckis**   
-_New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlink"><mdi-open-in-new /></a>  
-
-
+A [Slidev](https://sli.dev) theme designed by **Todd Gureckis**  
+_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 ---
 layout: side-title
 color: amber
-align : rm-lm
+align: rm-lm
 ---
 
 :: title ::
 
-# Slidev Neversink Theme
+# Slidev Giornata Theme
 
 :: content ::
 
-Neversink is theme for education and academic presentations.  It is designed to be bright, flat, minimal, and easy to read.  It is based on the default Slidev theme but with some additional features and color schemes that have reference in the [metropolis](https://github.com/matze/mtheme) Beamer theme among others.
+Giornata is theme for education and academic presentations. It is designed to be bright, flat, minimal, and easy to read. It is based on the default Slidev theme but with some additional features and color schemes that have reference in the [metropolis](https://github.com/matze/mtheme) Beamer theme among others.
 
-It is named for the [Neversink River](https://en.wikipedia.org/wiki/Neversink_River) for absolutely no discernable reason.
+It is a fork of the [Neversink](https://github.com/gureckis/slidev-theme-neversink) theme by Todd Gureckis (itself named for the [Neversink River](https://en.wikipedia.org/wiki/Neversink_River)). **Giornata** is named after the fresco-painting term for a day's work.
 
 ---
 layout: default
@@ -36,18 +34,15 @@ layout: default
 
 # Why use it?
 
+- Giornata has several configurable ==layouts== that build upon the Slidev defaults and which make it easier to quickly throw together common slide layouts without having to write a lot of custom CSS/HTML.
 
-- Neversink has several configurable ==layouts== that build upon the Slidev defaults and which make it easier to quickly throw together common slide layouts without having to write a lot of custom CSS/HTML.
-
-- It has a variety of ==color themes== to choose from that make your visual identity more coherent. 
-
+- It has a variety of ==color themes== to choose from that make your visual identity more coherent.
 
 - It also has some whimsical elements like movie-style scrolling credits, animated speech bubbles, and admonitions that make your presentations more memorable.
 
-- It strives to be well documented and easy to use! 
+- It strives to be well documented and easy to use!
 
-
- You can find the source code on [GitHub](http://github.com/gureckis/slidev-theme-neversink).
+You can find the source code on [GitHub](https://github.com/Kavehrafie/slidev-theme-giornata).
 
 ---
 layout: default
@@ -55,23 +50,21 @@ layout: default
 
 # How to install
 
-
-The theme depends on Slidev.  So you need to have that [installed first](https://sli.dev/guide/install).  Then you can install the theme with npm:
+The theme depends on Slidev. So you need to have that [installed first](https://sli.dev/guide/install). Then you can install the theme with npm:
 
 ```bash
-npm install slidev-theme-neversink
+npm install slidev-theme-giornata
 ```
 
 Then create a slidev markdown file (e.g., `slides.md`) and add the theme to the frontmatter of your first slide:
 
 ```md
 ---
-theme: neversink
+theme: giornata
 ---
 ```
 
 Then you are basically ready to go!
-
 
 ---
 layout: default
@@ -79,8 +72,7 @@ layout: default
 
 # Color schemes
 
-
-Let's start with colors.  
+Let's start with colors.
 
 The project uses tailwind-like color schemes arranged in ==monochromatic pairs==. These boxes show the options and names:
 
@@ -156,7 +148,7 @@ layout: default
 
 # Color schemes
 
-In many parts of the theme you can use the color schemes to help choose matching colors for your slides.  For example, we can make a slide with a sticky note using the `rose-light` color scheme, the `sky` color scheme, or the `amber-light` color scheme:
+In many parts of the theme you can use the color schemes to help choose matching colors for your slides. For example, we can make a slide with a sticky note using the `rose-light` color scheme, the `sky` color scheme, or the `amber-light` color scheme:
 
 <StickyNote color="rose-light" textAlign="left" width="180px" v-drag="[122,253,180,180,-14]">
 
@@ -168,12 +160,10 @@ Hello, I'm a **redish sticky note** using `rose-light`.
 Hello, I'm a **blueish sticky note** using `sky`.
 </StickyNote>
 
-
 <StickyNote color="amber-light" textAlign="left" width="180px"  v-drag="[650,253,180,180,-9]">
 
 Hello, I'm a **yellowish sticky note** using `amber-light`.
 </StickyNote>
-
 
 ---
 layout: side-title
@@ -187,10 +177,9 @@ titlewidth: is-3
 Don't worry if you don't understand all the details, yet we are still talking about **color schemes**.
 </StickyNote>
 
-
 :: title ::
-# Color schemes
 
+# Color schemes
 
 :: content ::
 
@@ -212,11 +201,12 @@ align: l
 ---
 
 :: title ::
+
 # Layouts
 
 :: content ::
 
-The theme includes many layouts. Layouts set the overall structure of the page.  For example, this slide is using the `top-title` layout with the `amber` color scheme.  You can see the frontmatter for this slide below:
+The theme includes many layouts. Layouts set the overall structure of the page. For example, this slide is using the `top-title` layout with the `amber` color scheme. You can see the frontmatter for this slide below:
 
 ```md
 ---
@@ -226,7 +216,7 @@ align: l
 ---
 ```
 
-The previous slide used the `side-title` layout with the `emerald-light` color scheme.  You can see the frontmatter for that slide below:
+The previous slide used the `side-title` layout with the `emerald-light` color scheme. You can see the frontmatter for that slide below:
 
 ```md
 ---
@@ -236,7 +226,6 @@ align: rm-lm
 titlewidth: is-3
 ---
 ```
-
 
 ---
 layout: top-title-two-cols
@@ -248,16 +237,14 @@ align: l-lt-lt
 
 # Two things about layouts
 
-
-
 :: left ::
 
 There are two important parts of slides to know about.
 
-## Frontmatter 
+## Frontmatter
 
 First is **frontmatter**, which are configuration options
-that appear at the start of each slide (see [Slidev docs](https://sli.dev/guide/syntax#frontmatter-layouts)).  These configure things like
+that appear at the start of each slide (see [Slidev docs](https://sli.dev/guide/syntax#frontmatter-layouts)). These configure things like
 alignment, color, and spacing:
 
 ```md
@@ -270,12 +257,11 @@ align: l
 
 :: right ::
 
-# Slots 
+# Slots
 
-The other aspect is **slots**.  Slots are a basic part of [Vue.js](https://vuejs.org/guide/components/slots.html).  In Slidev slots can be marked using `:: slotname ::` and then filled in with content.  For example, the `:: left ::` and `:: right ::` slots on this slide are filled with content.
+The other aspect is **slots**. Slots are a basic part of [Vue.js](https://vuejs.org/guide/components/slots.html). In Slidev slots can be marked using `:: slotname ::` and then filled in with content. For example, the `:: left ::` and `:: right ::` slots on this slide are filled with content.
 
-Slots effectively help you map parts of your slide to different parts of a layout.  The most common case is to say which content appears in the left column and which appears in the right column. But different layouts can have different slots and different content.
-
+Slots effectively help you map parts of your slide to different parts of a layout. The most common case is to say which content appears in the left column and which appears in the right column. But different layouts can have different slots and different content.
 
 ---
 layout: top-title
@@ -289,10 +275,9 @@ align: lt
 
 :: content ::
 
-The available layouts in **Neversink** currently are:  
+The available layouts in **Giornata** currently are:
 
-
-<div class="ns-c-tight">
+<div class="g-c-tight">
 
 <div class='flex flex-wrap'>
 
@@ -308,7 +293,6 @@ The available layouts in **Neversink** currently are:
 </div>
 
 <div class='w-1/3'>
-
 
 - `two-cols-title`
 - `top-title`
@@ -327,16 +311,14 @@ The available layouts in **Neversink** currently are:
 - `iframe`
 - `none`
 - `end`
-- `fact` 
+- `fact`
 
 </div>
 </div>
 </div>
-
 
 We will step through these one by one showing several examples
 and how to configure the frontmatter for each.
-
 
 ---
 layout: cover
@@ -344,8 +326,8 @@ layout: cover
 
 # This is the `cover` layout
 
-**Todd Gureckis**   
-_New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlink"><mdi-open-in-new /></a>  
+**Todd Gureckis**  
+_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 :: note ::
 
@@ -355,7 +337,6 @@ _New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlin
 
 </div>
 
-
 ---
 layout: cover
 color: dark
@@ -363,8 +344,8 @@ color: dark
 
 # This is the `cover` layout
 
-**Todd Gureckis**   
-_New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlink"><mdi-open-in-new /></a>  
+**Todd Gureckis**  
+_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 :: note ::
 
@@ -374,7 +355,6 @@ _New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlin
 
 </div>
 
-
 ---
 layout: cover
 color: amber
@@ -382,9 +362,8 @@ color: amber
 
 # This is the `cover` layout
 
-**Todd Gureckis**   
-_New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlink"><mdi-open-in-new /></a>  
-
+**Todd Gureckis**  
+_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 :: note ::
 
@@ -394,7 +373,6 @@ _New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlin
 
 </div>
 
-
 ---
 layout: cover
 color: amber-light
@@ -402,18 +380,16 @@ color: amber-light
 
 # This is the `cover` layout
 
-**Todd Gureckis**   
-_New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlink"><mdi-open-in-new /></a>  
-
+**Todd Gureckis**  
+_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 :: note ::
 
 <div class="fw-200" >
 
-\* Here we set `color: amber-light` in the frontmatter.  Notice how the color scheme brings along many of the elements on the page.
+\* Here we set `color: amber-light` in the frontmatter. Notice how the color scheme brings along many of the elements on the page.
 
 </div>
-
 
 ---
 layout: cover
@@ -422,18 +398,16 @@ color: pink
 
 ### This is the `cover` layout with a longer title for your talk you just use more `#`s
 
-**Todd Gureckis**   
-_New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlink"><mdi-open-in-new /></a>  
-
+**Todd Gureckis**  
+_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 :: note ::
 
 <div class="fw-200" >
 
-\* Here we set `color: pink` in the frontmatter.  Different choices convey a different vibe for the intro of your talk.  There's lots of choices available.
+\* Here we set `color: pink` in the frontmatter. Different choices convey a different vibe for the intro of your talk. There's lots of choices available.
 
 </div>
-
 
 ---
 layout: intro
@@ -442,9 +416,8 @@ color: emerald-light
 
 # This is the `intro` layout
 
-**Todd Gureckis**   
-_New York University_ <a href="https://todd.gureckislab.org" class="ns-c-iconlink"><mdi-open-in-new /></a>  
-
+**Todd Gureckis**  
+_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 <br />
 
@@ -457,9 +430,9 @@ layout: default
 
 # This is the `default` layout
 
-This is kind of the basic slide.  The main content is interpreted as markdown and rendered in the center of the slide.  
+This is kind of the basic slide. The main content is interpreted as markdown and rendered in the center of the slide.
 
-Speaking of markdown, you can use markdown to make things **bold** or *italic* or even `code` like `this`.  In **Neversink** you can also ==highlight things using the double equals signs like this==
+Speaking of markdown, you can use markdown to make things **bold** or _italic_ or even `code` like `this`. In **Giornata** you can also ==highlight things using the double equals signs like this==
 thanks to the `markdown-it-mark` plugin.
 
 Of course you can make bullet lists:
@@ -467,22 +440,21 @@ Of course you can make bullet lists:
 - Hi
 - There
 
-Also there's a little helper class `ns-c-tight` you can add to make the bullet spacing a bit tighter:
+Also there's a little helper class `g-c-tight` you can add to make the bullet spacing a bit tighter:
 
-<div class="ns-c-tight">
+<div class="g-c-tight">
 
 - Hi
 - There
 - I need space
 </div>
 
-
 ---
 layout: default
 color: sky
 ---
 
-# The `default` layout 
+# The `default` layout
 
 The default layout also has an optional `color` option in the frontmatter.
 For example this is
@@ -494,15 +466,14 @@ color: sky
 ---
 ```
 
-
 ---
 layout: default
 color: light
 ---
 
-# The `default` layout 
+# The `default` layout
 
-Things don't have to be so dramatic.  For more conservative presentations you can use color schemes like `light`:
+Things don't have to be so dramatic. For more conservative presentations you can use color schemes like `light`:
 
 ```md
 ---
@@ -511,8 +482,7 @@ color: light
 ---
 ```
 
-And of course you don't have to change the color scheme every slide! 
-
+And of course you don't have to change the color scheme every slide!
 
 ---
 layout: section
@@ -520,8 +490,7 @@ layout: section
 
 # The `section` layout
 
-This is a section slide.  It can be use to make a noticable point or break between sections.
-
+This is a section slide. It can be use to make a noticable point or break between sections.
 
 ---
 layout: section
@@ -529,9 +498,9 @@ color: navy
 ---
 
 # The `section` layout
+
 <hr>
 It has a `hr` which is color matched to the color scheme.  For example, this slide is using the `navy` color scheme and the line is white.
-
 
 ---
 layout: section
@@ -539,10 +508,10 @@ color: indigo
 ---
 
 # The `section` layout
+
 <hr>
 
 This is `color: indigo` and the line and font is a light indigo shade.
-
 
 ---
 layout: section
@@ -552,6 +521,7 @@ color: navy
 <div class="w-2/3 ml-30">
 
 # The `section` layout
+
 <hr>
 
 <span class='text-amber-300'>
@@ -565,12 +535,10 @@ layout: quote
 color: sky-light
 quotesize: text-sm
 authorsize: text-sm
-author: "Todd Gureckis"
+author: 'Todd Gureckis'
 ---
 
-"This is a quote slide.  It has a frontmatter option of `quote` which is the text that appears in the quote box and `author` and options for the size of the text(`quotesize: text-2xl` and `authorsize: text-l`).  I feel it is a little uninspired but might save you some time."
-
-
+"This is a quote slide. It has a frontmatter option of `quote` which is the text that appears in the quote box and `author` and options for the size of the text(`quotesize: text-2xl` and `authorsize: text-l`). I feel it is a little uninspired but might save you some time."
 
 ---
 layout: full
@@ -610,7 +578,7 @@ I'm v-dragged out and ==floating==.
 
 <IceCream :size="150" mood="lovestruck" color="#FDA7DC" v-drag="[439,341,85,150]" />
 
-<div class="ns-c-tight" v-drag="[143,33,277,214]">
+<div class="g-c-tight" v-drag="[143,33,277,214]">
 
 <span class="bg-red-100 text-red-600 p-2 border-l-6 border-2 border-red-200 rounded-lg pl-4 pr-4">Here's a list of somethings</span>
 
@@ -623,7 +591,7 @@ I'm v-dragged out and ==floating==.
 
 </div>
 
-<div class="ns-c-tight" v-drag="[461,63,293,148,17]">
+<div class="g-c-tight" v-drag="[461,63,293,148,17]">
 
 <span class="bg-emerald-100 text-emerald-500 p-2 border-l-6 border-2 border-emerald-200 rounded-lg pl-4 pr-4">Here's another list of things</span>
 
@@ -634,7 +602,6 @@ I'm v-dragged out and ==floating==.
 </div>
 
 </div>
-
 
 ---
 layout: full
@@ -672,7 +639,6 @@ This is an example of using unocss atomic classes to put three figures side by s
 
 </div>
 
-
 ---
 layout: credits
 color: light
@@ -706,7 +672,6 @@ Vite<br/>
 </div>
 <div class="grid-item col-span-3 text-center mt-180px mb-auto font-size-1.5rem"><strong>Questions?</strong></div>
 </div>
-
 
 ---
 layout: credits
@@ -743,7 +708,6 @@ Vite<br/>
 </div>
 <div class="grid-item col-span-3 text-center mt-180px mb-auto font-size-1.5rem"><strong>Questions?</strong></div>
 </div>
-
 
 ---
 layout: image-left
@@ -813,7 +777,6 @@ url: https://gureckislab.org
 slide_info: false
 ---
 
-
 ---
 layout: two-cols-title
 columns: is-6
@@ -827,7 +790,7 @@ title: Two Cols Title - Header (Info)
 
 :: left ::
 
-This is `layout: two-cols-title`. 
+This is `layout: two-cols-title`.
 
 - There are three slots: `:: title ::`, `:: left ::`, and `:: right ::` along with the default which is implicit before any named slots.
 
@@ -844,10 +807,6 @@ This is `layout: two-cols-title`.
   <code>align: l-cm-cm</code>. The first part is for the header, the second for the left column, the third part is for the right column. The first letter is (<code>c</code> for center, <code>l</code> for left, <code>r</code> for right), the second letter
   is vertical alignment (<code>t</code> for top, <code>m</code> for middle, <code>b</code> for bottom). Only c/l/r works for the header.
 
-
-
-
-
 ---
 layout: two-cols-title
 columns: is-2
@@ -860,13 +819,13 @@ title: Two Cols Title - Header (is-2)
 <div class='w-full h-20 bg-indigo-100'>
 </div>
 
-
 :: left ::
+
 <div class='w-full h-100 bg-gray-300'></div>
 
 :: right ::
-<div class='w-full h-100 bg-pink-300'></div>
 
+<div class='w-full h-100 bg-pink-300'></div>
 
 ---
 layout: two-cols-title
@@ -880,11 +839,12 @@ title: Two Cols Title - Header (is-4)
 <div class='w-full h-20 bg-indigo-100'>
 </div>
 
-
 :: left ::
+
 <div class='w-full h-100 bg-gray-300'></div>
 
 :: right ::
+
 <div class='w-full h-100 bg-pink-300'></div>
 
 ---
@@ -899,13 +859,13 @@ title: Two Cols Title - Header (is-6)
 <div class='w-full h-20 bg-indigo-100'>
 </div>
 
-
 :: left ::
+
 <div class='w-full h-100 bg-gray-300'></div>
 
 :: right ::
-<div class='w-full h-100 bg-pink-300'></div>
 
+<div class='w-full h-100 bg-pink-300'></div>
 
 ---
 layout: two-cols-title
@@ -919,13 +879,13 @@ title: Two Cols Title - Header (is-8)
 <div class='w-full h-20 bg-indigo-100'>
 </div>
 
-
 :: left ::
+
 <div class='w-full h-100 bg-gray-300'></div>
 
 :: right ::
-<div class='w-full h-100 bg-pink-300'></div>
 
+<div class='w-full h-100 bg-pink-300'></div>
 
 ---
 layout: two-cols-title
@@ -939,13 +899,13 @@ title: Two Cols Title - Header (is-10)
 <div class='w-full h-20 bg-indigo-100'>
 </div>
 
-
 :: left ::
+
 <div class='w-full h-100 bg-gray-300'></div>
 
 :: right ::
-<div class='w-full h-100 bg-pink-300'></div>
 
+<div class='w-full h-100 bg-pink-300'></div>
 
 ---
 layout: two-cols-title
@@ -960,13 +920,13 @@ title: Two Cols Title - Footer (is-10)
 <div class='w-full h-20 bg-indigo-100'>
 </div>
 
-
 :: left ::
+
 <div class='w-full h-100 bg-gray-300'></div>
 
 :: right ::
-<div class='w-full h-100 bg-pink-300'></div>
 
+<div class='w-full h-100 bg-pink-300'></div>
 
 ---
 layout: two-cols-title
@@ -976,18 +936,13 @@ titlepos: b
 title: Two Cols Title - no title (is-4)
 ---
 
-
-
 :: left ::
+
 <div class='w-full h-120 bg-gray-300'></div>
 
 :: right ::
+
 <div class='w-full h-120 bg-pink-300'></div>
-
-
-
-
-
 
 ---
 layout: side-title
@@ -1015,8 +970,6 @@ titlewidth: is-4
 align: rm-lm
 ```
 
-
-
 ---
 layout: side-title
 side: r
@@ -1027,7 +980,7 @@ title: Side Title Layout (Another)
 ---
 
 :: title ::
- 
+
 # `side-title`
 
 # <mdi-arrow-right />
@@ -1043,7 +996,6 @@ titlewidth: is-6
 align: lm-lb
 ```
 
-
 ---
 layout: top-title
 color: violet
@@ -1054,7 +1006,6 @@ title: Top Title (Another)
 :: title ::
 
 # `top-title`: A variation with different parameters
-
 
 :: content ::
 
@@ -1077,7 +1028,6 @@ align: l-lt-lt
 title: Top Title (Another)
 ---
 
-
 :: title ::
 
 ### `top-title-two-cols`: A variation with two columns
@@ -1093,16 +1043,15 @@ title: Top Title (Another)
 - This is the right column
 - This is a nice way to add color and distinction to a slide
 
-
 ---
 layout: default
 ---
 
 # Extras
 
-In addition to these custom layouts, the **Neversink** theme includes a few custom components that can be used in your slides. These include sticky notes, speech bubbles, cute icons, QR codes, and more.  The next few slides walks through them:
+In addition to these custom layouts, the **Giornata** theme includes a few custom components that can be used in your slides. These include sticky notes, speech bubbles, cute icons, QR codes, and more. The next few slides walks through them:
 
-<div class="ns-c-tight">
+<div class="g-c-tight">
 
 - admonitions
 - sticky notes
@@ -1110,7 +1059,6 @@ In addition to these custom layouts, the **Neversink** theme includes a few cust
 - cute icons
 - QR codes
 </div>
-
 
 ---
 layout: two-cols-title
@@ -1214,7 +1162,6 @@ Hello, I'm also a **sticky note** but am blue sky title.
 Hello, I'm also a **sticky note** but I lack a title.
 </StickyNote>
 
-
 <StickyNote color="pink-light" textAlign="left" width="180px"  v-drag="[549,292,185,171,8]">
 
 Hello, I'm also a **sticky note** but I lack a title.
@@ -1259,6 +1206,7 @@ Use the `devOnly` prop to create sticky notes that only appear during developmen
 ```
 
 When `devOnly` is set to `true`:
+
 - Visible when running `slidev dev`
 - Hidden when running `slidev build` or `slidev export`
 
@@ -1320,8 +1268,6 @@ Result:
 
 <QRCode value="https://gureckislab.org" :size="200" render-as='svg'/>
 
-
-
 ---
 layout: default
 title: Slide Margins - Normal
@@ -1338,7 +1284,7 @@ Sometimes you need more space on a slide. Use the `margin` frontmatter option to
 ```yaml
 ---
 layout: default
-margin: normal  # or just omit this line
+margin: normal # or just omit this line
 ---
 ```
 
@@ -1473,7 +1419,6 @@ titlewidth: is-4
 align: rm-lt
 title: Code Example
 ---
-
 
 :: title ::
 
