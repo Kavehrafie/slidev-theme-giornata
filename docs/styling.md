@@ -22,6 +22,19 @@ In addition to the main color [schemes](/colors) there are some additional short
 
 where color is the **first two letters** of the [colors](/colors) in the project (e.g., `g-c-pi-scheme` for `giornata-pink-scheme`).
 
+### Color modes
+
+There are four mode classes that retune how a scheme's text/border/accent hues relate to the base color:
+
+| Class | Effect |
+| --- | --- |
+| `g-c-mode-mono` | Default — all hues match the scheme, accent stays global |
+| `g-c-mode-complement` | text/border/accent rotate 180° |
+| `g-c-mode-analogous` | border/accent shift +30° |
+| `g-c-mode-triadic` | border/accent shift +120° |
+
+See [Color modes](/colors#color-modes) for details.
+
 ## Color bind
 
 When you want to apply a theme color to an element on a page you can use the

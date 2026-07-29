@@ -1,6 +1,6 @@
 <script setup lang="js">
 import { computed, useSlots } from 'vue'
-import { compute_alignment, compute_column_size, compute_margin_class } from '../layoutHelper'
+import { compute_alignment, compute_color_scheme, compute_column_size, compute_margin_class } from '../layoutHelper'
 
 const slots = useSlots()
 
@@ -13,6 +13,9 @@ const props = defineProps({
   },
   color: {
     default: 'white',
+  },
+  colorMode: {
+    default: undefined,
   },
   titlepos: {
     default: 't',
@@ -33,7 +36,7 @@ const alignment = computed(() => {
 const colwidth = computed(() => compute_column_size(props.columns))
 
 const colorscheme = computed(() => {
-  return `giornata-${props.color}-scheme`
+  return compute_color_scheme(props.color, props.colorMode)
 })
 
 const marginClass = computed(() => {

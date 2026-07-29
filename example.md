@@ -4,6 +4,7 @@ layout: cover
 routerMode: hash
 title: Base Template
 theme: ./
+transition: view-transition
 giornata_string: 'Giornata Example Deck'
 ---
 
@@ -193,6 +194,71 @@ align: rm-lm
 titlewidth: is-3
 ---
 ```
+
+---
+layout: default
+---
+
+# Color modes
+
+Every color scheme now accepts an optional `color_mode` parameter that selects how the scheme's colors relate to each other. The same base color (`red` below) produces four different looks:
+
+```md
+---
+layout: default
+color: red
+color_mode: complement # or: mono | analogous | triadic
+---
+```
+
+| Mode             | Effect                                               |
+| ---------------- | ---------------------------------------------------- |
+| `mono` (default) | All colors share the scheme's hue; only L and C vary |
+| `complement`     | text/border/accent rotate 180° (max contrast)        |
+| `analogous`      | border/accent shift +30° (sibling feel)              |
+| `triadic`        | border/accent shift +120° (three-color pop)          |
+
+Works the same on components: `<Admonition color="amber" color-mode="triadic">`.
+
+---
+layout: default
+color: red
+color_mode: mono
+---
+
+# `mono`
+
+The default. Everything shares the red hue; highlight stays the global brand accent.
+
+---
+layout: default
+color: red
+color_mode: complement
+---
+
+# `complement`
+
+text/border/accent rotate 180° — red bg, cyan-leaning text and accent.
+
+---
+layout: default
+color: red
+color_mode: analogous
+---
+
+# `analogous`
+
+border/accent shift +30° — a slightly warmer sibling hue.
+
+---
+layout: default
+color: red
+color_mode: triadic
+---
+
+# `triadic`
+
+border/accent shift +120° — a three-color pop against the red base.
 
 ---
 layout: top-title
@@ -1162,11 +1228,6 @@ Hello, I'm also a **sticky note** but am blue sky title.
 Hello, I'm also a **sticky note** but I lack a title.
 </StickyNote>
 
-<StickyNote color="pink-light" textAlign="left" width="180px"  v-drag="[549,292,185,171,8]">
-
-Hello, I'm also a **sticky note** but I lack a title.
-</StickyNote>
-
 <StickyNote color="emerald-light" textAlign="left" width="180px" title="This is my
 title" customTitle="font-size-6" custom="font-size-2"
 v-drag="[749,292,185,171,-8]">
@@ -1562,3 +1623,262 @@ A mermaid diagram with two circles side by side horizontally with an arrow point
 graph LR
 A([Circle 1]) --> B((Circle 2))
 ```
+
+---
+layout: cover
+color: navy
+session:
+  week: 5
+  day: Wed
+  date: 'Feb 4'
+level: 1
+hideInToc: false
+---
+
+## Cross-Currents in Islamic Art
+
+#### WEEK 5 · Wed · Feb 4
+
+From Fatimid Cairo to Mughal Agra: 600 years of art and authority.
+
+---
+layout: default
+color: navy-light
+---
+
+# Today's lecture
+
+- The Fatimid dynasty and the architecture of Cairo
+- **Al-Hakim Mosque** (990–1013 CE) — monumental stonework and the unusual minarets
+- Sultanate India and the **Qutb Minar** (begun c. 1192)
+- The Mughal court — **Akbarnama** (c. 1586) and the **Taj Mahal** (1632–53)
+
+Notice the session chip top-right (`WEEK 5 · WED · FEB 4`) — set once on the cover, inherited here. Artwork slides further down carry `timeline:` metadata that the `timeline` layout will pick up automatically.
+
+---
+layout: timeline
+color: navy-light
+title: Lecture timeline
+---
+
+---
+layout: full
+color: black
+timeline:
+  year: 996
+  label: 'Al-Hakim Mosque'
+  region: 'Cairo, Fatimid Caliphate'
+  id: al-hakim
+  image: https://smarthistory.org/wp-content/uploads/2026/03/Al-Hakim-both-minarets.jpg
+  image_fit: cover
+---
+
+![The minarets of al-Hakim](https://smarthistory.org/wp-content/uploads/2026/03/Al-Hakim-both-minarets.jpg)
+
+---
+layout: top-title
+color: amber
+align: rm
+---
+
+:: title ::
+
+# Al-Hakim Mosque
+
+:: content ::
+
+#### Cairo, 990–1013 CE
+
+The mosque's two monumental minarets flank the facade — an unusual placement. Their square bases project outward from the wall, and the upper sections are encased in massive stone cylinders that envelop the original structures.
+
+The reason for the cylinders is contested: structural reinforcement after the 1303 earthquake, an aesthetic intervention by a later patron, or both.
+
+---
+layout: section
+color: amber
+---
+
+# Sultanate India
+
+New dynasties, new patrons — Indo-Islamic architecture takes shape.
+
+---
+layout: full
+color: zinc
+timeline:
+  year: 1192
+  label: 'Qutb Minar'
+  region: 'Delhi, Sultanate'
+  id: qutb-minar
+  image: https://res.cloudinary.com/image-solar/image/upload/v1772011970/2026nwp-ar1205/32709403483_d9a6a5ab37_k_cgzsbe.jpg
+  image_fit: contain
+---
+
+![Qutb Minar, begun c. 1192–3, Qutb archaeological complex, Delhi](https://res.cloudinary.com/image-solar/image/upload/v1772011970/2026nwp-ar1205/32709403483_d9a6a5ab37_k_cgzsbe.jpg)
+
+---
+layout: section
+color: rose
+---
+
+# Mughal India
+
+The Mughals fuse Persian, Timurid, and Indic traditions into a courtly imperial style.
+
+---
+layout: full
+color: rose
+timeline:
+  year: 1586
+  label: 'Akbarnama'
+  region: 'Mughal Court'
+  id: akbarnama
+  image: http://smarthistory.org/wp-content/uploads/2017/03/akbarnama_both_800px.jpg
+  image_fit: contain
+---
+
+![Basawan and Chetar, _Akbar_ from the Akbarnama, c. 1586–89, Mughal Empire](http://smarthistory.org/wp-content/uploads/2017/03/akbarnama_both_800px.jpg)
+
+---
+layout: full
+color: indigo
+timeline:
+  year: 1632
+  label: 'Taj Mahal'
+  region: 'Agra, Mughal Empire'
+  id: taj-mahal
+  image: https://smarthistory.org/wp-content/uploads/2022/04/Taj_Mahal-10-scaled.jpg
+  image_fit: cover
+---
+
+![Taj Mahal, Agra, India, 1632–53](https://smarthistory.org/wp-content/uploads/2022/04/Taj_Mahal-10-scaled.jpg)
+
+---
+layout: top-title
+color: indigo
+align: rm
+---
+
+:: title ::
+
+# Taj Mahal
+
+:: content ::
+
+#### Agra, 1632–53, under Shah Jahan
+
+Built by the Mughal emperor Shah Jahan as a mausoleum for his wife Mumtaz Mahal, the Taj Mahal fuses Timurid double-dome geometry, Persian charbagh garden layout, and Indo-Islamic pietra dura inlay into a single white-marble whole.
+
+The chronologically latest event on the timeline — pressing the right-arrow here advances to the closing slide; pressing left goes back to the Taj Mahal image, and the morph runs in reverse.
+
+---
+layout: quote
+color: navy
+---
+
+:: quote::
+
+# "The image survives the dynasty."
+
+:: author::
+
+After the Mughals came the British; after the Fatimids came the Ayyubids. The images — stone minarets and white-marble tombs — outlasted both.
+
+---
+layout: cover
+color: amber
+session:
+  week: 5
+  day: Fri
+  date: 'Feb 6'
+level: 1
+---
+
+## Next session
+
+#### WEEK 5 · Fri · Feb 6
+
+Advancing to a new lecture cover with its own `session:` block — the chip updates automatically.
+
+---
+layout: default
+color: navy-light
+---
+
+# View-Transition Morph → Comparison
+
+When `transition: view-transition` is set (it is — headmatter line 6), any `<img>` with a matching `data-morph-id` on consecutive slides morphs between them via the browser's [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API). `global-top.vue` stamps the `view-transition-name` CSS property automatically.
+
+<v-clicks>
+
+- The **next slide** is a full bleed single image (`layout: full`).
+- Click once to go there, then click again to land on the **comparison slide** that has the same image on the left and a different one on the right — the Taj Mahal image morphs from full bleed into the side-by-side layout.
+
+</v-clicks>
+
+---
+layout: full
+color: black
+---
+
+<figure>
+  <img
+    src="https://smarthistory.org/wp-content/uploads/2022/04/Taj_Mahal-10-scaled.jpg"
+    alt="Taj Mahal"
+    data-morph-id="taj"
+    loading="lazy"
+  />
+  <figcaption>Taj Mahal, Agra, 1632–53</figcaption>
+</figure>
+
+---
+layout: two-cols
+color: indigo
+---
+
+# Morph → Side-by-Side
+
+::left::
+
+<figure>
+  <img
+    src="https://smarthistory.org/wp-content/uploads/2022/04/Taj_Mahal-10-scaled.jpg"
+    alt="Taj Mahal"
+    data-morph-id="taj"
+    loading="lazy"
+    style="max-height: 55vh; width: auto; object-fit: contain"
+  />
+  <figcaption>Taj Mahal</figcaption>
+</figure>
+
+::right::
+
+<figure>
+  <img
+    src="https://res.cloudinary.com/image-solar/image/upload/v1772011970/2026nwp-ar1205/32709403483_d9a6a5ab37_k_cgzsbe.jpg"
+    alt="Qutb Minar"
+    loading="lazy"
+    style="max-height: 55vh; width: auto; object-fit: contain"
+  />
+  <figcaption>Qutb Minar</figcaption>
+</figure>
+
+---
+layout: full
+color: black
+---
+
+![Taj Mahal, Agra, 1632–53](https://smarthistory.org/wp-content/uploads/2022/04/Taj_Mahal-10-scaled.jpg){data-morph-id="taj-md"}
+
+---
+layout: two-cols
+color: indigo
+---
+
+::left::
+
+![Taj Mahal](https://smarthistory.org/wp-content/uploads/2022/04/Taj_Mahal-10-scaled.jpg){data-morph-id="taj-md"}
+
+::right::
+
+![Qutb Minar](https://res.cloudinary.com/image-solar/image/upload/v1772011970/2026nwp-ar1205/32709403483_d9a6a5ab37_k_cgzsbe.jpg)

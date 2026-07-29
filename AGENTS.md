@@ -16,7 +16,7 @@
 
 ## Architecture
 
-- `uno.config.ts` — heart of the theming system. `addScheme(longName, shortName, vars)` generates the color-scheme classes that set all `--giornata-…` CSS variables; every scheme is defined here. Uses UnoCSS `presetWind3` + `transformerDirectives` imported from the `unocss` package (v66).
+- `uno.config.ts` — heart of the theming system. `addScheme(longName, shortName, vars)` generates the color-scheme classes that set all `--giornata-…` CSS variables; every scheme is defined here. Uses UnoCSS `presetWind4` (Tailwind v4 engine, built-in `reset: true` preflight) + `transformerDirectives`, imported from the `unocss` package (v66).
 - `layouts/*.vue` — Slidev layouts; each takes a `color` prop mapped to a `{name}-{color}-scheme` class.
 - `styles/base.css` — default CSS variables (fonts, colors). `styles/giornata-c.css` — short-prefix `g-c-*` utility classes, imported by `styles/index.ts`.
 - `layoutHelper.ts` — **public API**: helpers (`compute_alignment`, `compute_column_size`) imported by the layouts _and_ directly by external decks (`slidev-theme-giornata/layoutHelper`). Keep exports stable.
@@ -41,6 +41,7 @@ The rebrand is done; the public API surface is:
 ## Conventions
 
 - Keep long/short class names in sync — always add schemes via `addScheme()` in `uno.config.ts`, never hand-write scheme CSS.
+- Colors come from `@unocss/preset-wind4/colors` (**oklch** — Tailwind v4 palette). Do NOT revert to hex palette from `@unocss/preset-mini` unless deliberately trading modern color rendering for byte-parity with 2025 decks.
 - Public API changes (layouts, components, schemes, frontmatter keys, `layoutHelper.ts` exports) ⇒ update VitePress docs in `docs/` and regenerate screenshots (`bun screenshot`).
 - Markdown decks are formatted with Prettier + `prettier-plugin-slidev`.
 - Course-deck conventions to stay compatible with (see previous-year package): entry decks `slides.<course>.md`, weekly pages `pages/<course>/w<week><weekday>.md`, hotlinked images (Cloudinary/Wikimedia) captioned via `markdown-it-implicit-figures`, deck-level overrides via `layouts/`, `components/`, `styles/`.
@@ -50,3 +51,5 @@ The rebrand is done; the public API surface is:
 - Renaming CSS vars/classes/frontmatter keys breaks old decks until they are migrated (accepted — clean break).
 - Don't bump `version` in `package.json` manually; use `bun release`.
 - Don't add a `packageManager` field back to `package.json` or re-add the `pnpm` devDependency — the project uses **bun** (lockfile: `bun.lock`).
+- wind4 theme-key names differ from wind3 (`fontFamily` → `font`, `borderRadius` → `radius`, …) — check the [wind4 theme table](https://unocss.dev/presets/wind4#theme) before adding `theme:` overrides in `uno.config.ts`.
+- Brand customization pending (deferred 2026-07-27): accent color still `#FFA500` hardcoded in every scheme in `uno.config.ts`; fonts still Inter/Fira Code in `styles/base.css`.

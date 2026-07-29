@@ -41,3 +41,14 @@ slide_info: false
 ```
 
 You can of course override the default slide counter by including a custom `slide-bottom.vue` or `global-bottom.vue` in your project folder (see [Slidev docs](https://sli.dev/custom/global-layers))
+
+## Brand accent
+
+The single biggest brand lever is the accent color, which drives highlights and (optionally) every relational color in the theme. Override `--giornata-hue` in your deck's styles — see [Customizing the accent](/colors#customizing-the-accent) in the Colors docs.
+
+```css
+/* in your deck's styles */
+:root {
+  --giornata-hue: 280; /* purple, for example */
+}
+```

@@ -69,6 +69,7 @@ export default defineConfig({
               { text: 'Box', link: '/components/box' },
             ],
           },
+          { text: 'Navigation Chrome', link: '/navigation' },
           { text: 'Customizing', link: '/customizing' },
           { text: 'Contributing', link: '/contributing' },
         ],

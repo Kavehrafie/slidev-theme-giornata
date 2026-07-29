@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import { compute_color_scheme } from '../layoutHelper'
 const props = defineProps({
   shape: {
     type: String,
@@ -8,6 +9,10 @@ const props = defineProps({
   color: {
     type: String,
     default: 'white',
+  },
+  colorMode: {
+    type: String,
+    default: undefined,
   },
   size: {
     type: String,
@@ -70,7 +75,7 @@ const style = computed(() => {
   }
 
   // color scheme
-  s += `giornata-${props.color}-scheme binder `
+  s += compute_color_scheme(props.color, props.colorMode) + ' binder '
 
   // add custom class
   s += props.custom

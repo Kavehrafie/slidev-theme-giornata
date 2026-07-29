@@ -21,6 +21,16 @@ align: lt
 
 This frontmatter specifies that the slide should use the `top-title` layout, that the color should be `sky`, and that the alignment should be `lt`. The frontmatter is optional and if not provided the slide will use the [`default`](/layouts/default) layout. Not all options are necessary for each layout. The documentation of which frontmatter parameters is used in each layout is detailed below.
 
+Every layout that takes `color` also takes an optional `color_mode` for relational color schemes — see [Color modes](/colors#color-modes). Quick example:
+
+```md
+---
+layout: top-title
+color: sky
+color_mode: complement
+---
+```
+
 ### Slots
 
 Slots are the content of the slide. They are the text, images, and other elements that you want to display on the slide. The slots are written in Markdown and are placed below the frontmatter. Slots are a basic part of [Vue.js](https://vuejs.org/guide/components/slots.html). In Slidev slots are specified using a special syntax of `:: slot-name ::` where `slot-name` is the name of the slot.

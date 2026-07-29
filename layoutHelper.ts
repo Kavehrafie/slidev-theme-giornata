@@ -166,3 +166,26 @@ export function compute_column_size(val) {
       return 'error'
   }
 }
+
+/**
+ * Build the class string for a color + optional mode.
+ *
+ * `color` is a scheme name like "red", "amber-light", "navy".
+ * `mode` is one of "mono" (default), "complement", "analogous", "triadic".
+ * Returns the base scheme class plus the mode class when mode is non-default.
+ */
+export function compute_color_scheme(color: string, mode?: string): string {
+  const base = `giornata-${color}-scheme`
+  if (!mode || mode === 'mono') return base
+  return `${base} g-c-mode-${mode}`
+}
+
+/**
+ * Return just the mode class (or empty string for mono).
+ * Useful when a component needs to apply the mode to a child element
+ * separately from the scheme class.
+ */
+export function compute_color_mode(mode?: string): string {
+  if (!mode || mode === 'mono') return ''
+  return `g-c-mode-${mode}`
+}

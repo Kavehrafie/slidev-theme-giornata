@@ -1,6 +1,6 @@
 <script setup lang="js">
 import { computed } from 'vue'
-import { compute_alignment, compute_column_size } from '../layoutHelper'
+import { compute_alignment, compute_color_scheme, compute_column_size } from '../layoutHelper'
 
 const props = defineProps({
   columns: {
@@ -11,6 +11,9 @@ const props = defineProps({
   },
   color: {
     default: 'white',
+  },
+  colorMode: {
+    default: undefined,
   },
 })
 
@@ -23,7 +26,7 @@ const alignment = computed(() => {
 const colwidth = computed(() => compute_column_size(props.columns))
 
 const colorscheme = computed(() => {
-  return `giornata-${props.color}-scheme`
+  return compute_color_scheme(props.color, props.colorMode)
 })
 </script>
 

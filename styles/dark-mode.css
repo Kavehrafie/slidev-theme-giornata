@@ -1,775 +1,137 @@
 /* dark-mode.css
-   Dark mode variants for all Giornata color schemes.
-   These override the light mode values when html.dark is present.
+   Dark mode variants for the Giornata color system.
+
+   Per-color schemes (red, blue, etc.) don't need explicit dark overrides
+   here: their OKLCH formulas in uno.config.ts read lightness from CSS vars
+   (--giornata-l-regular-bg, --giornata-l-light-text, …) defined in
+   theme-tokens.css. The html.dark block below simply overrides those L
+   targets, and every scheme retunes at once — including the relational
+   mode offsets (--giornata-mode-text-offset / -border-offset), which keep
+   working because the dark formulas still consume them.
+
+   Base schemes (black/white/dark/light/navy) have no meaningful hue and
+   don't use the L-var formulas — they need their own dark overrides below.
 */
 
 /* =============================================================================
-   CORE SCHEMES
+   L-target overrides — drive every per-color scheme at once
    ============================================================================= */
 
-/* White scheme - transforms to dark blue-gray */
+html.dark {
+  /* Regular scheme: shift bg darker, keep text near-white. */
+  --giornata-l-regular-bg: 0.42;
+  --giornata-l-regular-bg-code: 0.32;
+  --giornata-l-regular-text: 0.94;
+  --giornata-l-regular-border: 0.74;
+  --giornata-l-regular-admon-border: 0.65;
+
+  /* Light scheme: invert in dark mode — bg becomes a dark colored fill,
+     text inverts to near-white so it stays readable. */
+  --giornata-l-light-bg: 0.36;
+  --giornata-l-light-bg-code: 0.28;
+  --giornata-l-light-text: 0.92;
+  --giornata-l-light-border: 0.62;
+  --giornata-l-light-admon-border: 0.55;
+}
+
+/* =============================================================================
+   CORE (NEUTRAL) SCHEMES — no hue, hand-tuned dark variants
+   ============================================================================= */
+
+/* White scheme - becomes dark slate in dark mode */
 html.dark .giornata-white-scheme,
 html.dark .g-c-wh-scheme {
-  --giornata-bg-color: #1e293b; /* slate-800 */
-  --giornata-bg-code-color: #334155; /* slate-700 */
-  --giornata-fg-code-color: #e2e8f0; /* slate-200 */
-  --giornata-fg-color: #e2e8f0; /* slate-200 */
-  --giornata-text-color: #e2e8f0; /* slate-200 */
-  --giornata-border-color: #cbd5e1; /* slate-300 */
-  --giornata-highlight-color: #fbbf24; /* amber-400 */
-  --giornata-admon-bg-color: #1e293b;
-  --giornata-admon-border-color: #cbd5e1;
-  --giornata-admon-text-color: #e2e8f0;
+  --giornata-bg-color: oklch(0.21 0.02 250);     /* slate-800 */
+  --giornata-bg-code-color: oklch(0.30 0.02 250); /* slate-700 */
+  --giornata-fg-code-color: oklch(0.88 0.02 250); /* slate-200 */
+  --giornata-fg-color: oklch(0.88 0.02 250);
+  --giornata-text-color: oklch(0.88 0.02 250);
+  --giornata-border-color: oklch(0.80 0.02 250); /* slate-300 */
+  --giornata-highlight-color: var(--giornata-mode-accent-color);
+  --giornata-admon-bg-color: oklch(0.21 0.02 250);
+  --giornata-admon-border-color: oklch(0.80 0.02 250);
+  --giornata-admon-text-color: oklch(0.88 0.02 250);
 }
 
 /* Black scheme - stays black, minor adjustments */
 html.dark .giornata-black-scheme,
 html.dark .g-c-bk-scheme {
-  --giornata-bg-color: #000000;
-  --giornata-bg-code-color: #1f2937; /* gray-800 */
-  --giornata-fg-code-color: #f3f4f6; /* gray-100 */
-  --giornata-fg-color: #f3f4f6;
-  --giornata-text-color: #f3f4f6;
-  --giornata-border-color: #9ca3af; /* gray-400 */
-  --giornata-highlight-color: #fbbf24;
-  --giornata-admon-bg-color: #111827; /* gray-900 */
-  --giornata-admon-border-color: #9ca3af;
-  --giornata-admon-text-color: #f3f4f6;
+  --giornata-bg-color: oklch(0.00 0 0);
+  --giornata-bg-code-color: oklch(0.20 0 0);     /* gray-800 */
+  --giornata-fg-code-color: oklch(0.95 0 0);     /* gray-100 */
+  --giornata-fg-color: oklch(0.95 0 0);
+  --giornata-text-color: oklch(0.95 0 0);
+  --giornata-border-color: oklch(0.70 0 0);      /* gray-400 */
+  --giornata-highlight-color: var(--giornata-mode-accent-color);
+  --giornata-admon-bg-color: oklch(0.13 0 0);    /* gray-900 */
+  --giornata-admon-border-color: oklch(0.70 0 0);
+  --giornata-admon-text-color: oklch(0.95 0 0);
 }
 
 /* Dark scheme - slightly lighter for contrast */
 html.dark .giornata-dark-scheme,
 html.dark .g-c-dk-scheme {
-  --giornata-bg-color: #374151; /* gray-700 */
-  --giornata-bg-code-color: #4b5563; /* gray-600 */
-  --giornata-fg-code-color: #f9fafb; /* gray-50 */
-  --giornata-fg-color: #f3f4f6; /* gray-100 */
-  --giornata-text-color: #f3f4f6;
-  --giornata-border-color: #d1d5db; /* gray-300 */
-  --giornata-highlight-color: #fbbf24;
-  --giornata-admon-bg-color: #374151;
-  --giornata-admon-border-color: #d1d5db;
-  --giornata-admon-text-color: #f3f4f6;
+  --giornata-bg-color: oklch(0.30 0 0);          /* gray-700 */
+  --giornata-bg-code-color: oklch(0.39 0 0);     /* gray-600 */
+  --giornata-fg-code-color: oklch(0.98 0 0);     /* gray-50 */
+  --giornata-fg-color: oklch(0.95 0 0);
+  --giornata-text-color: oklch(0.95 0 0);
+  --giornata-border-color: oklch(0.87 0 0);      /* gray-300 */
+  --giornata-highlight-color: var(--giornata-mode-accent-color);
+  --giornata-admon-bg-color: oklch(0.30 0 0);
+  --giornata-admon-border-color: oklch(0.87 0 0);
+  --giornata-admon-text-color: oklch(0.95 0 0);
 }
 
 /* Light scheme - transforms to medium-dark gray */
 html.dark .giornata-light-scheme,
 html.dark .g-c-lt-scheme {
-  --giornata-bg-color: #374151; /* gray-700 */
-  --giornata-bg-code-color: #4b5563; /* gray-600 */
-  --giornata-fg-code-color: #f9fafb;
-  --giornata-fg-color: #e5e7eb; /* gray-200 */
-  --giornata-text-color: #e5e7eb;
-  --giornata-border-color: #d1d5db; /* gray-300 */
-  --giornata-highlight-color: #fbbf24;
-  --giornata-admon-bg-color: #374151;
-  --giornata-admon-border-color: #d1d5db;
-  --giornata-admon-text-color: #e5e7eb;
+  --giornata-bg-color: oklch(0.30 0 0);
+  --giornata-bg-code-color: oklch(0.39 0 0);
+  --giornata-fg-code-color: oklch(0.98 0 0);
+  --giornata-fg-color: oklch(0.90 0 0);
+  --giornata-text-color: oklch(0.90 0 0);
+  --giornata-border-color: oklch(0.87 0 0);
+  --giornata-highlight-color: var(--giornata-mode-accent-color);
+  --giornata-admon-bg-color: oklch(0.30 0 0);
+  --giornata-admon-border-color: oklch(0.87 0 0);
+  --giornata-admon-text-color: oklch(0.90 0 0);
 }
 
 /* Navy scheme - deeper navy */
 html.dark .giornata-navy-scheme,
 html.dark .g-c-nv-scheme {
-  --giornata-bg-color: #1a2528;
-  --giornata-bg-code-color: #2d3b3f;
-  --giornata-fg-code-color: #e5e7eb;
-  --giornata-fg-color: #d1d5db; /* gray-300 */
-  --giornata-text-color: #d1d5db;
-  --giornata-border-color: #9ca3af; /* gray-400 */
-  --giornata-highlight-color: #fbbf24;
-  --giornata-admon-bg-color: #1a2528;
-  --giornata-admon-border-color: #9ca3af;
-  --giornata-admon-text-color: #d1d5db;
+  --giornata-bg-color: oklch(0.21 0.02 220);
+  --giornata-bg-code-color: oklch(0.29 0.02 220);
+  --giornata-fg-code-color: oklch(0.90 0 0);
+  --giornata-fg-color: oklch(0.87 0 0);
+  --giornata-text-color: oklch(0.87 0 0);
+  --giornata-border-color: oklch(0.70 0 0);
+  --giornata-highlight-color: var(--giornata-mode-accent-color);
+  --giornata-admon-bg-color: oklch(0.21 0.02 220);
+  --giornata-admon-border-color: oklch(0.70 0 0);
+  --giornata-admon-text-color: oklch(0.87 0 0);
 }
 
 /* Navy light scheme - transforms to dark navy */
 html.dark .giornata-navy-light-scheme,
 html.dark .g-c-nv-lt-scheme {
-  --giornata-bg-color: #2a373a;
-  --giornata-bg-code-color: #3d4a4e;
-  --giornata-fg-code-color: #e5e7eb;
-  --giornata-fg-color: #d1d5db;
-  --giornata-text-color: #d1d5db;
-  --giornata-border-color: #9ca3af;
-  --giornata-highlight-color: #fbbf24;
-  --giornata-admon-bg-color: #2a373a;
-  --giornata-admon-border-color: #9ca3af;
-  --giornata-admon-text-color: #d1d5db;
-}
-
-/* =============================================================================
-   COLOR SCHEMES - Regular (darker backgrounds in dark mode)
-   ============================================================================= */
-
-/* Slate */
-html.dark .giornata-slate-scheme,
-html.dark .g-c-sl-scheme {
-  --giornata-bg-color: #334155; /* slate-700 */
-  --giornata-bg-code-color: #475569; /* slate-600 */
-  --giornata-fg-code-color: #f1f5f9; /* slate-100 */
-  --giornata-fg-color: #e2e8f0; /* slate-200 */
-  --giornata-text-color: #e2e8f0;
-  --giornata-border-color: #cbd5e1; /* slate-300 */
-  --giornata-highlight-color: #e2e8f0;
-  --giornata-admon-bg-color: #334155;
-  --giornata-admon-border-color: #94a3b8;
-  --giornata-admon-text-color: #e2e8f0;
-}
-
-/* Gray */
-html.dark .giornata-gray-scheme,
-html.dark .g-c-gr-scheme {
-  --giornata-bg-color: #374151; /* gray-700 */
-  --giornata-bg-code-color: #4b5563;
-  --giornata-fg-code-color: #f3f4f6;
-  --giornata-fg-color: #e5e7eb;
-  --giornata-text-color: #e5e7eb;
-  --giornata-border-color: #d1d5db;
-  --giornata-highlight-color: #e5e7eb;
-  --giornata-admon-bg-color: #374151;
-  --giornata-admon-border-color: #9ca3af;
-  --giornata-admon-text-color: #e5e7eb;
-}
-
-/* Zinc */
-html.dark .giornata-zinc-scheme,
-html.dark .g-c-zi-scheme {
-  --giornata-bg-color: #3f3f46; /* zinc-700 */
-  --giornata-bg-code-color: #52525b;
-  --giornata-fg-code-color: #fafafa;
-  --giornata-fg-color: #e4e4e7;
-  --giornata-text-color: #e4e4e7;
-  --giornata-border-color: #d4d4d8;
-  --giornata-highlight-color: #e4e4e7;
-  --giornata-admon-bg-color: #3f3f46;
-  --giornata-admon-border-color: #a1a1aa;
-  --giornata-admon-text-color: #e4e4e7;
-}
-
-/* Neutral */
-html.dark .giornata-neutral-scheme,
-html.dark .g-c-ne-scheme {
-  --giornata-bg-color: #404040; /* neutral-700 */
-  --giornata-bg-code-color: #525252;
-  --giornata-fg-code-color: #fafafa;
-  --giornata-fg-color: #e5e5e5;
-  --giornata-text-color: #e5e5e5;
-  --giornata-border-color: #d4d4d4;
-  --giornata-highlight-color: #e5e5e5;
-  --giornata-admon-bg-color: #404040;
-  --giornata-admon-border-color: #a3a3a3;
-  --giornata-admon-text-color: #e5e5e5;
-}
-
-/* Stone */
-html.dark .giornata-stone-scheme,
-html.dark .g-c-st-scheme {
-  --giornata-bg-color: #44403c; /* stone-700 */
-  --giornata-bg-code-color: #57534e;
-  --giornata-fg-code-color: #fafaf9;
-  --giornata-fg-color: #e7e5e4;
-  --giornata-text-color: #e7e5e4;
-  --giornata-border-color: #d6d3d1;
-  --giornata-highlight-color: #e7e5e4;
-  --giornata-admon-bg-color: #44403c;
-  --giornata-admon-border-color: #a8a29e;
-  --giornata-admon-text-color: #e7e5e4;
-}
-
-/* Red */
-html.dark .giornata-red-scheme,
-html.dark .g-c-re-scheme {
-  --giornata-bg-color: #b91c1c; /* red-700 */
-  --giornata-bg-code-color: #991b1b; /* red-800 */
-  --giornata-fg-code-color: #fee2e2;
-  --giornata-fg-color: #fecaca; /* red-200 */
-  --giornata-text-color: #fecaca;
-  --giornata-border-color: #fca5a5; /* red-300 */
-  --giornata-highlight-color: #fecaca;
-  --giornata-admon-bg-color: #b91c1c;
-  --giornata-admon-border-color: #f87171;
-  --giornata-admon-text-color: #fecaca;
-}
-
-/* Orange */
-html.dark .giornata-orange-scheme,
-html.dark .g-c-or-scheme {
-  --giornata-bg-color: #c2410c; /* orange-700 */
-  --giornata-bg-code-color: #9a3412;
-  --giornata-fg-code-color: #ffedd5;
-  --giornata-fg-color: #fed7aa;
-  --giornata-text-color: #fed7aa;
-  --giornata-border-color: #fdba74;
-  --giornata-highlight-color: #fed7aa;
-  --giornata-admon-bg-color: #c2410c;
-  --giornata-admon-border-color: #fb923c;
-  --giornata-admon-text-color: #fed7aa;
-}
-
-/* Amber */
-html.dark .giornata-amber-scheme,
-html.dark .g-c-am-scheme {
-  --giornata-bg-color: #b45309; /* amber-700 */
-  --giornata-bg-code-color: #92400e;
-  --giornata-fg-code-color: #fef3c7;
-  --giornata-fg-color: #fde68a;
-  --giornata-text-color: #fde68a;
-  --giornata-border-color: #fcd34d;
-  --giornata-highlight-color: #fde68a;
-  --giornata-admon-bg-color: #b45309;
-  --giornata-admon-border-color: #fbbf24;
-  --giornata-admon-text-color: #fde68a;
-}
-
-/* Yellow */
-html.dark .giornata-yellow-scheme,
-html.dark .g-c-ye-scheme {
-  --giornata-bg-color: #a16207; /* yellow-700 */
-  --giornata-bg-code-color: #854d0e;
-  --giornata-fg-code-color: #fef9c3;
-  --giornata-fg-color: #fef08a;
-  --giornata-text-color: #fef08a;
-  --giornata-border-color: #fde047;
-  --giornata-highlight-color: #fef08a;
-  --giornata-admon-bg-color: #a16207;
-  --giornata-admon-border-color: #facc15;
-  --giornata-admon-text-color: #fef08a;
-}
-
-/* Lime */
-html.dark .giornata-lime-scheme,
-html.dark .g-c-li-scheme {
-  --giornata-bg-color: #4d7c0f; /* lime-700 */
-  --giornata-bg-code-color: #3f6212;
-  --giornata-fg-code-color: #ecfccb;
-  --giornata-fg-color: #d9f99d;
-  --giornata-text-color: #d9f99d;
-  --giornata-border-color: #bef264;
-  --giornata-highlight-color: #d9f99d;
-  --giornata-admon-bg-color: #4d7c0f;
-  --giornata-admon-border-color: #a3e635;
-  --giornata-admon-text-color: #d9f99d;
-}
-
-/* Green */
-html.dark .giornata-green-scheme,
-html.dark .g-c-gr-scheme {
-  --giornata-bg-color: #15803d; /* green-700 */
-  --giornata-bg-code-color: #166534;
-  --giornata-fg-code-color: #dcfce7;
-  --giornata-fg-color: #bbf7d0;
-  --giornata-text-color: #bbf7d0;
-  --giornata-border-color: #86efac;
-  --giornata-highlight-color: #bbf7d0;
-  --giornata-admon-bg-color: #15803d;
-  --giornata-admon-border-color: #4ade80;
-  --giornata-admon-text-color: #bbf7d0;
-}
-
-/* Emerald */
-html.dark .giornata-emerald-scheme,
-html.dark .g-c-em-scheme {
-  --giornata-bg-color: #047857; /* emerald-700 */
-  --giornata-bg-code-color: #065f46;
-  --giornata-fg-code-color: #d1fae5;
-  --giornata-fg-color: #a7f3d0;
-  --giornata-text-color: #a7f3d0;
-  --giornata-border-color: #6ee7b7;
-  --giornata-highlight-color: #a7f3d0;
-  --giornata-admon-bg-color: #047857;
-  --giornata-admon-border-color: #34d399;
-  --giornata-admon-text-color: #a7f3d0;
-}
-
-/* Teal */
-html.dark .giornata-teal-scheme,
-html.dark .g-c-te-scheme {
-  --giornata-bg-color: #0f766e; /* teal-700 */
-  --giornata-bg-code-color: #115e59;
-  --giornata-fg-code-color: #ccfbf1;
-  --giornata-fg-color: #99f6e4;
-  --giornata-text-color: #99f6e4;
-  --giornata-border-color: #5eead4;
-  --giornata-highlight-color: #99f6e4;
-  --giornata-admon-bg-color: #0f766e;
-  --giornata-admon-border-color: #2dd4bf;
-  --giornata-admon-text-color: #99f6e4;
-}
-
-/* Cyan */
-html.dark .giornata-cyan-scheme,
-html.dark .g-c-cy-scheme {
-  --giornata-bg-color: #0e7490; /* cyan-700 */
-  --giornata-bg-code-color: #155e75;
-  --giornata-fg-code-color: #cffafe;
-  --giornata-fg-color: #a5f3fc;
-  --giornata-text-color: #a5f3fc;
-  --giornata-border-color: #67e8f9;
-  --giornata-highlight-color: #a5f3fc;
-  --giornata-admon-bg-color: #0e7490;
-  --giornata-admon-border-color: #22d3ee;
-  --giornata-admon-text-color: #a5f3fc;
-}
-
-/* Sky */
-html.dark .giornata-sky-scheme,
-html.dark .g-c-sk-scheme {
-  --giornata-bg-color: #0369a1; /* sky-700 */
-  --giornata-bg-code-color: #075985;
-  --giornata-fg-code-color: #e0f2fe;
-  --giornata-fg-color: #bae6fd;
-  --giornata-text-color: #bae6fd;
-  --giornata-border-color: #7dd3fc;
-  --giornata-highlight-color: #bae6fd;
-  --giornata-admon-bg-color: #0369a1;
-  --giornata-admon-border-color: #38bdf8;
-  --giornata-admon-text-color: #bae6fd;
-}
-
-/* Blue */
-html.dark .giornata-blue-scheme,
-html.dark .g-c-bl-scheme {
-  --giornata-bg-color: #1d4ed8; /* blue-700 */
-  --giornata-bg-code-color: #1e40af;
-  --giornata-fg-code-color: #dbeafe;
-  --giornata-fg-color: #bfdbfe;
-  --giornata-text-color: #bfdbfe;
-  --giornata-border-color: #93c5fd;
-  --giornata-highlight-color: #bfdbfe;
-  --giornata-admon-bg-color: #1d4ed8;
-  --giornata-admon-border-color: #60a5fa;
-  --giornata-admon-text-color: #bfdbfe;
-}
-
-/* Indigo */
-html.dark .giornata-indigo-scheme,
-html.dark .g-c-in-scheme {
-  --giornata-bg-color: #4338ca; /* indigo-700 */
-  --giornata-bg-code-color: #3730a3;
-  --giornata-fg-code-color: #e0e7ff;
-  --giornata-fg-color: #c7d2fe;
-  --giornata-text-color: #c7d2fe;
-  --giornata-border-color: #a5b4fc;
-  --giornata-highlight-color: #c7d2fe;
-  --giornata-admon-bg-color: #4338ca;
-  --giornata-admon-border-color: #818cf8;
-  --giornata-admon-text-color: #c7d2fe;
-}
-
-/* Violet */
-html.dark .giornata-violet-scheme,
-html.dark .g-c-vi-scheme {
-  --giornata-bg-color: #6d28d9; /* violet-700 */
-  --giornata-bg-code-color: #5b21b6;
-  --giornata-fg-code-color: #ede9fe;
-  --giornata-fg-color: #ddd6fe;
-  --giornata-text-color: #ddd6fe;
-  --giornata-border-color: #c4b5fd;
-  --giornata-highlight-color: #ddd6fe;
-  --giornata-admon-bg-color: #6d28d9;
-  --giornata-admon-border-color: #a78bfa;
-  --giornata-admon-text-color: #ddd6fe;
-}
-
-/* Purple */
-html.dark .giornata-purple-scheme,
-html.dark .g-c-pu-scheme {
-  --giornata-bg-color: #7e22ce; /* purple-700 */
-  --giornata-bg-code-color: #6b21a8;
-  --giornata-fg-code-color: #f3e8ff;
-  --giornata-fg-color: #e9d5ff;
-  --giornata-text-color: #e9d5ff;
-  --giornata-border-color: #d8b4fe;
-  --giornata-highlight-color: #e9d5ff;
-  --giornata-admon-bg-color: #7e22ce;
-  --giornata-admon-border-color: #c084fc;
-  --giornata-admon-text-color: #e9d5ff;
-}
-
-/* Fuchsia */
-html.dark .giornata-fuchsia-scheme,
-html.dark .g-c-fu-scheme {
-  --giornata-bg-color: #a21caf; /* fuchsia-700 */
-  --giornata-bg-code-color: #86198f;
-  --giornata-fg-code-color: #fae8ff;
-  --giornata-fg-color: #f5d0fe;
-  --giornata-text-color: #f5d0fe;
-  --giornata-border-color: #f0abfc;
-  --giornata-highlight-color: #f5d0fe;
-  --giornata-admon-bg-color: #a21caf;
-  --giornata-admon-border-color: #e879f9;
-  --giornata-admon-text-color: #f5d0fe;
-}
-
-/* Pink */
-html.dark .giornata-pink-scheme,
-html.dark .g-c-pi-scheme {
-  --giornata-bg-color: #be185d; /* pink-700 */
-  --giornata-bg-code-color: #9d174d;
-  --giornata-fg-code-color: #fce7f3;
-  --giornata-fg-color: #fbcfe8;
-  --giornata-text-color: #fbcfe8;
-  --giornata-border-color: #f9a8d4;
-  --giornata-highlight-color: #fbcfe8;
-  --giornata-admon-bg-color: #be185d;
-  --giornata-admon-border-color: #f472b6;
-  --giornata-admon-text-color: #fbcfe8;
-}
-
-/* Rose */
-html.dark .giornata-rose-scheme,
-html.dark .g-c-ro-scheme {
-  --giornata-bg-color: #be123c; /* rose-700 */
-  --giornata-bg-code-color: #9f1239;
-  --giornata-fg-code-color: #ffe4e6;
-  --giornata-fg-color: #fecdd3;
-  --giornata-text-color: #fecdd3;
-  --giornata-border-color: #fda4af;
-  --giornata-highlight-color: #fecdd3;
-  --giornata-admon-bg-color: #be123c;
-  --giornata-admon-border-color: #fb7185;
-  --giornata-admon-text-color: #fecdd3;
-}
-
-/* =============================================================================
-   COLOR SCHEMES - Light variants (transform to darker versions in dark mode)
-   ============================================================================= */
-
-/* Slate Light */
-html.dark .giornata-slate-light-scheme,
-html.dark .g-c-sl-lt-scheme {
-  --giornata-bg-color: #475569; /* slate-600 */
-  --giornata-bg-code-color: #64748b;
-  --giornata-fg-code-color: #f1f5f9;
-  --giornata-fg-color: #e2e8f0;
-  --giornata-text-color: #e2e8f0;
-  --giornata-border-color: #cbd5e1;
-  --giornata-highlight-color: #e2e8f0;
-  --giornata-admon-bg-color: #475569;
-  --giornata-admon-border-color: #94a3b8;
-  --giornata-admon-text-color: #e2e8f0;
-}
-
-/* Gray Light */
-html.dark .giornata-gray-light-scheme,
-html.dark .g-c-gr-lt-scheme {
-  --giornata-bg-color: #4b5563; /* gray-600 */
-  --giornata-bg-code-color: #6b7280;
-  --giornata-fg-code-color: #f3f4f6;
-  --giornata-fg-color: #e5e7eb;
-  --giornata-text-color: #e5e7eb;
-  --giornata-border-color: #d1d5db;
-  --giornata-highlight-color: #e5e7eb;
-  --giornata-admon-bg-color: #4b5563;
-  --giornata-admon-border-color: #9ca3af;
-  --giornata-admon-text-color: #e5e7eb;
-}
-
-/* Zinc Light */
-html.dark .giornata-zinc-light-scheme,
-html.dark .g-c-zi-lt-scheme {
-  --giornata-bg-color: #52525b; /* zinc-600 */
-  --giornata-bg-code-color: #71717a;
-  --giornata-fg-code-color: #fafafa;
-  --giornata-fg-color: #e4e4e7;
-  --giornata-text-color: #e4e4e7;
-  --giornata-border-color: #d4d4d8;
-  --giornata-highlight-color: #e4e4e7;
-  --giornata-admon-bg-color: #52525b;
-  --giornata-admon-border-color: #a1a1aa;
-  --giornata-admon-text-color: #e4e4e7;
-}
-
-/* Neutral Light */
-html.dark .giornata-neutral-light-scheme,
-html.dark .g-c-ne-lt-scheme {
-  --giornata-bg-color: #525252; /* neutral-600 */
-  --giornata-bg-code-color: #737373;
-  --giornata-fg-code-color: #fafafa;
-  --giornata-fg-color: #e5e5e5;
-  --giornata-text-color: #e5e5e5;
-  --giornata-border-color: #d4d4d4;
-  --giornata-highlight-color: #e5e5e5;
-  --giornata-admon-bg-color: #525252;
-  --giornata-admon-border-color: #a3a3a3;
-  --giornata-admon-text-color: #e5e5e5;
-}
-
-/* Stone Light */
-html.dark .giornata-stone-light-scheme,
-html.dark .g-c-st-lt-scheme {
-  --giornata-bg-color: #57534e; /* stone-600 */
-  --giornata-bg-code-color: #78716c;
-  --giornata-fg-code-color: #fafaf9;
-  --giornata-fg-color: #e7e5e4;
-  --giornata-text-color: #e7e5e4;
-  --giornata-border-color: #d6d3d1;
-  --giornata-highlight-color: #e7e5e4;
-  --giornata-admon-bg-color: #57534e;
-  --giornata-admon-border-color: #a8a29e;
-  --giornata-admon-text-color: #e7e5e4;
-}
-
-/* Red Light */
-html.dark .giornata-red-light-scheme,
-html.dark .g-c-re-lt-scheme {
-  --giornata-bg-color: #991b1b; /* red-800 */
-  --giornata-bg-code-color: #7f1d1d;
-  --giornata-fg-code-color: #fee2e2;
-  --giornata-fg-color: #fecaca;
-  --giornata-text-color: #fecaca;
-  --giornata-border-color: #fca5a5;
-  --giornata-highlight-color: #fecaca;
-  --giornata-admon-bg-color: #991b1b;
-  --giornata-admon-border-color: #f87171;
-  --giornata-admon-text-color: #fecaca;
-}
-
-/* Orange Light */
-html.dark .giornata-orange-light-scheme,
-html.dark .g-c-or-lt-scheme {
-  --giornata-bg-color: #9a3412; /* orange-800 */
-  --giornata-bg-code-color: #7c2d12;
-  --giornata-fg-code-color: #ffedd5;
-  --giornata-fg-color: #fed7aa;
-  --giornata-text-color: #fed7aa;
-  --giornata-border-color: #fdba74;
-  --giornata-highlight-color: #fed7aa;
-  --giornata-admon-bg-color: #9a3412;
-  --giornata-admon-border-color: #fb923c;
-  --giornata-admon-text-color: #fed7aa;
-}
-
-/* Amber Light */
-html.dark .giornata-amber-light-scheme,
-html.dark .g-c-am-lt-scheme {
-  --giornata-bg-color: #92400e; /* amber-800 */
-  --giornata-bg-code-color: #78350f;
-  --giornata-fg-code-color: #fef3c7;
-  --giornata-fg-color: #fde68a;
-  --giornata-text-color: #fde68a;
-  --giornata-border-color: #fcd34d;
-  --giornata-highlight-color: #fde68a;
-  --giornata-admon-bg-color: #92400e;
-  --giornata-admon-border-color: #fbbf24;
-  --giornata-admon-text-color: #fde68a;
-}
-
-/* Yellow Light */
-html.dark .giornata-yellow-light-scheme,
-html.dark .g-c-ye-lt-scheme {
-  --giornata-bg-color: #854d0e; /* yellow-800 */
-  --giornata-bg-code-color: #713f12;
-  --giornata-fg-code-color: #fef9c3;
-  --giornata-fg-color: #fef08a;
-  --giornata-text-color: #fef08a;
-  --giornata-border-color: #fde047;
-  --giornata-highlight-color: #fef08a;
-  --giornata-admon-bg-color: #854d0e;
-  --giornata-admon-border-color: #facc15;
-  --giornata-admon-text-color: #fef08a;
-}
-
-/* Lime Light */
-html.dark .giornata-lime-light-scheme,
-html.dark .g-c-li-lt-scheme {
-  --giornata-bg-color: #3f6212; /* lime-800 */
-  --giornata-bg-code-color: #365314;
-  --giornata-fg-code-color: #ecfccb;
-  --giornata-fg-color: #d9f99d;
-  --giornata-text-color: #d9f99d;
-  --giornata-border-color: #bef264;
-  --giornata-highlight-color: #d9f99d;
-  --giornata-admon-bg-color: #3f6212;
-  --giornata-admon-border-color: #a3e635;
-  --giornata-admon-text-color: #d9f99d;
-}
-
-/* Green Light */
-html.dark .giornata-green-light-scheme,
-html.dark .g-c-gr-lt-scheme {
-  --giornata-bg-color: #166534; /* green-800 */
-  --giornata-bg-code-color: #14532d;
-  --giornata-fg-code-color: #dcfce7;
-  --giornata-fg-color: #bbf7d0;
-  --giornata-text-color: #bbf7d0;
-  --giornata-border-color: #86efac;
-  --giornata-highlight-color: #bbf7d0;
-  --giornata-admon-bg-color: #166534;
-  --giornata-admon-border-color: #4ade80;
-  --giornata-admon-text-color: #bbf7d0;
-}
-
-/* Emerald Light */
-html.dark .giornata-emerald-light-scheme,
-html.dark .g-c-em-lt-scheme {
-  --giornata-bg-color: #065f46; /* emerald-800 */
-  --giornata-bg-code-color: #064e3b;
-  --giornata-fg-code-color: #d1fae5;
-  --giornata-fg-color: #a7f3d0;
-  --giornata-text-color: #a7f3d0;
-  --giornata-border-color: #6ee7b7;
-  --giornata-highlight-color: #a7f3d0;
-  --giornata-admon-bg-color: #065f46;
-  --giornata-admon-border-color: #34d399;
-  --giornata-admon-text-color: #a7f3d0;
-}
-
-/* Teal Light */
-html.dark .giornata-teal-light-scheme,
-html.dark .g-c-te-lt-scheme {
-  --giornata-bg-color: #115e59; /* teal-800 */
-  --giornata-bg-code-color: #134e4a;
-  --giornata-fg-code-color: #ccfbf1;
-  --giornata-fg-color: #99f6e4;
-  --giornata-text-color: #99f6e4;
-  --giornata-border-color: #5eead4;
-  --giornata-highlight-color: #99f6e4;
-  --giornata-admon-bg-color: #115e59;
-  --giornata-admon-border-color: #2dd4bf;
-  --giornata-admon-text-color: #99f6e4;
-}
-
-/* Cyan Light */
-html.dark .giornata-cyan-light-scheme,
-html.dark .g-c-cy-lt-scheme {
-  --giornata-bg-color: #155e75; /* cyan-800 */
-  --giornata-bg-code-color: #164e63;
-  --giornata-fg-code-color: #cffafe;
-  --giornata-fg-color: #a5f3fc;
-  --giornata-text-color: #a5f3fc;
-  --giornata-border-color: #67e8f9;
-  --giornata-highlight-color: #a5f3fc;
-  --giornata-admon-bg-color: #155e75;
-  --giornata-admon-border-color: #22d3ee;
-  --giornata-admon-text-color: #a5f3fc;
-}
-
-/* Sky Light */
-html.dark .giornata-sky-light-scheme,
-html.dark .g-c-sk-lt-scheme {
-  --giornata-bg-color: #075985; /* sky-800 */
-  --giornata-bg-code-color: #0c4a6e;
-  --giornata-fg-code-color: #e0f2fe;
-  --giornata-fg-color: #bae6fd;
-  --giornata-text-color: #bae6fd;
-  --giornata-border-color: #7dd3fc;
-  --giornata-highlight-color: #bae6fd;
-  --giornata-admon-bg-color: #075985;
-  --giornata-admon-border-color: #38bdf8;
-  --giornata-admon-text-color: #bae6fd;
-}
-
-/* Blue Light */
-html.dark .giornata-blue-light-scheme,
-html.dark .g-c-bl-lt-scheme {
-  --giornata-bg-color: #1e40af; /* blue-800 */
-  --giornata-bg-code-color: #1e3a8a;
-  --giornata-fg-code-color: #dbeafe;
-  --giornata-fg-color: #bfdbfe;
-  --giornata-text-color: #bfdbfe;
-  --giornata-border-color: #93c5fd;
-  --giornata-highlight-color: #bfdbfe;
-  --giornata-admon-bg-color: #1e40af;
-  --giornata-admon-border-color: #60a5fa;
-  --giornata-admon-text-color: #bfdbfe;
-}
-
-/* Indigo Light */
-html.dark .giornata-indigo-light-scheme,
-html.dark .g-c-in-lt-scheme {
-  --giornata-bg-color: #3730a3; /* indigo-800 */
-  --giornata-bg-code-color: #312e81;
-  --giornata-fg-code-color: #e0e7ff;
-  --giornata-fg-color: #c7d2fe;
-  --giornata-text-color: #c7d2fe;
-  --giornata-border-color: #a5b4fc;
-  --giornata-highlight-color: #c7d2fe;
-  --giornata-admon-bg-color: #3730a3;
-  --giornata-admon-border-color: #818cf8;
-  --giornata-admon-text-color: #c7d2fe;
-}
-
-/* Violet Light */
-html.dark .giornata-violet-light-scheme,
-html.dark .g-c-vi-lt-scheme {
-  --giornata-bg-color: #5b21b6; /* violet-800 */
-  --giornata-bg-code-color: #4c1d95;
-  --giornata-fg-code-color: #ede9fe;
-  --giornata-fg-color: #ddd6fe;
-  --giornata-text-color: #ddd6fe;
-  --giornata-border-color: #c4b5fd;
-  --giornata-highlight-color: #ddd6fe;
-  --giornata-admon-bg-color: #5b21b6;
-  --giornata-admon-border-color: #a78bfa;
-  --giornata-admon-text-color: #ddd6fe;
-}
-
-/* Purple Light */
-html.dark .giornata-purple-light-scheme,
-html.dark .g-c-pu-lt-scheme {
-  --giornata-bg-color: #6b21a8; /* purple-800 */
-  --giornata-bg-code-color: #581c87;
-  --giornata-fg-code-color: #f3e8ff;
-  --giornata-fg-color: #e9d5ff;
-  --giornata-text-color: #e9d5ff;
-  --giornata-border-color: #d8b4fe;
-  --giornata-highlight-color: #e9d5ff;
-  --giornata-admon-bg-color: #6b21a8;
-  --giornata-admon-border-color: #c084fc;
-  --giornata-admon-text-color: #e9d5ff;
-}
-
-/* Fuchsia Light */
-html.dark .giornata-fuchsia-light-scheme,
-html.dark .g-c-fu-lt-scheme {
-  --giornata-bg-color: #86198f; /* fuchsia-800 */
-  --giornata-bg-code-color: #701a75;
-  --giornata-fg-code-color: #fae8ff;
-  --giornata-fg-color: #f5d0fe;
-  --giornata-text-color: #f5d0fe;
-  --giornata-border-color: #f0abfc;
-  --giornata-highlight-color: #f5d0fe;
-  --giornata-admon-bg-color: #86198f;
-  --giornata-admon-border-color: #e879f9;
-  --giornata-admon-text-color: #f5d0fe;
-}
-
-/* Pink Light */
-html.dark .giornata-pink-light-scheme,
-html.dark .g-c-pi-lt-scheme {
-  --giornata-bg-color: #9d174d; /* pink-800 */
-  --giornata-bg-code-color: #831843;
-  --giornata-fg-code-color: #fce7f3;
-  --giornata-fg-color: #fbcfe8;
-  --giornata-text-color: #fbcfe8;
-  --giornata-border-color: #f9a8d4;
-  --giornata-highlight-color: #fbcfe8;
-  --giornata-admon-bg-color: #9d174d;
-  --giornata-admon-border-color: #f472b6;
-  --giornata-admon-text-color: #fbcfe8;
-}
-
-/* Rose Light */
-html.dark .giornata-rose-light-scheme,
-html.dark .g-c-ro-lt-scheme {
-  --giornata-bg-color: #9f1239; /* rose-800 */
-  --giornata-bg-code-color: #881337;
-  --giornata-fg-code-color: #ffe4e6;
-  --giornata-fg-color: #fecdd3;
-  --giornata-text-color: #fecdd3;
-  --giornata-border-color: #fda4af;
-  --giornata-highlight-color: #fecdd3;
-  --giornata-admon-bg-color: #9f1239;
-  --giornata-admon-border-color: #fb7185;
-  --giornata-admon-text-color: #fecdd3;
+  --giornata-bg-color: oklch(0.28 0.02 220);
+  --giornata-bg-code-color: oklch(0.36 0.02 220);
+  --giornata-fg-code-color: oklch(0.90 0 0);
+  --giornata-fg-color: oklch(0.87 0 0);
+  --giornata-text-color: oklch(0.87 0 0);
+  --giornata-border-color: oklch(0.70 0 0);
+  --giornata-highlight-color: var(--giornata-mode-accent-color);
+  --giornata-admon-bg-color: oklch(0.28 0.02 220);
+  --giornata-admon-border-color: oklch(0.70 0 0);
+  --giornata-admon-text-color: oklch(0.87 0 0);
 }
 
 /* =============================================================================
    GLOBAL DARK MODE ADJUSTMENTS
    ============================================================================= */
 
-/* Shadow adjustments for dark mode */
 html.dark {
   --giornata-shadow-color: rgba(255, 255, 255, 0.1);
 }
@@ -780,6 +142,6 @@ html:not(.dark) {
 
 /* Mark/highlight text adjustments for dark mode */
 html.dark .slidev-layout mark {
-  background-color: #92400e; /* amber-700 */
-  color: #fef3c7; /* amber-100 */
+  background-color: var(--giornata-accent-800);
+  color: var(--giornata-accent-50);
 }

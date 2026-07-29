@@ -13,6 +13,8 @@
         "@iconify/vue": "^4.3.0",
         "@mdit/plugin-sub": "^0.12.0",
         "@slidev/types": "^52.11.3",
+        "markdown-it-attrs": "^5.0.1",
+        "markdown-it-implicit-figures": "^0.12.0",
         "markdown-it-mark": "^4.0.0",
         "qrcode.vue": "^3.6.0",
       },
@@ -945,7 +947,11 @@
 
     "markdown-it-async": ["markdown-it-async@2.2.0", "", { "dependencies": { "@types/markdown-it": "14.1.2", "markdown-it": "14.1.0" } }, "sha512-sITME+kf799vMeO/ww/CjH6q+c05f6TLpn6VOmmWCGNqPJzSh+uFgZoMB9s0plNtW6afy63qglNAC3MhrhP/gg=="],
 
+    "markdown-it-attrs": ["markdown-it-attrs@5.0.1", "", { "peerDependencies": { "markdown-it": ">= 9.0.0" } }, "sha512-dTP49/FLERwbgqmfIG5LwnC99qecIJYalKQbl3pY+7Hajk+Z+cazeEZaKwofpM9KFxvfRVF0UN9GYxKKAakfNg=="],
+
     "markdown-it-footnote": ["markdown-it-footnote@4.0.0", "", {}, "sha512-WYJ7urf+khJYl3DqofQpYfEYkZKbmXmwxQV8c8mO/hGIhgZ1wOe7R4HLFNwqx7TjILbnC98fuyeSsin19JdFcQ=="],
+
+    "markdown-it-implicit-figures": ["markdown-it-implicit-figures@0.12.0", "", {}, "sha512-IeD2V74f3ZBYrZ+bz/9uEGii0S61BYoD2731qsHTgYLlENUrTevlgODScScS1CK44/TV9ddlufGHCYCQueh1rw=="],
 
     "markdown-it-mark": ["markdown-it-mark@4.0.0", "", {}, "sha512-YLhzaOsU9THO/cal0lUjfMjrqSMPjjyjChYM7oyj4DnyaXEzA8gnW6cVJeyCrCVeyesrY2PlEdUYJSPFYL4Nkg=="],
 

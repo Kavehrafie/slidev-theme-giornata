@@ -1,6 +1,6 @@
 <script setup lang="js">
 import { computed } from 'vue'
-import { compute_alignment, compute_column_size, compute_margin_class } from '../layoutHelper'
+import { compute_alignment, compute_color_scheme, compute_column_size, compute_margin_class } from '../layoutHelper'
 
 const props = defineProps({
   columns: {
@@ -11,6 +11,9 @@ const props = defineProps({
   },
   color: {
     default: 'light',
+  },
+  colorMode: {
+    default: undefined,
   },
   margin: {
     default: 'normal',
@@ -25,7 +28,7 @@ const alignment = computed(() => {
 })
 
 const colorscheme = computed(() => {
-  return `giornata-${props.color}-scheme`
+  return compute_color_scheme(props.color, props.colorMode)
 })
 
 const marginClass = computed(() => {

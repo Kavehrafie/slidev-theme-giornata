@@ -1,8 +1,12 @@
 <script setup>
 import { computed } from 'vue'
+import { compute_color_scheme } from '../layoutHelper'
 const props = defineProps({
   color: {
     default: 'light',
+  },
+  colorMode: {
+    default: undefined,
   },
   author: {
     default: null,
@@ -16,7 +20,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `giornata-${props.color}-scheme`
+  return compute_color_scheme(props.color, props.colorMode)
 })
 </script>
 <template>

@@ -1,10 +1,15 @@
 <script setup>
 import { computed } from 'vue'
+import { compute_color_scheme } from '../layoutHelper'
 
 const props = defineProps({
   color: {
     type: String,
     default: 'amber-light',
+  },
+  colorMode: {
+    type: String,
+    default: undefined,
   },
   textAlign: {
     type: String,
@@ -41,7 +46,7 @@ const isVisible = computed(() => {
 })
 
 const colorscheme = computed(() => {
-  return `giornata-${props.color}-scheme`
+  return compute_color_scheme(props.color, props.colorMode)
 })
 
 const stickyClasses = computed(() => {

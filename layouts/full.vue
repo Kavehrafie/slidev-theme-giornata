@@ -1,10 +1,13 @@
 <script setup lang="js">
 import { computed } from 'vue'
-import { compute_margin_class } from '../layoutHelper'
+import { compute_color_scheme, compute_margin_class } from '../layoutHelper'
 
 const props = defineProps({
   color: {
     default: 'white',
+  },
+  colorMode: {
+    default: undefined,
   },
   margin: {
     default: 'normal',
@@ -12,7 +15,7 @@ const props = defineProps({
 })
 
 const colorscheme = computed(() => {
-  return `giornata-${props.color}-scheme`
+  return compute_color_scheme(props.color, props.colorMode)
 })
 
 const marginClass = computed(() => {
