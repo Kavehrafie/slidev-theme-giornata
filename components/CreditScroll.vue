@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { onSlideEnter } from '@slidev/client/logic/slides.ts'
-import { useSlideContext } from '@slidev/client/context'
+import { useSlideContext } from '@slidev/client/context.ts'
 
 const { $renderContext } = useSlideContext()
 const props = defineProps({

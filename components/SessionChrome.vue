@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useSlideContext } from '@slidev/client/context'
+import { useSlideContext } from '@slidev/client/context.ts'
 
 interface SessionMeta {
   week?: number

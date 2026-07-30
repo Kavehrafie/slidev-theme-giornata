@@ -19,9 +19,12 @@ const props = withDefaults(
 )
 
 const colwidth = computed(() => compute_column_size(props.columns))
-// `colwidth` can be the `'error'` sentinel (checked in the template's v-if);
-// `cols` is the always-object view consumed by the CSS v-bind() bindings.
-const cols = computed(() => (colwidth.value === 'error' ? { l: 0, r: 0 } : colwidth.value))
+// `colwidth` can be the `'error'` sentinel (checked in the template's v-if).
+// `colsL` / `colsR` are the always-number views the CSS v-bind() bindings
+// consume — binding a bare computed (no member access on a ref) keeps the
+// <style> block reactive and clear of ref-unwrapping type errors.
+const colsL = computed(() => (colwidth.value === 'error' ? 0 : colwidth.value.l))
+const colsR = computed(() => (colwidth.value === 'error' ? 0 : colwidth.value.r))
 
 const alignment = computed(() => {
   const parts = props.align.split('-')
@@ -167,12 +170,12 @@ li li {
 
 <style scoped>
 .slidev-layout.toptitle.content .col-left {
-  flex: v-bind(cols.l); /* Makes each column take up equal space */
+  flex: v-bind(colsL); /* Makes each column take up equal space */
   margin-right: 15px;
 }
 
 .slidev-layout.toptitle.content .col-right {
-  flex: v-bind(cols.r); /*Makes each column take up equal space */
+  flex: v-bind(colsR); /*Makes each column take up equal space */
   margin-left: 15px;
 }
 </style>

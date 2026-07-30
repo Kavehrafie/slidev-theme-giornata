@@ -58,7 +58,6 @@
     "playwright-chromium": "^1.62.1",
     "prettier": "^3.9.6",
     "prettier-plugin-slidev": "^1.0.5",
-    "typescript": "^7.0.2",
     "vitepress": "^1.6.4",
     "vue-tsc": "^3.3.8"
   }

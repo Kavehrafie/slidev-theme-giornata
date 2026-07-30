@@ -4,8 +4,8 @@ import { sub } from '@mdit/plugin-sub'
 import Mark from 'markdown-it-mark'
 import MarkdownItAttrs from 'markdown-it-attrs'
 import ImageCaptionPlugin from 'markdown-it-implicit-figures'
-import inlineImageAttrsPlugin from './setup/inline-image-attrs'
-import { version } from './package.json'
+import inlineImageAttrsPlugin from './setup/inline-image-attrs.ts'
+import { version } from './package.json' with { type: 'json' }
 
 console.log(`Loading Giornata ${version} theme vite.config.ts...`)
 export default defineConfig({

@@ -28,9 +28,12 @@ const alignment = computed(() => {
 })
 
 const colwidth = computed(() => compute_column_size(props.columns))
-// `colwidth` can be the `'error'` sentinel (checked in the template's v-if);
-// `cols` is the always-object view consumed by the CSS v-bind() bindings.
-const cols = computed(() => (colwidth.value === 'error' ? { l: 0, r: 0 } : colwidth.value))
+// `colwidth` can be the `'error'` sentinel (checked in the template's v-if).
+// `colsL` / `colsR` are the always-number views the CSS v-bind() bindings
+// consume — binding a bare computed (no member access on a ref) keeps the
+// <style> block reactive and clear of ref-unwrapping type errors.
+const colsL = computed(() => (colwidth.value === 'error' ? 0 : colwidth.value.l))
+const colsR = computed(() => (colwidth.value === 'error' ? 0 : colwidth.value.r))
 
 const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 
@@ -177,19 +180,19 @@ const flexclass = computed(() => {
 /* 1-11 */
 .two-cols-footer .left-col,
 .two-cols-header .left-col {
-  grid-area: 2 / 1 / 3 / span v-bind(cols.l);
+  grid-area: 2 / 1 / 3 / span v-bind(colsL);
 }
 
 .two-cols-footer .right-col,
 .two-cols-header .right-col {
-  grid-area: 2 / v-bind(cols.l + 1) / 3 / span v-bind(cols.r);
+  grid-area: 2 / calc(v-bind(colsL) + 1) / 3 / span v-bind(colsR);
 }
 
 .two-cols .left-col {
-  grid-area: 1 / 1 / 2 / span v-bind(cols.l);
+  grid-area: 1 / 1 / 2 / span v-bind(colsL);
 }
 
 .two-cols .right-col {
-  grid-area: 1 / v-bind(cols.l + 1) / 2 / span v-bind(cols.r);
+  grid-area: 1 / calc(v-bind(colsL) + 1) / 2 / span v-bind(colsR);
 }
 </style>

@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { onMounted, watch } from 'vue'
-import { useSlideContext } from '@slidev/client/context'
+import { useSlideContext } from '@slidev/client/context.ts'
 import SessionChrome from './components/SessionChrome.vue'
 
 const { $slidev, $page } = useSlideContext()
