@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noImplicitAny": true,
+    "allowImportingTsExtensions": true,
+    "jsx": "preserve",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "types": ["@slidev/types", "vite/client"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "*.ts",
+    "*.d.ts",
+    "*.vue",
+    "setup/**/*.ts",
+    "styles/**/*.ts",
+    "components/**/*.vue",
+    "layouts/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "docs",
+    "components/vue3-kawaii"
+  ]
+}

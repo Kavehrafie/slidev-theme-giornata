@@ -1,39 +1,36 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { computed } from 'vue'
 import { compute_alignment, compute_color_scheme, compute_column_size, compute_margin_class } from '../layoutHelper'
 
-const props = defineProps({
-  columns: {
-    default: 'is-one-half',
+const props = withDefaults(
+  defineProps<{
+    columns?: string
+    align?: string
+    color?: string
+    colorMode?: string
+    margin?: string
+  }>(),
+  {
+    columns: 'is-one-half',
+    align: 'l-lt-lt',
+    color: 'light',
+    margin: 'normal',
   },
-  align: {
-    default: 'l-lt-lt',
-  },
-  color: {
-    default: 'light',
-  },
-  colorMode: {
-    default: undefined,
-  },
-  margin: {
-    default: 'normal',
-  },
-})
+)
 
 const colwidth = computed(() => compute_column_size(props.columns))
+// `colwidth` can be the `'error'` sentinel (checked in the template's v-if);
+// `cols` is the always-object view consumed by the CSS v-bind() bindings.
+const cols = computed(() => (colwidth.value === 'error' ? { l: 0, r: 0 } : colwidth.value))
 
 const alignment = computed(() => {
   const parts = props.align.split('-')
   return { t: compute_alignment(parts[0]), l: compute_alignment(parts[1]), r: compute_alignment(parts[2]) }
 })
 
-const colorscheme = computed(() => {
-  return compute_color_scheme(props.color, props.colorMode)
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 
-const marginClass = computed(() => {
-  return compute_margin_class(props.margin)
-})
+const marginClass = computed(() => compute_margin_class(props.margin))
 </script>
 <template>
   <div
@@ -170,12 +167,12 @@ li li {
 
 <style scoped>
 .slidev-layout.toptitle.content .col-left {
-  flex: v-bind(colwidth.l); /* Makes each column take up equal space */
+  flex: v-bind(cols.l); /* Makes each column take up equal space */
   margin-right: 15px;
 }
 
 .slidev-layout.toptitle.content .col-right {
-  flex: v-bind(colwidth.r); /*Makes each column take up equal space */
+  flex: v-bind(cols.r); /*Makes each column take up equal space */
   margin-left: 15px;
 }
 </style>

@@ -1,4 +1,5 @@
 // styles/index.ts
+import './fonts.css' // @import font faces — must load before any other CSS statements
 import '@slidev/client/styles/layouts-base.css' // base theme layouts
 import './theme-tokens.css' // brand palette tokens — must load before everything else
 import './layouts.css' // default theme layouts

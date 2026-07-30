@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick } from 'vue'
-import { useSlideContext } from '@slidev/client'
+import type { CSSProperties } from 'vue'
+import { useSlideContext } from '@slidev/client/context'
 import { compute_color_scheme } from '../layoutHelper'
 
 interface TimelineEvent {
   year: number
   label: string
+  region?: string
+  image?: string
+  image_fit?: string
+  color?: string
+  id?: string
+}
+
+// Shape of a `timeline:` frontmatter block. YAML values are loosely typed, so
+// year/label are wider here than in TimelineEvent and coerced on read.
+interface TimelineFrontmatter {
+  year?: string | number
+  label?: string
   region?: string
   image?: string
   image_fit?: string
@@ -28,15 +41,19 @@ const normalize_fit = (v: unknown): FitValue | undefined => {
 
 const { $slidev, $clicks } = useSlideContext()
 
-// Events use individual v-click directives: index 0 === "+0" (always active),
-// index 1 === 1, index 2 === 2, …  So N events → N-1 click steps, no dead click.
-const props = defineProps({
-  color: { default: 'white' },
-  colorMode: { default: undefined },
-  events: { default: null as TimelineEvent[] | null },
-})
+const props = withDefaults(
+  defineProps<{
+    color?: string
+    colorMode?: string
+    events?: TimelineEvent[] | null
+  }>(),
+  {
+    color: 'white',
+    events: null,
+  },
+)
 
-const slides = computed(() => ($slidev.nav as any)?.slides || [])
+const slides = computed(() => $slidev.nav.slides)
 
 const aggregatedEvents = computed<FlatEvent[]>(() => {
   if (Array.isArray(props.events) && props.events.length) {
@@ -53,9 +70,8 @@ const aggregatedEvents = computed<FlatEvent[]>(() => {
   }
   const out: FlatEvent[] = []
   slides.value.forEach((slide, idx) => {
-    if (!slide) return
-    const fm = slide?.meta?.slide?.frontmatter || slide?.frontmatter || {}
-    const t = fm.timeline
+    const fm = slide?.meta?.slide?.frontmatter ?? {}
+    const t = fm.timeline as TimelineFrontmatter | undefined
     if (!t || Array.isArray(t)) return
     if (t.year == null) return
     out.push({
@@ -72,11 +88,18 @@ const aggregatedEvents = computed<FlatEvent[]>(() => {
   return out.sort((a, b) => a.year - b.year)
 })
 
+const imgStyle = (ev: FlatEvent): CSSProperties => ({
+  objectFit: (ev.image_fit || 'cover') as CSSProperties['objectFit'],
+  objectPosition: 'center',
+  viewTransitionName: `artwork-${ev.id}`,
+})
+
+
+// Scheme follows the latest revealed event, falling back to the slide-level color.
 const colorscheme = computed(() => {
-  // click n retunes palette to event n (0-based, clamped to last event).
-  // Event 0 is pre-revealed; events 1..N each need a click.
-  const click = $clicks.value
-  const idx = Math.min(click, Math.max(0, aggregatedEvents.value.length - 1))
+  // <v-clicks>: event 0 visible at click 0, event N visible at click N.
+  // The newest revealed event is at index (currentClick).
+  const idx = Math.min($clicks.value, Math.max(0, aggregatedEvents.value.length - 1))
   const ev = aggregatedEvents.value[idx]
   if (ev?.color) return compute_color_scheme(ev.color, props.colorMode)
   return compute_color_scheme(props.color, props.colorMode)
@@ -91,40 +114,26 @@ const go = (slideNo?: number) => {
   if (slideNo && slideNo >= 1) $slidev.nav.go(slideNo)
 }
 
-// rAF-based smooth scroll with ease-out quartic — unlike element.scrollTo({behavior:'smooth'})
-// this cannot be interrupted mid-flight by class/style churn from click reveals
-const smoothScrollTo = (element: HTMLElement, targetScrollLeft: number, duration = 700) => {
-  const startScrollLeft = element.scrollLeft
-  const distance = targetScrollLeft - startScrollLeft
-  if (!distance) return
-  let startTime: number | null = null
-  const easeOutQuartic = (t: number) => 1 - Math.pow(1 - t, 4)
-  const step = (currentTime: number) => {
-    if (startTime === null) startTime = currentTime
-    const progress = Math.min((currentTime - startTime) / duration, 1)
-    element.scrollLeft = startScrollLeft + distance * easeOutQuartic(progress)
-    if (progress < 1) requestAnimationFrame(step)
-  }
-  requestAnimationFrame(step)
-}
-
 watch($clicks, async (currentClick) => {
   await nextTick()
+
   const container = containerRef.value
-  if (!container || !eventRefs.value.length) return
+  if (!container) return
+
   if (currentClick === 0) {
-    smoothScrollTo(container, 0, 500)
+    container.scrollTo({ left: 0, behavior: 'smooth' })
     return
   }
-  // bring the newest revealed event into view, pinned left-of-center.
-  // event 0 is pre-revealed, so click n reveals event n (0-based)
-  const idx = Math.min(currentClick, eventRefs.value.length - 1)
-  const target = eventRefs.value[idx]
-  if (target) {
-    const maxScroll = container.scrollWidth - container.clientWidth
-    const offset = target.offsetLeft - container.clientWidth * 0.45 + target.offsetWidth / 2
-    smoothScrollTo(container, Math.max(0, Math.min(offset, maxScroll)))
-  }
+
+  // <v-clicks>: click 0 → first child visible.  click N → children 0..N visible.
+  // Always pin the last (rightmost) visible event at the end of the viewport.
+  // Works for both forward (new event slides in at right) and backward (right
+  // edge collapses to the previous event).
+  const lastVisibleIdx = Math.min(currentClick, eventRefs.value.length - 1)
+  const anchor = eventRefs.value[lastVisibleIdx]
+  if (!anchor) return
+
+  anchor.scrollIntoView({ behavior: 'smooth', inline: 'end', block: 'nearest' })
 })
 </script>
 
@@ -142,22 +151,21 @@ watch($clicks, async (currentClick) => {
         pass <code>:events</code> explicitly.
       </div>
 
-      <!-- Each event registers its own v-click: index 0 at "+0" (always active,
-           never hidden), indices 1..N at their absolute click position.  This
-           produces exactly N-1 click steps for N events — no dead first click. -->
-      <div
-        v-for="(ev, index) in aggregatedEvents"
-        :key="ev.id"
-        :ref="
-          (el) => {
-            if (el) eventRefs[index] = el as HTMLElement
-          }
-        "
-        v-click="index === 0 ? '+0' : index"
-        class="timeline-event"
-        :class="[index % 2 === 0 ? 'is-above' : 'is-below', index === 0 ? 'is-first' : '']"
-        :style="{ gridColumnStart: index + 2 }"
-      >
+      <!-- <v-clicks> wrapper: first event always visible, each subsequent
+           click reveals the next event.  N events → N clicks (no dead step). -->
+      <v-clicks>
+        <div
+          v-for="(ev, index) in aggregatedEvents"
+          :key="ev.id"
+          :ref="
+            (el) => {
+              if (el) eventRefs[index] = el as HTMLElement
+            }
+          "
+          class="timeline-event"
+          :class="[index % 2 === 0 ? 'is-above' : 'is-below']"
+          :style="{ gridColumnStart: index + 2 }"
+        >
         <button
           type="button"
           class="timeline-marker"
@@ -171,11 +179,7 @@ watch($clicks, async (currentClick) => {
             :src="ev.image"
             :alt="ev.label"
             class="timeline-img"
-            :style="{
-              objectFit: ev.image_fit || 'cover',
-              objectPosition: 'center',
-              viewTransitionName: `artwork-${ev.id}`,
-            }"
+            :style="imgStyle(ev)"
             loading="lazy"
             draggable="false"
           />
@@ -186,6 +190,7 @@ watch($clicks, async (currentClick) => {
           </div>
         </div>
       </div>
+      </v-clicks>
     </div>
   </div>
 </template>
@@ -223,6 +228,7 @@ watch($clicks, async (currentClick) => {
   padding: 1.5rem 0;
   overflow-x: scroll;
   overflow-y: hidden;
+  scroll-behavior: smooth;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
 }
@@ -275,7 +281,8 @@ watch($clicks, async (currentClick) => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-height: 0;
+  overflow: hidden;
   scroll-snap-align: center;
 }
 
@@ -289,18 +296,11 @@ watch($clicks, async (currentClick) => {
   padding-bottom: 1.5rem;
 }
 
-/* Slidev hides unrevealed v-click targets with opacity: 0 !important.
-   The documented design keeps unrevealed events dimmed (spine stays visible)
-   and their markers clickable, so override both here (scoped, higher specificity).
-   The opacity transition on .timeline-event makes the reveal a fade-in. */
+/* Unrevealed events are fully hidden — no dimmed "blot" state.
+   Keep pointer-events alive so markers remain clickable (author can still
+   jump to any slide by clicking its marker even before the event is revealed). */
 .timeline-event.slidev-vclick-hidden {
-  opacity: 0.22 !important;
   pointer-events: auto !important;
-}
-
-/* first event is always revealed */
-.timeline-event.is-first.slidev-vclick-hidden {
-  opacity: 1 !important;
 }
 
 .timeline-marker {
@@ -336,17 +336,21 @@ watch($clicks, async (currentClick) => {
   align-items: center;
   gap: 0.45rem;
   pointer-events: none;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .timeline-img {
   width: 100%;
-  height: 130px;
+  max-height: 130px;
   object-fit: cover;
   object-position: center;
   border-radius: 4px;
   border: 1px solid color-mix(in srgb, var(--giornata-text-color) 20%, transparent);
   background: var(--giornata-bg-color);
   display: block;
+  flex-shrink: 1;
+  min-height: 0;
 }
 
 .timeline-meta {

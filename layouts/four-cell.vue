@@ -1,28 +1,26 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue'
+import { computed } from 'vue'
 
-const slots = useSlots()
+const props = withDefaults(
+  defineProps<{
+    rowheight?: string
+    colwidth?: string
+    color?: string
+    align?: string
+  }>(),
+  {
+    rowheight: 'is-one-half',
+    colwidth: 'is-one-half',
+    color: 'light,white,white,light',
+    align: 'lt-lt-lt-lt',
+  },
+)
 
-const props = defineProps({
-  rowheight: {
-    default: 'is-one-half',
-  },
-  colwidth: {
-    default: 'is-one-half',
-  },
-  color: {
-    default: 'light,white,white,light',
-  },
-  align: {
-    default: 'lt-lt-lt-lt',
-  },
-})
-
-function compute_size_col(title) {
+function compute_size_col(title: number) {
   return { l: 'col-span-' + title, r: 'col-span-' + (12 - title) }
 }
 
-function compute_size_row(title) {
+function compute_size_row(title: number) {
   return { t: 'row-span-' + title, b: 'row-span-' + (12 - title) }
 }
 
@@ -71,7 +69,7 @@ const colw = computed(() => {
     case 'is-11-1':
       return compute_size_col(11)
     default:
-      return 'error'
+      return compute_size_col(6)
   }
 })
 
@@ -120,47 +118,11 @@ const rowh = computed(() => {
     case 'is-11-1':
       return compute_size_row(11)
     default:
-      return 'error'
+      return compute_size_row(6)
   }
 })
 
-function compute_alignment(val) {
-  switch (val) {
-    case 'ct':
-      return 'center top'
-    case 'cm':
-      return 'center middle'
-    case 'cb':
-      return 'center bottom'
-    case 'lt':
-      return 'left top'
-    case 'lm':
-      return 'left middle'
-    case 'lb':
-      return 'left bottom'
-    case 'rt':
-      return 'right top'
-    case 'rm':
-      return 'right middle'
-    case 'rb':
-      return 'right bottom'
-    case 'c':
-      return 'center top'
-    case 'l':
-      return 'left top'
-    case 'r':
-      return 'right top'
-    default:
-      return 'error'
-  }
-}
-
-const alignment = computed(() => {
-  const parts = props.align.split('-')
-  return { l: compute_alignment(parts[0]), r: compute_alignment(parts[1]) }
-})
-
-function color(code) {
+function color(code: string) {
   if (code === 'black') {
     return 'text-white bg-black'
   }

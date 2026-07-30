@@ -1,6 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { onSlideEnter, useSlideContext } from '@slidev/client'
+import { onSlideEnter } from '@slidev/client/logic/slides.ts'
+import { useSlideContext } from '@slidev/client/context'
 
 const { $renderContext } = useSlideContext()
 const props = defineProps({
@@ -14,10 +15,10 @@ const props = defineProps({
   },
 })
 
-const containerRef = ref(null)
+const containerRef = ref<HTMLElement | null>(null)
 const scrollPosition = ref(0)
 
-let animationFrameId = null
+let animationFrameId: number | null = null
 
 const scroll = () => {
   scrollPosition.value -= props.speed

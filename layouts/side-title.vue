@@ -1,27 +1,24 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { computed } from 'vue'
 import { compute_alignment, compute_color_scheme, compute_column_size, compute_margin_class } from '../layoutHelper'
 
-const props = defineProps({
-  side: {
-    default: 'l',
+const props = withDefaults(
+  defineProps<{
+    side?: string
+    color?: string
+    colorMode?: string
+    titlewidth?: string
+    align?: string
+    margin?: string
+  }>(),
+  {
+    side: 'l',
+    color: 'light',
+    titlewidth: 'is-one-third',
+    align: 'auto',
+    margin: 'normal',
   },
-  color: {
-    default: 'light',
-  },
-  colorMode: {
-    default: undefined,
-  },
-  titlewidth: {
-    default: 'is-one-third',
-  },
-  align: {
-    default: 'auto',
-  },
-  margin: {
-    default: 'normal',
-  },
-})
+)
 
 const side = computed(() => {
   if (props.side === 'left' || props.side === 'l') {
@@ -33,6 +30,9 @@ const side = computed(() => {
   }
 })
 const colwidth = computed(() => compute_column_size(props.titlewidth))
+// `colwidth` can be the `'error'` sentinel (checked in the template's v-if);
+// `cols` is the always-object view consumed by the CSS v-bind() bindings.
+const cols = computed(() => (colwidth.value === 'error' ? { l: 0, r: 0 } : colwidth.value))
 
 const alignment = computed(() => {
   let aligncode = ''
@@ -48,13 +48,9 @@ const alignment = computed(() => {
   return { l: compute_alignment(parts[0]), r: compute_alignment(parts[1]) }
 })
 
-const colorscheme = computed(() => {
-  return compute_color_scheme(props.color, props.colorMode)
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 
-const marginClass = computed(() => {
-  return compute_margin_class(props.margin)
-})
+const marginClass = computed(() => compute_margin_class(props.margin))
 </script>
 <template>
   <div v-if="side == 'error' || colwidth == 'error'" class="slidev-layout default error">
@@ -139,12 +135,12 @@ const marginClass = computed(() => {
 </style>
 <style scoped>
 .column-title {
-  flex: v-bind(colwidth.l); /* although this is mapped to 'left' it is reversed when needed in the template*/
+  flex: v-bind(cols.l); /* although this is mapped to 'left' it is reversed when needed in the template*/
   display: flex;
 }
 
 .column-content {
-  flex: v-bind(colwidth.r); /* although this is mapped to 'right' it is reversed when needed in the template*/
+  flex: v-bind(cols.r); /* although this is mapped to 'right' it is reversed when needed in the template*/
   display: flex;
 }
 </style>

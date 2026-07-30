@@ -46,7 +46,12 @@ export function resolveAssetUrl(url: string) {
 }
 
 export function handleBackground(background?: string, dim = false): CSSProperties {
-  const isColor = background && ['#', 'rgb', 'hsl'].some((v) => background.indexOf(v) === 0)
+  // Note: avoid a `.some()` closure here — TS cannot carry the `background`
+  // narrowing into the callback, so `background.indexOf` would be reported as
+  // possibly-undefined under strict mode.
+  const isColor =
+    background !== undefined &&
+    (background.startsWith('#') || background.startsWith('rgb') || background.startsWith('hsl'))
 
   const style = {
     background: isColor ? background : undefined,
@@ -68,7 +73,7 @@ export function handleBackground(background?: string, dim = false): CSSPropertie
   return style
 }
 
-export function compute_alignment(val) {
+export function compute_alignment(val: string) {
   switch (val) {
     case 'ct':
       return 'g-c-center g-c-top'
@@ -99,11 +104,13 @@ export function compute_alignment(val) {
   }
 }
 
-function compute_size(left) {
+export type ColumnSize = { l: number; r: number }
+
+function compute_size(left: number): ColumnSize {
   return { l: left, r: 12 - left }
 }
 
-export function compute_margin_class(val) {
+export function compute_margin_class(val: string) {
   switch (val) {
     case 'tight':
       return 'g-c-tight-margin'
@@ -116,7 +123,7 @@ export function compute_margin_class(val) {
   }
 }
 
-export function compute_column_size(val) {
+export function compute_column_size(val: string): ColumnSize | 'error' {
   switch (val) {
     case 'is-1':
     case 'is-1-11':

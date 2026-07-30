@@ -64,8 +64,8 @@ const schemeHues: Record<string, { hue: number; chroma: number }> = {
 }
 
 // Function to generate classes
-const generateColors = (prefixes, colors, values) => {
-  const classes = []
+const generateColors = (prefixes: string[], colors: string[], values: number[]): string[] => {
+  const classes: string[] = []
   colors.forEach((color) => {
     values.forEach((value) => {
       prefixes.forEach((prefix) => {
@@ -94,10 +94,10 @@ const oklch = (
 }
 
 const generate_color_schemes = () => {
-  const schemes = []
-  const classes = []
+  const schemes: [string, Record<string, string>][] = []
+  const classes: string[] = []
 
-  const addScheme = (longName, shortName, styles) => {
+  const addScheme = (longName: string, shortName: string, styles: Record<string, string>) => {
     schemes.push([longName, styles])
     schemes.push([shortName, styles])
     classes.push(longName, shortName)
@@ -235,11 +235,11 @@ const generate_text_sizes = () => {
   classes.push('text-xl')
   return classes
 }
-const generateColumns = (max) => {
+const generateColumns = (max: number): string[] => {
   return Array.from({ length: max }, (_, i) => `col-span-${i + 1}`)
 }
 
-const generateRows = (max) => {
+const generateRows = (max: number): string[] => {
   return Array.from({ length: max }, (_, i) => `row-span-${i + 1}`)
 }
 

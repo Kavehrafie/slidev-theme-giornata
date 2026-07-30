@@ -8,7 +8,7 @@ Simple line
 
 -->
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
@@ -39,12 +39,12 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['dblclick', 'clickOutside'])
+const emit = defineEmits<{ dblclick: []; clickOutside: [] }>()
 const colorscheme = computed(() => {
   return `giornata-${props.color}-scheme`
 })
 
-const clickArea = ref()
+const clickArea = ref<SVGLineElement | null>(null)
 onClickOutside(clickArea, () => emit('clickOutside'))
 </script>
 

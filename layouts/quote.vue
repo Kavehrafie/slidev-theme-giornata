@@ -1,27 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { compute_color_scheme } from '../layoutHelper'
-const props = defineProps({
-  color: {
-    default: 'light',
+const props = withDefaults(
+  defineProps<{
+    color?: string
+    colorMode?: string
+    author?: string | null
+    quotesize?: string
+    authorsize?: string
+  }>(),
+  {
+    color: 'light',
+    author: null,
+    quotesize: 'text-2xl',
+    authorsize: 'text-l',
   },
-  colorMode: {
-    default: undefined,
-  },
-  author: {
-    default: null,
-  },
-  quotesize: {
-    default: 'text-2xl',
-  },
-  authorsize: {
-    default: 'text-l',
-  },
-})
+)
 
-const colorscheme = computed(() => {
-  return compute_color_scheme(props.color, props.colorMode)
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 </script>
 <template>
   <div class="slidev-layout quote">

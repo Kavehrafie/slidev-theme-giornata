@@ -1,6 +1,7 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   v: {
+    type: String,
     default: 'null@null.com',
   },
 })

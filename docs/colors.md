@@ -136,7 +136,7 @@ so you can also dial lightness and chroma separately:
 ```css
 :root {
   --giornata-hue: 220;
-  --giornata-accent-l: 0.70; /* darker */
+  --giornata-accent-l: 0.7; /* darker */
   --giornata-accent-c: 0.12; /* more muted */
 }
 ```
@@ -145,13 +145,13 @@ so you can also dial lightness and chroma separately:
 
 Five OKLCH hue rotations of the accent are precomputed via CSS relative color syntax and available as CSS vars on `:root`. Use them anywhere a single accent isn't enough — secondary buttons, chart series, callout boxes, hover states.
 
-| Token | Hue offset | Use |
-| --- | --- | --- |
-| `--giornata-accent-complement` | +180° | Maximum contrast against the accent |
-| `--giornata-accent-analogous-warm` | −30° | Sidekick color that reads as a sibling |
-| `--giornata-accent-analogous-cool` | +30° | Other side of the wheel — sibling |
-| `--giornata-accent-triadic-1` | +120° | Triad leg 1 |
-| `--giornata-accent-triadic-2` | +240° | Triad leg 2 |
+| Token                              | Hue offset | Use                                    |
+| ---------------------------------- | ---------- | -------------------------------------- |
+| `--giornata-accent-complement`     | +180°      | Maximum contrast against the accent    |
+| `--giornata-accent-analogous-warm` | −30°       | Sidekick color that reads as a sibling |
+| `--giornata-accent-analogous-cool` | +30°       | Other side of the wheel — sibling      |
+| `--giornata-accent-triadic-1`      | +120°      | Triad leg 1                            |
+| `--giornata-accent-triadic-2`      | +240°      | Triad leg 2                            |
 
 ```html
 <button style="background: var(--giornata-accent); color: white;">Primary</button>
@@ -183,26 +183,26 @@ The relational palette uses CSS relative color syntax (`oklch(from var(--x) ...)
 
 ## Color modes
 
-Every scheme can be retuned by an optional `color_mode` parameter. The scheme's base hue stays the same; what changes is how text, border, and accent hues relate to that base.
+Every scheme can be retuned by an optional `color-mode` parameter. The scheme's base hue stays the same; what changes is how text, border, and accent hues relate to that base.
 
-| Mode | text hue offset | border/accent hue offset | Use |
-| --- | --- | --- | --- |
-| `mono` (default) | 0° | 0° (accent = global brand) | Maximum cohesion |
-| `complement` | 180° | 180° | Maximum contrast |
-| `analogous` | 0° | +30° | Soft sibling feel |
-| `triadic` | 0° | +120° | Three-color pop |
+| Mode             | text hue offset | border/accent hue offset   | Use               |
+| ---------------- | --------------- | -------------------------- | ----------------- |
+| `mono` (default) | 0°              | 0° (accent = global brand) | Maximum cohesion  |
+| `complement`     | 180°            | 180°                       | Maximum contrast  |
+| `analogous`      | 0°              | +30°                       | Soft sibling feel |
+| `triadic`        | 0°              | +120°                      | Three-color pop   |
 
 In mono mode the highlight color is the global `--giornata-accent` (your brand color). In every other mode the highlight rotates with the scheme's hue, so the relational system is active end-to-end.
 
 ### On slides
 
-Add `color_mode` to a slide's frontmatter:
+Add `color-mode` to a slide's frontmatter:
 
 ```md
 ---
 layout: top-title
 color: red
-color_mode: complement
+color-mode: complement
 ---
 ```
 
@@ -231,4 +231,3 @@ You can also apply a mode class directly to any element that already has a schem
 ```
 
 The four mode classes are `g-c-mode-mono`, `g-c-mode-complement`, `g-c-mode-analogous`, `g-c-mode-triadic`.
-

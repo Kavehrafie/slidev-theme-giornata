@@ -1,21 +1,15 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { computed } from 'vue'
 import { compute_alignment, compute_color_scheme, compute_column_size } from '../layoutHelper'
 
-const props = defineProps({
-  columns: {
-    default: 'is-one-half',
+const props = withDefaults(
+  defineProps<{ columns?: string; align?: string; color?: string; colorMode?: string }>(),
+  {
+    columns: 'is-one-half',
+    align: 'lt-lt',
+    color: 'white',
   },
-  align: {
-    default: 'lt-lt',
-  },
-  color: {
-    default: 'white',
-  },
-  colorMode: {
-    default: undefined,
-  },
-})
+)
 
 const alignment = computed(() => {
   const parts = props.align.split('-')
@@ -24,10 +18,11 @@ const alignment = computed(() => {
 })
 
 const colwidth = computed(() => compute_column_size(props.columns))
+// `colwidth` can be the `'error'` sentinel (checked in the template's v-if);
+// `cols` is the always-object view consumed by the CSS v-bind() bindings.
+const cols = computed(() => (colwidth.value === 'error' ? { l: 0, r: 0 } : colwidth.value))
 
-const colorscheme = computed(() => {
-  return compute_color_scheme(props.color, props.colorMode)
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 </script>
 
 <!-- default.vue -->
@@ -121,19 +116,19 @@ const colorscheme = computed(() => {
 
 /* 1-11 */
 .two-cols-footer .left-col {
-  grid-area: 2 / 1 / 3 / span v-bind(colwidth.l);
+  grid-area: 2 / 1 / 3 / span v-bind(cols.l);
 }
 
 .two-cols-footer .right-col {
-  grid-area: 2 / v-bind(colwidth.l + 1) / 3 / span v-bind(colwidth.r);
+  grid-area: 2 / v-bind(cols.l + 1) / 3 / span v-bind(cols.r);
 }
 
 .two-cols .left-col {
-  grid-area: 1 / 1 / 2 / span v-bind(colwidth.l);
+  grid-area: 1 / 1 / 2 / span v-bind(cols.l);
 }
 
 .two-cols .right-col {
-  grid-area: 1 / v-bind(colwidth.l + 1) / 2 / span v-bind(colwidth.r);
+  grid-area: 1 / v-bind(cols.l + 1) / 2 / span v-bind(cols.r);
 }
 
 .footnotes-sep {

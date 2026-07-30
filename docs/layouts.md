@@ -21,13 +21,13 @@ align: lt
 
 This frontmatter specifies that the slide should use the `top-title` layout, that the color should be `sky`, and that the alignment should be `lt`. The frontmatter is optional and if not provided the slide will use the [`default`](/layouts/default) layout. Not all options are necessary for each layout. The documentation of which frontmatter parameters is used in each layout is detailed below.
 
-Every layout that takes `color` also takes an optional `color_mode` for relational color schemes — see [Color modes](/colors#color-modes). Quick example:
+Every layout that takes `color` also takes an optional `color-mode` for relational color schemes — see [Color modes](/colors#color-modes). Quick example:
 
 ```md
 ---
 layout: top-title
 color: sky
-color_mode: complement
+color-mode: complement
 ---
 ```
 

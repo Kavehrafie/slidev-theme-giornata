@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useSlideContext } from '@slidev/client'
+import { useSlideContext } from '@slidev/client/context'
 
 interface SessionMeta {
   week?: number
@@ -9,16 +9,25 @@ interface SessionMeta {
   label?: string
 }
 
+type SessionPlacement = 'tr' | 'tl' | 'br' | 'bl'
+
 const { $slidev } = useSlideContext()
 
-const slides = computed(() => (($slidev.nav as any)?.slides) || [])
-const currentPage = computed(() => ($slidev.nav as any)?.currentPage ?? 1)
-const total = computed(() => ($slidev.nav as any)?.total ?? 0)
-const configs = computed(() => ($slidev.configs as any) || {})
+// Custom deck-level headmatter keys that Slidev's `configs` type doesn't know
+// about. Narrow `$slidev.configs` to include them rather than erasing to `any`.
+type GiornataDeckConfigs = typeof $slidev.configs & {
+  giornata_slug?: string
+  session_placement?: SessionPlacement | false
+}
+
+const slides = computed(() => $slidev.nav.slides)
+const currentPage = computed(() => $slidev.nav.currentPage)
+const total = computed(() => $slidev.nav.total)
+const configs = computed(() => $slidev.configs as GiornataDeckConfigs)
 
 const frontmatterAt = (slideNo: number) => {
   const slide = slides.value[slideNo - 1]
-  return slide?.meta?.slide?.frontmatter || slide?.frontmatter || {}
+  return slide?.meta?.slide?.frontmatter ?? {}
 }
 
 const currentFm = computed(() => frontmatterAt(currentPage.value))
@@ -34,9 +43,10 @@ const session = computed<SessionMeta | null>(() => {
 const deckLabel = computed(() => configs.value.giornata_slug || '')
 
 const placement = computed<string | null>(() => {
-  const v = currentFm.value.session_placement
-    ?? configs.value.session_placement
-    ?? 'br'
+  const v =
+    (currentFm.value.session_placement as SessionPlacement | false | undefined) ??
+    configs.value.session_placement ??
+    'br'
   return v === false ? null : v
 })
 

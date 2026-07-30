@@ -1,26 +1,18 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { computed } from 'vue'
 import { compute_color_scheme, compute_margin_class } from '../layoutHelper'
 
-const props = defineProps({
-  color: {
-    default: 'white',
+const props = withDefaults(
+  defineProps<{ color?: string; colorMode?: string; margin?: string }>(),
+  {
+    color: 'white',
+    margin: 'normal',
   },
-  colorMode: {
-    default: undefined,
-  },
-  margin: {
-    default: 'normal',
-  },
-})
+)
 
-const colorscheme = computed(() => {
-  return compute_color_scheme(props.color, props.colorMode)
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 
-const marginClass = computed(() => {
-  return compute_margin_class(props.margin)
-})
+const marginClass = computed(() => compute_margin_class(props.margin))
 </script>
 <template>
   <div class="slidev-layout full w-full h-full slidecolor" :class="[colorscheme, marginClass]">

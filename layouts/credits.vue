@@ -1,24 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { compute_color_scheme } from '../layoutHelper'
-const props = defineProps({
-  color: {
-    default: 'light',
+const props = withDefaults(
+  defineProps<{
+    color?: string
+    colorMode?: string
+    speed?: number
+    loop?: boolean
+  }>(),
+  {
+    color: 'light',
+    speed: 0.5,
+    loop: false,
   },
-  colorMode: {
-    default: undefined,
-  },
-  speed: {
-    default: 0.5,
-  },
-  loop: {
-    default: false,
-  },
-})
+)
 
-const colorscheme = computed(() => {
-  return compute_color_scheme(props.color, props.colorMode)
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 </script>
 <template>
   <div class="slidecolor slidev-layout full" :class="colorscheme">

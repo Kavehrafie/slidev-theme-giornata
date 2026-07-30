@@ -4,19 +4,22 @@
 
 <script setup lang="ts">
 import { onMounted, watch } from 'vue'
-import { useSlideContext } from '@slidev/client'
+import { useSlideContext } from '@slidev/client/context'
 import SessionChrome from './components/SessionChrome.vue'
 
 const { $slidev, $page } = useSlideContext()
 
 const MORPH_ATTR = 'data-morph-id'
 
+interface TimelineFrontmatter {
+  id?: string
+}
+
 function syncMorphTarget() {
   const idx = ($page.value ?? 1) - 1
-  const slides = ($slidev.nav as any)?.slides || []
-  const slide = slides[idx]
-  const fm = slide?.meta?.slide?.frontmatter || slide?.frontmatter || {}
-  const t = fm.timeline
+  const slide = $slidev.nav.slides[idx]
+  const fm = slide?.meta?.slide?.frontmatter ?? {}
+  const t = fm.timeline as TimelineFrontmatter | undefined
   const timelineId = t && !Array.isArray(t) && typeof t === 'object' ? t.id : null
 
   const pageEl =

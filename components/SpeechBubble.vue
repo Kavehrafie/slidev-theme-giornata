@@ -1,21 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 
 const props = defineProps({
   position: {
     type: String,
     default: 'b',
-    validator: (value) => ['t', 'l', 'r', 'b', 'bl', 'br', 'lt', 'tr'].includes(value),
+    validator: (value: string) => ['t', 'l', 'r', 'b', 'bl', 'br', 'lt', 'tr'].includes(value),
   },
   shape: {
     type: String,
     default: '',
-    validator: (value) => ['', 'round', 'circle'].includes(value),
+    validator: (value: string) => ['', 'round', 'circle'].includes(value),
   },
   animation: {
     type: String,
     default: '',
-    validator: (value) => ['', 'pop', 'float'].includes(value),
+    validator: (value: string) => ['', 'pop', 'float'].includes(value),
   },
   color: {
     type: String,

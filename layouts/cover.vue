@@ -1,25 +1,12 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { computed } from 'vue'
 import { compute_color_scheme } from '../layoutHelper'
-//import { handleBackground } from '../layoutHelper'
 
-const props = defineProps({
-  // background: {
-  //   default: '',
-  // },
-  color: {
-    default: 'white',
-  },
-  colorMode: {
-    default: undefined,
-  },
+const props = withDefaults(defineProps<{ color?: string; colorMode?: string }>(), {
+  color: 'white',
 })
 
-//const style = computed(() => handleBackground(props.background, true))
-
-const colorscheme = computed(() => {
-  return compute_color_scheme(props.color, props.colorMode)
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 </script>
 
 <template>

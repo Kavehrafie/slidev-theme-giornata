@@ -1,33 +1,21 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { computed } from 'vue'
 import { compute_alignment, compute_color_scheme, compute_margin_class } from '../layoutHelper'
 
-const props = defineProps({
-  color: {
-    default: 'light',
+const props = withDefaults(
+  defineProps<{ color?: string; colorMode?: string; align?: string; margin?: string }>(),
+  {
+    color: 'light',
+    align: 'l',
+    margin: 'normal',
   },
-  colorMode: {
-    default: undefined,
-  },
-  align: {
-    default: 'l',
-  },
-  margin: {
-    default: 'normal',
-  },
-})
+)
 
-const alignment = computed(() => {
-  return compute_alignment(props.align)
-})
+const alignment = computed(() => compute_alignment(props.align))
 
-const colorscheme = computed(() => {
-  return compute_color_scheme(props.color, props.colorMode)
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 
-const marginClass = computed(() => {
-  return compute_margin_class(props.margin)
-})
+const marginClass = computed(() => compute_margin_class(props.margin))
 </script>
 <template>
   <div v-if="alignment == 'error'" class="slidev-layout default error">

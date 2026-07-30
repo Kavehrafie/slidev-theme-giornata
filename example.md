@@ -115,7 +115,11 @@ The project uses tailwind-like color schemes arranged in ==monochromatic pairs==
 <span class="bg-gray-50 text-navy-900 p-1 pl-3 pr-3 m-1 rounded font-size-3">navy-light</span>
 </div>
 
-**Regular**:
+---
+layout: default
+---
+
+# Color schemes — Regular
 
 <div class="leading-[1.5em]">
 <span class="bg-slate-500 text-slate-100 p-1 pl-3 pr-3 m-1 rounded font-size-3">slate</span>
@@ -201,13 +205,13 @@ layout: default
 
 # Color modes
 
-Every color scheme now accepts an optional `color_mode` parameter that selects how the scheme's colors relate to each other. The same base color (`red` below) produces four different looks:
+Every color scheme now accepts an optional `color-mode` parameter that selects how the scheme's colors relate to each other. The same base color (`red` below) produces four different looks:
 
 ```md
 ---
 layout: default
 color: red
-color_mode: complement # or: mono | analogous | triadic
+color-mode: complement # or: mono | analogous | triadic
 ---
 ```
 
@@ -223,42 +227,82 @@ Works the same on components: `<Admonition color="amber" color-mode="triadic">`.
 ---
 layout: default
 color: red
-color_mode: mono
+color-mode: mono
 ---
 
 # `mono`
 
 The default. Everything shares the red hue; highlight stays the global brand accent.
 
+<div class="mt-6 p-4 rounded border-2" style="border-color: var(--giornata-border-color); background: var(--giornata-bg-code-color)">
+  <span class="font-bold" style="color: var(--giornata-highlight-color)">■ highlight</span>
+  &nbsp;|&nbsp;
+  <span style="color: var(--giornata-text-color)">text color</span>
+  &nbsp;|&nbsp;
+  <span style="border-bottom: 3px solid var(--giornata-border-color)">border</span>
+  &nbsp;|&nbsp;
+  <code>bg-code</code>
+</div>
+
 ---
 layout: default
 color: red
-color_mode: complement
+color-mode: complement
 ---
 
 # `complement`
 
 text/border/accent rotate 180° — red bg, cyan-leaning text and accent.
 
+<div class="mt-6 p-4 rounded border-2" style="border-color: var(--giornata-border-color); background: var(--giornata-bg-code-color)">
+  <span class="font-bold" style="color: var(--giornata-highlight-color)">■ highlight</span>
+  &nbsp;|&nbsp;
+  <span style="color: var(--giornata-text-color)">text color</span>
+  &nbsp;|&nbsp;
+  <span style="border-bottom: 3px solid var(--giornata-border-color)">border</span>
+  &nbsp;|&nbsp;
+  <code>bg-code</code>
+</div>
+
 ---
 layout: default
 color: red
-color_mode: analogous
+color-mode: analogous
 ---
 
 # `analogous`
 
 border/accent shift +30° — a slightly warmer sibling hue.
 
+<div class="mt-6 p-4 rounded border-2" style="border-color: var(--giornata-border-color); background: var(--giornata-bg-code-color)">
+  <span class="font-bold" style="color: var(--giornata-highlight-color)">■ highlight</span>
+  &nbsp;|&nbsp;
+  <span style="color: var(--giornata-text-color)">text color</span>
+  &nbsp;|&nbsp;
+  <span style="border-bottom: 3px solid var(--giornata-border-color)">border</span>
+  &nbsp;|&nbsp;
+  <code>bg-code</code>
+</div>
+
 ---
 layout: default
 color: red
-color_mode: triadic
+color-mode: triadic
 ---
 
 # `triadic`
 
 border/accent shift +120° — a three-color pop against the red base.
+
+<div class="mt-6 p-4 rounded border-2" style="border-color: var(--giornata-border-color); background: var(--giornata-bg-code-color)">
+  <span class="font-bold" style="color: var(--giornata-highlight-color)">■ highlight</span>
+  &nbsp;|&nbsp;
+  <span style="color: var(--giornata-text-color)">text color</span>
+  &nbsp;|&nbsp;
+  <span style="border-bottom: 3px solid var(--giornata-border-color)">border</span>
+  &nbsp;|&nbsp;
+  <code>bg-code</code>
+</div>
 
 ---
 layout: top-title
@@ -356,6 +400,7 @@ The available layouts in **Giornata** currently are:
 - `quote`
 - `full`
 - `credits`
+
 </div>
 
 <div class='w-1/3'>
@@ -513,6 +558,7 @@ Also there's a little helper class `g-c-tight` you can add to make the bullet sp
 - Hi
 - There
 - I need space
+
 </div>
 
 ---
@@ -712,8 +758,8 @@ color: light
 
 <div class="grid text-size-4 grid-cols-3 w-3/4 gap-y-10 auto-rows-min ml-auto mr-auto">
 <div class="grid-item text-center mr-0- col-span-3">
-  
-  This is the `layout: credits` slide.  It's a movie-like scrolling credits!
+
+This is the `layout: credits` slide. It's a movie-like scrolling credits!
 </div>
 <div class="grid-item text-center mr-0- col-span-3">
   <strong>Cast</strong><br> 
@@ -748,8 +794,8 @@ loop: true
 
 <div class="grid text-size-4 grid-cols-3 w-3/4 gap-y-10 auto-rows-min ml-auto mr-auto">
 <div class="grid-item text-center mr-0- col-span-3">
-  
-  This one has `speed: 4.0` and `loop: true` in the front matter
+
+This one has `speed: 4.0` and `loop: true` in the front matter
 </div>
 <div class="grid-item text-center mr-0- col-span-3">
   <strong>Cast</strong><br> 
@@ -1124,6 +1170,7 @@ In addition to these custom layouts, the **Giornata** theme includes a few custo
 - speech bubbles
 - cute icons
 - QR codes
+
 </div>
 
 ---
@@ -1663,6 +1710,34 @@ title: Lecture timeline
 
 ---
 layout: full
+color: stone
+timeline:
+  year: 691
+  label: 'Dome of the Rock'
+  region: 'Jerusalem, Umayyad Caliphate'
+  id: dome-of-the-rock
+  image: https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Dome_of_the_Rock_west_exterior.jpg/1280px-Dome_of_the_Rock_west_exterior.jpg
+  image_fit: cover
+---
+
+![Dome of the Rock, completed c. 691–92 CE, Jerusalem](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Dome_of_the_Rock_west_exterior.jpg/1280px-Dome_of_the_Rock_west_exterior.jpg)
+
+---
+layout: full
+color: yellow
+timeline:
+  year: 785
+  label: 'Great Mosque of Córdoba'
+  region: 'Córdoba, Umayyad Emirate'
+  id: cordoba-mosque
+  image: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Mezquita_de_C%C3%B3rdoba_desde_el_aire_%28C%C3%B3rdoba%2C_Espa%C3%B1a%29.jpg/1280px-Mezquita_de_C%C3%B3rdoba_desde_el_aire_%28C%C3%B3rdoba%2C_Espa%C3%B1a%29.jpg
+  image_fit: cover
+---
+
+![Great Mosque of Córdoba, begun 785 CE, Spain](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Mezquita_de_C%C3%B3rdoba_desde_el_aire_%28C%C3%B3rdoba%2C_Espa%C3%B1a%29.jpg/1280px-Mezquita_de_C%C3%B3rdoba_desde_el_aire_%28C%C3%B3rdoba%2C_Espa%C3%B1a%29.jpg)
+
+---
+layout: full
 color: black
 timeline:
   year: 996
@@ -1717,6 +1792,20 @@ timeline:
 ![Qutb Minar, begun c. 1192–3, Qutb archaeological complex, Delhi](https://res.cloudinary.com/image-solar/image/upload/v1772011970/2026nwp-ar1205/32709403483_d9a6a5ab37_k_cgzsbe.jpg)
 
 ---
+layout: full
+color: teal
+timeline:
+  year: 1370
+  label: 'Court of the Lions'
+  region: 'Granada, Nasrid Kingdom'
+  id: alhambra-lions
+  image: https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Alhambra_-_Patio_de_los_Leones.jpg/1280px-Alhambra_-_Patio_de_los_Leones.jpg
+  image_fit: cover
+---
+
+![Court of the Lions, Alhambra, 14th century, Granada](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Alhambra_-_Patio_de_los_Leones.jpg/1280px-Alhambra_-_Patio_de_los_Leones.jpg)
+
+---
 layout: section
 color: rose
 ---
@@ -1738,6 +1827,20 @@ timeline:
 ---
 
 ![Basawan and Chetar, _Akbar_ from the Akbarnama, c. 1586–89, Mughal Empire](http://smarthistory.org/wp-content/uploads/2017/03/akbarnama_both_800px.jpg)
+
+---
+layout: full
+color: slate
+timeline:
+  year: 1557
+  label: 'Süleymaniye Mosque'
+  region: 'Istanbul, Ottoman Empire'
+  id: suleymaniye
+  image: https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/S%C3%BCleymaniye_Mosque_1391.jpg/1280px-S%C3%BCleymaniye_Mosque_1391.jpg
+  image_fit: cover
+---
+
+![Süleymaniye Mosque, 1550–57, Istanbul](https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/S%C3%BCleymaniye_Mosque_1391.jpg/1280px-S%C3%BCleymaniye_Mosque_1391.jpg)
 
 ---
 layout: full
