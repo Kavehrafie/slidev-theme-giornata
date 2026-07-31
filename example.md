@@ -1377,6 +1377,73 @@ Result:
 <QRCode value="https://gureckislab.org" :size="200" render-as='svg'/>
 
 ---
+layout: full
+title: Maps
+---
+
+<script setup>
+import { ref, onMounted } from 'vue'
+// Imperial cities (coordinates are facts — license-clean) render immediately.
+// The empire border is fetched from local CC-BY-NC data (public/data/, gitignored)
+// and added on mount; if absent on a fresh clone, the map stays cities-only.
+const cities = [
+  { type: 'Feature', properties: { label: 'Rome', date: 'capital' }, geometry: { type: 'Point', coordinates: [12.5, 41.9] } },
+  { type: 'Feature', properties: { label: 'Constantinople' }, geometry: { type: 'Point', coordinates: [29.0, 41.0] } },
+  { type: 'Feature', properties: { label: 'Alexandria' }, geometry: { type: 'Point', coordinates: [29.9, 31.2] } },
+  { type: 'Feature', properties: { label: 'Antioch' }, geometry: { type: 'Point', coordinates: [36.17, 36.2] } },
+  { type: 'Feature', properties: { label: 'Carthage' }, geometry: { type: 'Point', coordinates: [10.3, 36.85] } },
+]
+const empire = ref({ type: 'FeatureCollection', features: [...cities] })
+onMounted(async () => {
+  try {
+    const res = await fetch(`${import.meta.env.BASE_URL}data/roman-empire-117.json`)
+    if (!res.ok) return
+    const data = await res.json()
+    empire.value = { type: 'FeatureCollection', features: [...(data.features || []), ...cities] }
+  } catch {
+    // local CC-BY-NC data absent (fresh clone) — keep cities-only
+  }
+})
+const italy = {
+  type: 'FeatureCollection',
+  features: [
+    { type: 'Feature', properties: { label: 'Rome', date: 'founded 753 BCE' }, geometry: { type: 'Point', coordinates: [12.5, 41.9] } },
+    { type: 'Feature', properties: { label: 'Ostia', date: 'port, 335 BCE' }, geometry: { type: 'Point', coordinates: [12.28, 41.75] } },
+    { type: 'Feature', properties: { label: 'Pompeii', date: 'buried 79 CE' }, geometry: { type: 'Point', coordinates: [14.49, 40.75] } },
+    { type: 'Feature', properties: { label: 'Herculaneum', date: 'buried 79 CE' }, geometry: { type: 'Point', coordinates: [14.35, 40.81] } },
+    { type: 'Feature', properties: { label: 'Neapolis', date: 'founded c. 600 BCE' }, geometry: { type: 'Point', coordinates: [14.26, 40.84] } },
+    { type: 'Feature', properties: { label: 'Ravenna', date: 'capital 402 CE' }, geometry: { type: 'Point', coordinates: [12.2, 44.42] } },
+    { type: 'Feature', properties: { label: 'Syracuse', date: 'founded 734 BCE' }, geometry: { type: 'Point', coordinates: [15.29, 37.08] } },
+    { type: 'Feature', properties: { label: 'Mediolanum', date: 'capital 286 CE' }, geometry: { type: 'Point', coordinates: [9.19, 45.46] } },
+  ]
+}
+</script>
+
+# Maps
+
+<div class="grid grid-cols-2 gap-4 mt-2">
+
+<div>
+
+#### Roman Empire, 117 CE
+
+<MapFigure :features="empire" :bounds="[[-10, 29], [45, 56]]" color="white" :height="420" :region-opacity="0.4" />
+
+</div>
+
+<div>
+
+#### Italy — sites & dates
+
+<MapFigure :features="italy" :bounds="[[6.5, 36.5], [18.5, 46.8]]" color="white" :height="420" label-scale="1.15" label-stroke="0.22" />
+
+</div>
+
+</div>
+
+Maps draw real coastlines from a bundled Natural Earth basemap and render as crisp, themed **SVG** — sharp on screen and identical in PDF/PNG exports (no raster canvas to blur). Pass a GeoJSON of borders and sites; each feature's `label` and `date` render on the map, and `bounds` zooms to a region.
+
+---
 layout: default
 title: Slide Margins - Normal
 ---

@@ -21,6 +21,7 @@
       },
       "devDependencies": {
         "@slidev/cli": "^52.18.0",
+        "@types/geojson": "^7946.0.0",
         "@types/markdown-it": "^14.1.2",
         "bumpp": "^9.11.1",
         "playwright-chromium": "^1.62.1",
