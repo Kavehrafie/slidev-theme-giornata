@@ -52,7 +52,7 @@ Renders as:
 ```md
 ---
 layout: cover
-color: emerald-light
+color: emerald
 ---
 
 # It's not easy being green

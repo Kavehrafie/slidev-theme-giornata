@@ -9,29 +9,28 @@ These are included in `styles/giornata-c.css`. Each class in this file begins wi
 
 In addition to the main color [schemes](/colors) there are some additional short hand classes you can use in your slides content.
 
-| Alias                 | Equivalent                    |
-| --------------------- | ----------------------------- |
-| `g-c-bk-scheme`       | `giornata-black-scheme`       |
-| `g-c-wh-scheme`       | `giornata-white-scheme`       |
-| `g-c-dk-scheme`       | `giornata-dark-scheme`        |
-| `g-c-lt-scheme`       | `giornata-light-scheme`       |
-| `g-c-nv-scheme`       | `giornata-navy-scheme`        |
-| `g-c-nv-lt-scheme`    | `giornata-navy-light-scheme`  |
-| `g-c-COLOR-scheme`    | `giornata-COLOR-scheme`       |
-| `g-c-COLOR-lt-scheme` | `giornata-COLOR-light-scheme` |
+| Alias              | Equivalent                   |
+| ------------------ | ---------------------------- |
+| `g-c-bk-scheme`    | `giornata-black-scheme`      |
+| `g-c-wh-scheme`    | `giornata-white-scheme`      |
+| `g-c-dk-scheme`    | `giornata-dark-scheme`       |
+| `g-c-lt-scheme`    | `giornata-light-scheme`      |
+| `g-c-nv-scheme`    | `giornata-navy-scheme`       |
+| `g-c-nv-lt-scheme` | `giornata-navy-light-scheme` |
+| `g-c-COLOR-scheme` | `giornata-COLOR-scheme`      |
 
-where color is the **first two letters** of the [colors](/colors) in the project (e.g., `g-c-pi-scheme` for `giornata-pink-scheme`).
+where COLOR is the **explicit short name** for each color (e.g., `g-c-gn-scheme` for `giornata-green-scheme`, `g-c-gy-scheme` for `giornata-gray-scheme`). See `uno.config.ts` `schemeHues` for the full mapping.
 
 ### Color modes
 
 There are four mode classes that retune how a scheme's text/border/accent hues relate to the base color:
 
-| Class | Effect |
-| --- | --- |
-| `g-c-mode-mono` | Default — all hues match the scheme, accent stays global |
-| `g-c-mode-complement` | text/border/accent rotate 180° |
-| `g-c-mode-analogous` | border/accent shift +30° |
-| `g-c-mode-triadic` | border/accent shift +120° |
+| Class                 | Effect                                                   |
+| --------------------- | -------------------------------------------------------- |
+| `g-c-mode-mono`       | Default — all hues match the scheme, accent stays global |
+| `g-c-mode-complement` | text/border/accent rotate 180°                           |
+| `g-c-mode-analogous`  | border/accent shift +30°                                 |
+| `g-c-mode-triadic`    | border/accent shift +120°                                |
 
 See [Color modes](/colors#color-modes) for details.
 
@@ -68,6 +67,7 @@ If you want to make bullets a little closer together to make spaceadd the `class
 - Hi
 - There
 - I need space
+
 </div>
 ```
 

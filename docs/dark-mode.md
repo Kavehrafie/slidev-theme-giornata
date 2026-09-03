@@ -107,7 +107,7 @@ Use the `<LightOrDark>` component to show different images:
 All Giornata components (StickyNote, Admonition, SpeechBubble, etc.) automatically adapt to dark mode when using color schemes:
 
 ```vue
-<StickyNote color="amber-light" title="Note">
+<StickyNote color="amber" title="Note">
   This sticky note will look great in both modes!
 </StickyNote>
 ```

@@ -1,62 +1,70 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
 import { compute_color_scheme } from '../layoutHelper'
+import Quote from '../components/Quote.vue'
+
+// Full-slide wrapper around the Quote component. Old frontmatter props
+// (color/author/quotesize/authorsize) keep working; the `quote`/`author`
+// named slots (previously silently dropped) are now honored.
 const props = withDefaults(
   defineProps<{
     color?: string
     colorMode?: string
     author?: string | null
+    work?: string | null
+    year?: string | number | null
+    reveal?: string
     quotesize?: string
     authorsize?: string
   }>(),
   {
     color: 'light',
     author: null,
-    quotesize: 'text-2xl',
-    authorsize: 'text-l',
+    work: null,
+    year: null,
+    reveal: 'highlight',
+    quotesize: 'text-4xl',
+    authorsize: 'text-base',
   },
 )
 
+const slots = useSlots()
+
 const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
+
+// `:: quote::` named slot wins over the default slot; `:: author::` (when
+// present) overrides the composed author/work/year attribution. Slot presence
+// is static per slide, so plain consts suffice.
+const use_quote_slot = !!slots.quote
+const has_author_slot = !!slots.author
 </script>
+
 <template>
-  <div class="slidev-layout quote">
-    <div class="my-auto">
-      <div class="p-5 w-95% ml-auto mr-auto rounded-lg border-1px quotecolor" :class="colorscheme">
-        <div class="leading-normal" :class="quotesize">
-          <slot name="default" /><br />
-          <div v-if="author !== null" class="quote_author" :class="authorsize">- {{ author }}</div>
-        </div>
-      </div>
-    </div>
+  <div class="slidev-layout quote" :class="colorscheme">
+    <Quote
+      :color="color"
+      :color-mode="colorMode"
+      :author="author"
+      :work="work"
+      :year="year"
+      :reveal="reveal"
+      :quote-size="quotesize"
+      :author-size="authorsize"
+    >
+      <template #default>
+        <slot v-if="use_quote_slot" name="quote" />
+        <slot v-else />
+      </template>
+      <template v-if="has_author_slot" #author>
+        <slot name="author" />
+      </template>
+    </Quote>
   </div>
 </template>
 
 <style>
-.quotecolor {
-  background-color: var(--giornata-bg-color);
-  color: var(--giornata-text-color);
-  border-color: var(--giornata-border-color);
-  /* add a drop shadow */
-  box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.quote_author {
-  font-family: var(--giornata-title-font);
-  font-weight: 400;
-  text-align: right;
-}
-
 .slidev-layout.quote {
-  margin-top: 2em;
-  padding-left: 1em;
-}
-
-.slidev-layout.quote p {
-  font-size: 1.5em;
-  font-family: var(--giornata-quote-font);
-  line-height: 1.2em;
-  font-weight: 400;
-  text-align: left;
+  place-content: center;
+  padding: 2rem 4.5rem;
 }
 </style>

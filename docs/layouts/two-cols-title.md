@@ -172,7 +172,7 @@ align: c-rm-lt
 color: dark
 ---
 
-<StickyNote color="amber-light" textAlign="left" width="180px" title="Hi" v-drag="[689,277,180,180,18]">
+<StickyNote color="amber" textAlign="left" width="180px" title="Hi" v-drag="[689,277,180,180,18]">
 
 Hello, I'm a **sticky note**.
 </StickyNote>

@@ -21,6 +21,7 @@
     "*.vue",
     "setup/**/*.ts",
     "styles/**/*.ts",
+    "components/**/*.ts",
     "components/**/*.vue",
     "layouts/**/*.vue"
   ],

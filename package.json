@@ -1,7 +1,9 @@
 {
   "name": "slidev-theme-giornata",
-  "version": "0.4.1",
-  "author": "gureckis",
+  "version": "0.1.0",
+  "author": "Kaveh Rafie",
+  "description": "A Slidev theme for teaching art history — color schemes, layouts, sticky notes, admonitions, and more.",
+  "license": "MIT",
   "type": "module",
   "keywords": [
     "slidev-theme",
@@ -51,6 +53,16 @@
     "colorSchema": "both",
     "highlighter": "all"
   },
+  "files": [
+    "layouts",
+    "components",
+    "styles",
+    "setup",
+    "layoutHelper.ts",
+    "uno.config.ts",
+    "vite.config.ts",
+    "env.d.ts"
+  ],
   "devDependencies": {
     "@slidev/cli": "^52.18.0",
     "@types/geojson": "^7946.0.0",

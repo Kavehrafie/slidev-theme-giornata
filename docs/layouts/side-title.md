@@ -112,7 +112,7 @@ Renders as:
 ---
 layout: side-title
 side: r
-color: pink-light
+color: pink
 titlewidth: is-6
 align: lm-lb
 title: Side Title Layout (Another)
@@ -140,7 +140,7 @@ Renders as:
 ---
 layout: side-title
 side: l
-color: amber-light
+color: amber
 titlewidth: is-6
 align: lt-lb
 ---
@@ -165,7 +165,7 @@ and the left column `lt` (left-top) and the right column `lb` (left-bottom) alig
 ---
 layout: side-title
 side: l
-color: green-light
+color: green
 titlewidth: is-3
 align: auto
 ---

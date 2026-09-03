@@ -36,31 +36,33 @@ const values = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]
 const prefixes = ['fill-', 'fg-', 'bg-', 'text-', 'color-', 'border-']
 
 // Per-color hue + chroma for the relational scheme system.
-// Each value is the perceptual hue (OKLCH H) and a baseline chroma (OKLCH C).
+// Each value is the perceptual hue (OKLCH H), a baseline chroma (OKLCH C),
+// and an explicit short name (must be unique — no first-2-char collision like
+// gray/green both mapping to "gr").
 // Mode offsets in styles/theme-tokens.css rotate the hue for text/border/accent.
-const schemeHues: Record<string, { hue: number; chroma: number }> = {
-  red: { hue: 25, chroma: 0.18 },
-  orange: { hue: 45, chroma: 0.17 },
-  amber: { hue: 65, chroma: 0.16 },
-  yellow: { hue: 90, chroma: 0.16 },
-  lime: { hue: 125, chroma: 0.16 },
-  green: { hue: 145, chroma: 0.16 },
-  emerald: { hue: 160, chroma: 0.15 },
-  teal: { hue: 175, chroma: 0.12 },
-  cyan: { hue: 195, chroma: 0.13 },
-  sky: { hue: 215, chroma: 0.15 },
-  blue: { hue: 245, chroma: 0.18 },
-  indigo: { hue: 265, chroma: 0.18 },
-  violet: { hue: 285, chroma: 0.18 },
-  purple: { hue: 305, chroma: 0.17 },
-  fuchsia: { hue: 325, chroma: 0.16 },
-  pink: { hue: 355, chroma: 0.15 },
-  rose: { hue: 15, chroma: 0.16 },
-  slate: { hue: 250, chroma: 0.04 },
-  gray: { hue: 0, chroma: 0.015 },
-  zinc: { hue: 0, chroma: 0.015 },
-  neutral: { hue: 0, chroma: 0.0 },
-  stone: { hue: 60, chroma: 0.015 },
+const schemeHues: Record<string, { hue: number; chroma: number; short: string }> = {
+  red: { hue: 25, chroma: 0.18, short: 're' },
+  orange: { hue: 45, chroma: 0.17, short: 'or' },
+  amber: { hue: 65, chroma: 0.16, short: 'am' },
+  yellow: { hue: 90, chroma: 0.16, short: 'ye' },
+  lime: { hue: 125, chroma: 0.16, short: 'li' },
+  green: { hue: 145, chroma: 0.16, short: 'gn' },
+  emerald: { hue: 160, chroma: 0.15, short: 'em' },
+  teal: { hue: 175, chroma: 0.12, short: 'te' },
+  cyan: { hue: 195, chroma: 0.13, short: 'cy' },
+  sky: { hue: 215, chroma: 0.15, short: 'sk' },
+  blue: { hue: 245, chroma: 0.18, short: 'bl' },
+  indigo: { hue: 265, chroma: 0.18, short: 'in' },
+  violet: { hue: 285, chroma: 0.18, short: 'vi' },
+  purple: { hue: 305, chroma: 0.17, short: 'pu' },
+  fuchsia: { hue: 325, chroma: 0.16, short: 'fu' },
+  pink: { hue: 355, chroma: 0.15, short: 'pi' },
+  rose: { hue: 15, chroma: 0.16, short: 'ro' },
+  slate: { hue: 250, chroma: 0.04, short: 'sl' },
+  gray: { hue: 0, chroma: 0.015, short: 'gy' },
+  zinc: { hue: 0, chroma: 0.015, short: 'zi' },
+  neutral: { hue: 0, chroma: 0.0, short: 'ne' },
+  stone: { hue: 60, chroma: 0.015, short: 'st' },
 }
 
 // Function to generate classes
@@ -81,15 +83,10 @@ const generateColors = (prefixes: string[], colors: string[], values: number[]):
 // (e.g. 'var(--giornata-l-regular-bg)') so the same scheme can retune for
 // dark mode via cascade. `hueMode` selects whether the hue gets the mode
 // offset applied (text/border/accent) or stays on the scheme's primary hue.
-const oklch = (
-  L: number | string,
-  C: number,
-  hueMode: 'primary' | 'text' | 'border',
-) => {
+const oklch = (L: number | string, C: number, hueMode: 'primary' | 'text' | 'border') => {
   const hueVar = '--giornata-scheme-hue'
   if (hueMode === 'primary') return `oklch(${L} ${C} var(${hueVar}))`
-  const offsetVar =
-    hueMode === 'text' ? '--giornata-mode-text-offset' : '--giornata-mode-border-offset'
+  const offsetVar = hueMode === 'text' ? '--giornata-mode-text-offset' : '--giornata-mode-border-offset'
   return `oklch(${L} ${C} calc(var(${hueVar}) + var(${offsetVar})))`
 }
 
@@ -184,42 +181,26 @@ const generate_color_schemes = () => {
   })
 
   // Per-color relational schemes — all derived from hue + chroma.
-  // L targets come from CSS vars (var(--giornata-l-{role})) so the same
-  // rule works in light and dark: html.dark just overrides the L vars.
-  for (const [colorName, { hue, chroma }] of Object.entries(schemeHues)) {
-    const shortColor = colorName.slice(0, 2)
+  // Each color has ONE scheme. In Slidev light mode the L-targets yield a
+  // light tinted bg with dark text; in dark mode (html.dark) the same L-target
+  // vars are overridden to yield a dark saturated bg with light text.
+  // No separate -light variants needed.
+  for (const [colorName, { hue, chroma, short: shortColor }] of Object.entries(schemeHues)) {
     const c = chroma // baseline chroma
     const cSoft = chroma * 0.7 // softer chroma for borders / large fills
-    const cTint = chroma * 0.2 // very low chroma for tinted backgrounds
 
-    // Regular scheme: dark-ish colored bg + near-white text.
     addScheme(`giornata-${colorName}-scheme`, `g-c-${shortColor}-scheme`, {
       '--giornata-scheme-hue': String(hue),
-      '--giornata-bg-color': oklch('var(--giornata-l-regular-bg)', c, 'primary'),
-      '--giornata-bg-code-color': oklch('var(--giornata-l-regular-bg-code)', c * 0.9, 'primary'),
-      '--giornata-fg-code-color': oklch('var(--giornata-l-regular-text)', 0.01, 'primary'),
-      '--giornata-fg-color': oklch('var(--giornata-l-regular-text)', 0.01, 'text'),
-      '--giornata-text-color': oklch('var(--giornata-l-regular-text)', 0.01, 'text'),
-      '--giornata-border-color': oklch('var(--giornata-l-regular-border)', cSoft, 'border'),
+      '--giornata-bg-color': oklch('var(--giornata-l-bg)', c, 'primary'),
+      '--giornata-bg-code-color': oklch('var(--giornata-l-bg-code)', c * 0.9, 'primary'),
+      '--giornata-fg-code-color': oklch('var(--giornata-l-text)', 0.01, 'primary'),
+      '--giornata-fg-color': oklch('var(--giornata-l-text)', 0.01, 'text'),
+      '--giornata-text-color': oklch('var(--giornata-l-text)', 0.01, 'text'),
+      '--giornata-border-color': oklch('var(--giornata-l-border)', cSoft, 'border'),
       '--giornata-highlight-color': 'var(--giornata-mode-accent-color)',
-      '--giornata-admon-bg-color': oklch('var(--giornata-l-regular-bg)', c, 'primary'),
-      '--giornata-admon-border-color': oklch('var(--giornata-l-regular-admon-border)', cSoft, 'border'),
-      '--giornata-admon-text-color': oklch('var(--giornata-l-regular-text)', 0.01, 'text'),
-    })
-
-    // Light scheme: near-white tinted bg + dark colored text.
-    addScheme(`giornata-${colorName}-light-scheme`, `g-c-${shortColor}-lt-scheme`, {
-      '--giornata-scheme-hue': String(hue),
-      '--giornata-bg-color': oklch('var(--giornata-l-light-bg)', cTint, 'primary'),
-      '--giornata-bg-code-color': oklch('var(--giornata-l-light-bg-code)', cTint * 1.5, 'primary'),
-      '--giornata-fg-code-color': oklch('var(--giornata-l-light-text)', c, 'primary'),
-      '--giornata-fg-color': oklch('var(--giornata-l-light-text)', c, 'text'),
-      '--giornata-text-color': oklch('var(--giornata-l-light-text)', c, 'text'),
-      '--giornata-border-color': oklch('var(--giornata-l-light-border)', cSoft, 'border'),
-      '--giornata-highlight-color': 'var(--giornata-mode-accent-color)',
-      '--giornata-admon-bg-color': oklch('var(--giornata-l-light-bg)', cTint, 'primary'),
-      '--giornata-admon-border-color': oklch('var(--giornata-l-light-admon-border)', cSoft, 'border'),
-      '--giornata-admon-text-color': oklch('var(--giornata-l-light-text)', c, 'text'),
+      '--giornata-admon-bg-color': oklch('var(--giornata-l-bg)', c, 'primary'),
+      '--giornata-admon-border-color': oklch('var(--giornata-l-admon-border)', cSoft, 'border'),
+      '--giornata-admon-text-color': oklch('var(--giornata-l-text)', 0.01, 'text'),
     })
   }
 

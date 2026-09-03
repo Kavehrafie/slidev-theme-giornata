@@ -13,7 +13,7 @@ The `SpeechBubble` component is used to create a colored bubble with a speech bu
 - `position` (optional). Default value is `b`. Options are `t` (top), `b` (bottom), `l` (left), `r` (right), `tl` (top left), `tr` (top right), `bl` (bottom left), `br` (bottom right).
 - `shape` (optional). Default value is `''`. Options are `round` and `circle` which affect the corner radius of the bubble.
 - `animation` (optional). Default value is `''`. Options are `pop` and `float`
-- `color` (optional) can be any of the [color scheme](/colors) options. If not provided, the default color is `red-light`.
+- `color` (optional) can be any of the [color scheme](/colors) options. If not provided, the default color is `red`.
 - `textAlign` (optional) the text alignment of the content. Default is `left`.
 - `maxWidth` (optional) the maximum width of the speech bubble. Default is `100%`.
 - `borderWidth` (optional) the width of the border. Default is `1px`.

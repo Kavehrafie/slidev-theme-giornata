@@ -9,6 +9,7 @@ import './base.css'
 import './colors.css'
 import './giornata-c.css'
 import './dark-mode.css'
+import './view-transitions.css'
 
 // import './code.css'
 // import './layout.css'

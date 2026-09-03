@@ -19,7 +19,7 @@ Example:
 ```yaml
 ---
 layout: quote
-color: sky-light
+color: sky
 quotesize: text-m
 authorsize: text-s
 author: 'Todd Gureckis'
@@ -37,7 +37,7 @@ This slide just uses the default slot for the quote. Additional formatting can b
 ```md
 ---
 layout: quote
-color: sky-light
+color: sky
 quotesize: text-m
 authorsize: text-s
 author: 'Todd Gureckis'

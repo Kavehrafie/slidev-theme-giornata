@@ -18,32 +18,32 @@ const admontype = computed(() => {
       return {
         icon: 'mdi-message-alert-outline',
         title: 'Important',
-        color: 'purple-light',
+        color: 'purple',
       }
     case 'tip':
       return {
         icon: 'mdi-lightbulb-outline',
         title: 'Tip',
-        color: 'emerald-light',
+        color: 'emerald',
       }
     case 'warning':
       return {
         icon: 'mdi-alert-outline',
         title: 'Warning',
-        color: 'amber-light',
+        color: 'amber',
       }
     case 'caution':
       return {
         icon: 'mdi-alert-octagon-outline',
         title: 'Caution',
-        color: 'red-light',
+        color: 'red',
       }
     case 'info':
     default:
       return {
         icon: 'mdi-information-variant-circle-outline',
         title: 'Note',
-        color: 'sky-light',
+        color: 'sky',
       }
   }
 })

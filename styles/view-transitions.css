@@ -1,0 +1,40 @@
+/* View-transition choreography.
+ *
+ * Slidev's `transition: view-transition` calls document.startViewTransition()
+ * with no options, so every group runs on the UA defaults (250ms). That is
+ * fast enough to read as an instant snap for full-slide changes (black cover
+ * slide -> indigo comparison slide) even though the artwork morph itself looks
+ * fine at that speed.
+ *
+ * Everything not captured under a view-transition-name -- backgrounds, text,
+ * secondary images -- lands in the implicit root group as a raster snapshot
+ * pair. Snapshots can only be cross-faded, never color-interpolated, so the
+ * best available move is to retime the fades and the artwork group geometry
+ * to the same duration and easing, giving one coherent shot instead of
+ * "image glides, everything else blinks".
+ *
+ * These pseudo-elements only exist while a transition is running, so the
+ * rules are inert in decks that don't opt into view transitions.
+ */
+
+:root {
+  --giornata-vt-duration: 500ms;
+  --giornata-vt-ease: cubic-bezier(0.22, 1, 0.36, 1); /* easeOutQuint-like */
+}
+
+/* Geometry of each named group (the artwork morph) plus the old/new snapshot
+ * fades inside it -- root included, which is where background and text live. */
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: var(--giornata-vt-duration);
+  animation-timing-function: var(--giornata-vt-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 1ms;
+  }
+}

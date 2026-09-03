@@ -15,7 +15,7 @@ The `layout: section` is used to provide a break between sections of a talk. Thi
 ```yaml
 ---
 layout: section
-color: sky-light
+color: sky
 ---
 ```
 

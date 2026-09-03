@@ -14,20 +14,10 @@ A [Slidev](https://sli.dev) theme designed by **Todd Gureckis**
 _New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 ---
-layout: side-title
 color: amber
-align: rm-lm
 ---
 
-:: title ::
-
-# Slidev Giornata Theme
-
-:: content ::
-
-Giornata is theme for education and academic presentations. It is designed to be bright, flat, minimal, and easy to read. It is based on the default Slidev theme but with some additional features and color schemes that have reference in the [metropolis](https://github.com/matze/mtheme) Beamer theme among others.
-
-It is a fork of the [Neversink](https://github.com/gureckis/slidev-theme-neversink) theme by Todd Gureckis (itself named for the [Neversink River](https://en.wikipedia.org/wiki/Neversink_River)). **Giornata** is named after the fresco-painting term for a day's work.
+<Toc minDepth="1" maxDepth="1" columns="3" />
 
 ---
 layout: default
@@ -71,54 +61,6 @@ Then you are basically ready to go!
 layout: default
 ---
 
-# Color schemes
-
-Let's start with colors.
-
-The project uses tailwind-like color schemes arranged in ==monochromatic pairs==. These boxes show the options and names:
-
-**B&W**:
-
-<div class="leading-[1.5em]">
-<span class="text-white bg-black p-1 pl-3 pr-3 m-1 rounded font-size-3">black</span>
-<span class="text-black bg-white border-1 border-solid border-black p-1 pl-3 pr-3 m-1 rounded font-size-3">white</span>
-<span class="text-gray-100 bg-gray-800 p-1 pl-3 pr-3 m-1 rounded font-size-3">dark</span>
-<span class="text-gray-800 bg-gray-100 p-1 pl-3 pr-3 m-1 rounded font-size-3">light</span>
-
-</div>
-
-**Light**:
-
-<div class="leading-[1.5em]">
-<span class="bg-slate-100 text-slate-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">slate-light</span>
-<span class="bg-gray-100 text-gray-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">gray-light</span>
-<span class="bg-zinc-100 text-zinc-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">zinc-light</span>
-<span class="bg-neutral-100 text-neutral-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">neutral-light</span>
-<span class="bg-stone-100 text-stone-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">stone-light</span>
-<span class="bg-red-100 text-red-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">red-light</span>
-<span class="bg-orange-100 text-orange-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">orange-light</span>
-<span class="bg-amber-100 text-amber-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">amber-light</span>
-<span class="bg-yellow-100 text-yellow-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">yellow-light</span><br />
-<span class="bg-lime-100 text-lime-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">lime-light</span>
-<span class="bg-green-100 text-green-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">green-light</span>
-<span class="bg-emerald-100 text-emerald-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">emerald-light</span>
-<span class="bg-teal-100 text-teal-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">teal-light</span>
-<span class="bg-cyan-100 text-cyan-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">cyan-light</span>
-<span class="bg-sky-100 text-sky-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">sky-light</span>
-<span class="bg-blue-100 text-blue-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">blue-light</span>
-<span class="bg-indigo-100 text-indigo-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">indigo-light</span>
-<span class="bg-violet-100 text-violet-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">violet-light</span><br />
-<span class="bg-purple-100 text-purple-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">purple-light</span>
-<span class="bg-pink-100 text-pink-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">pink-light</span>
-<span class="bg-rose-100 text-rose-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">rose-light</span>
-<span class="bg-fuchsia-100 text-fuchsia-500 p-1 pl-3 pr-3 m-1 rounded font-size-3">fuchsia-light</span>
-<span class="bg-gray-50 text-navy-900 p-1 pl-3 pr-3 m-1 rounded font-size-3">navy-light</span>
-</div>
-
----
-layout: default
----
-
 # Color schemes — Regular
 
 <div class="leading-[1.5em]">
@@ -153,11 +95,11 @@ layout: default
 
 # Color schemes
 
-In many parts of the theme you can use the color schemes to help choose matching colors for your slides. For example, we can make a slide with a sticky note using the `rose-light` color scheme, the `sky` color scheme, or the `amber-light` color scheme:
+In many parts of the theme you can use the color schemes to help choose matching colors for your slides. For example, we can make a slide with a sticky note using the `rose` color scheme, the `sky` color scheme, or the `amber` color scheme:
 
-<StickyNote color="rose-light" textAlign="left" width="180px" v-drag="[122,253,180,180,-14]">
+<StickyNote color="rose" textAlign="left" width="180px" v-drag="[122,253,180,180,-14]">
 
-Hello, I'm a **redish sticky note** using `rose-light`.
+Hello, I'm a **redish sticky note** using `rose`.
 </StickyNote>
 
 <StickyNote color="sky" textAlign="left" width="180px"  v-drag="[389,251,180,180,9]">
@@ -165,19 +107,19 @@ Hello, I'm a **redish sticky note** using `rose-light`.
 Hello, I'm a **blueish sticky note** using `sky`.
 </StickyNote>
 
-<StickyNote color="amber-light" textAlign="left" width="180px"  v-drag="[650,253,180,180,-9]">
+<StickyNote color="amber" textAlign="left" width="180px"  v-drag="[650,253,180,180,-9]">
 
-Hello, I'm a **yellowish sticky note** using `amber-light`.
+Hello, I'm a **yellowish sticky note** using `amber`.
 </StickyNote>
 
 ---
 layout: side-title
-color: emerald-light
+color: emerald
 align: rm-lm
 titlewidth: is-3
 ---
 
-<StickyNote color="emerald-light" textAlign="left" width="180px"  v-drag="[719,291,180,180,16]">
+<StickyNote color="emerald" textAlign="left" width="180px"  v-drag="[719,291,180,180,16]">
 
 Don't worry if you don't understand all the details, yet we are still talking about **color schemes**.
 </StickyNote>
@@ -188,12 +130,12 @@ Don't worry if you don't understand all the details, yet we are still talking ab
 
 :: content ::
 
-Or we can use the `emerald-light` scheme in a slide layout to set the overall color and style of a slide with a matching sticky note:
+Or we can use the `emerald` scheme in a slide layout to set the overall color and style of a slide with a matching sticky note:
 
 ```md
 ---
 layout: side-title
-color: emerald-light
+color: emerald
 align: rm-lm
 titlewidth: is-3
 ---
@@ -326,12 +268,12 @@ align: l
 ---
 ```
 
-The previous slide used the `side-title` layout with the `emerald-light` color scheme. You can see the frontmatter for that slide below:
+The previous slide used the `side-title` layout with the `emerald` color scheme. You can see the frontmatter for that slide below:
 
 ```md
 ---
 layout: side-title
-color: emerald-light
+color: emerald
 align: rm-lm
 titlewidth: is-3
 ---
@@ -339,7 +281,7 @@ titlewidth: is-3
 
 ---
 layout: top-title-two-cols
-color: amber-light
+color: amber
 align: l-lt-lt
 ---
 
@@ -375,7 +317,7 @@ Slots effectively help you map parts of your slide to different parts of a layou
 
 ---
 layout: top-title
-color: amber-light
+color: amber
 align: lt
 ---
 
@@ -486,7 +428,7 @@ _New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink
 
 ---
 layout: cover
-color: amber-light
+color: amber
 ---
 
 # This is the `cover` layout
@@ -498,7 +440,7 @@ _New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink
 
 <div class="fw-200" >
 
-\* Here we set `color: amber-light` in the frontmatter. Notice how the color scheme brings along many of the elements on the page.
+\* Here we set `color: amber` in the frontmatter. Notice how the color scheme brings along many of the elements on the page.
 
 </div>
 
@@ -522,7 +464,7 @@ _New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink
 
 ---
 layout: intro
-color: emerald-light
+color: emerald
 ---
 
 # This is the `intro` layout
@@ -533,7 +475,7 @@ _New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink
 <br />
 
 This is like the cover slide but with a little less decoration.
-It also has a frontmatter option of `color: emerald-light`.
+It also has a frontmatter option of `color: emerald`.
 
 ---
 layout: default
@@ -644,13 +586,62 @@ You can use HTML and inline CSS to modify the look and feel.
 
 ---
 layout: quote
-color: sky-light
+color: sky
 quotesize: text-sm
 authorsize: text-sm
 author: 'Todd Gureckis'
 ---
 
 "This is a quote slide. It has a frontmatter option of `quote` which is the text that appears in the quote box and `author` and options for the size of the text(`quotesize: text-2xl` and `authorsize: text-l`). I feel it is a little uninspired but might save you some time."
+
+---
+layout: two-cols
+color: emerald
+---
+
+# Quote, inline
+
+The same engine as the `quote` layout, dropped into any slide. Click through the reveal:
+
+<Quote
+color="emerald"
+author="John Berger"
+work="Ways of Seeing"
+year="1972"
+reveal="appear"
+quote-size="text-2xl"
+
+>
+
+Seeing comes before words. %% The child looks %% and recognizes ==before it can speak==.
+</Quote>
+
+:: right::
+
+## How it works
+
+- `%%` marks chunk boundaries — one chunk per click
+- `reveal="appear"` fades chunks in
+- `reveal="highlight"` (default) keeps the whole quote visible and moves an accent wash through it, like line highlighting in a code block
+- `==marked phrases==` stay emphasized regardless of clicks
+- the attribution is its own final click
+
+---
+layout: default
+color: sky
+---
+
+# Quotes as code blocks
+
+A ` ```quote ` fence gets the quotation look plus native code-block machinery — `{1|2|3|4}` steps the wash line by line on click:
+
+```quote {1|2|3|4}
+Even the most perfect reproduction of a work of art
+is lacking in one element:
+its ==presence in time and space==,
+its unique existence at the place where it happens to be.
+-- Walter Benjamin, _The Work of Art in the Age of Mechanical Reproduction_, 1935
+```
 
 ---
 layout: full
@@ -673,12 +664,12 @@ title: Full with Arbitrary Layout
 
 <div class='v-full h-full'>
 
-<SpeechBubble position="l" shape="round"  color='pink-light' v-drag="[555,342,274,58]">
+<SpeechBubble position="l" shape="round"  color='pink' v-drag="[555,342,274,58]">
 
 Hello, I'm an **ice cream**!
 </SpeechBubble>
 
-<SpeechBubble position="bl" shape="round"  color='emerald-light' v-drag="[445,258,274,57]">
+<SpeechBubble position="bl" shape="round"  color='emerald' v-drag="[445,258,274,57]">
 
 Hello, I'm **kawaii**.
 </SpeechBubble>
@@ -803,7 +794,7 @@ This one has `speed: 4.0` and `loop: true` in the front matter
 </div>
 <div class="grid-item text-right mr-4 col-span-1"><strong>Study 1</strong></div>
 <div class="grid-item col-span-2">Person 1 <i>as PhD student</i>&nbsp;<mdi-open-in-new class="font-size-3 mb-0.5" /><br/>Person 2 <i>as Co-PI</i>&nbsp;<mdi-open-in-new class="font-size-3 mb-0.5" /></div>
-<div class="grid-item text-right mr-4 col-span-1"><strong>Study 2</strong></div>
+<div class="grid-item text-right mr-4 col-span<SessionChrome />-1"><strong>Study 2</strong></div>
 <div class="grid-item col-span-2">Person 3 <i>as Postdoc</i>&nbsp;<mdi-open-in-new class="font-size-3 mb-0.5" /><br/>Person 4 <i>as Co-PI</i>&nbsp;<mdi-open-in-new class="font-size-3 mb-0.5" /></div>
 <div class="grid-item text-right mr-4 col-span-1"><strong>Experiments</strong></div>
 <div class="grid-item col-span-2">Smile 🫠</div>
@@ -1085,7 +1076,7 @@ align: rm-lm
 ---
 layout: side-title
 side: r
-color: pink-light
+color: pink
 titlewidth: is-6
 align: lm-lb
 title: Side Title Layout (Another)
@@ -1103,7 +1094,7 @@ This is `layout: side-title` with `side: right` in the front matter.
 
 ```yaml
 side: right
-color: pink-light
+color: pink
 titlewidth: is-6
 align: lm-lb
 ```
@@ -1182,7 +1173,7 @@ dragPos:
   "'admon'": 55,300,287,106
 ---
 
-<Admonition title="draggable admonition" color='teal-light' width="300px" v-drag="[93,303,300,145,-14]">
+<Admonition title="draggable admonition" color='teal' width="300px" v-drag="[93,303,300,145,-14]">
 If you want to drag an admonition, you should set the width to a fixed value.
 </Admonition>
 
@@ -1194,7 +1185,7 @@ If you want to drag an admonition, you should set the width to a fixed value.
 
 - Admonitions are boxes that you can use to call out things.
 
-<Admonition title="Custom title" color='amber-light'>
+<Admonition title="Custom title" color='amber'>
 This is my admon message
 </Admonition>
 
@@ -1248,7 +1239,7 @@ Hello, I'm a **speech bubble**! I'm a longer speech bubble. I'm still going.
 
 :: right ::
 
-<SpeechBubble position="bl" color='amber-light' shape="round">
+<SpeechBubble position="bl" color='amber' shape="round">
 
 Hello, I'm a **speech bubble**! I'm a longer speech bubble. I'm still going.
 Hello, I'm a **speech bubble**! I'm a longer speech bubble. I'm still going.
@@ -1260,22 +1251,22 @@ layout: default
 title: Sticky Notes
 ---
 
-<StickyNote color="amber-light" textAlign="left" width="180px" title="Title" v-drag="[66,318,185,171]">
+<StickyNote color="amber" textAlign="left" width="180px" title="Title" v-drag="[66,318,185,171]">
 
 Hello, I'm a **sticky note**.
 </StickyNote>
 
-<StickyNote color="sky-light" textAlign="left" width="180px" title="This is my title" v-drag="[304,295,180,180,-15]">
+<StickyNote color="sky" textAlign="left" width="180px" title="This is my title" v-drag="[304,295,180,180,-15]">
 
 Hello, I'm also a **sticky note** but am blue sky title.
 </StickyNote>
 
-<StickyNote color="pink-light" textAlign="left" width="180px"  v-drag="[549,292,185,171,8]">
+<StickyNote color="pink" textAlign="left" width="180px"  v-drag="[549,292,185,171,8]">
 
 Hello, I'm also a **sticky note** but I lack a title.
 </StickyNote>
 
-<StickyNote color="emerald-light" textAlign="left" width="180px" title="This is my
+<StickyNote color="emerald" textAlign="left" width="180px" title="This is my
 title" customTitle="font-size-6" custom="font-size-2"
 v-drag="[749,292,185,171,-8]">
 
@@ -1288,7 +1279,7 @@ Hello, I'm also a **sticky note** but I'm customized with a title and a custom c
 - Syntax is
 
 ```js
-<StickyNote color="amber-light" textAlign="left" width="180px" title="Title" v-drag>
+<StickyNote color="amber" textAlign="left" width="180px" title="Title" v-drag>
   Hello, I'm a **sticky note**.
 </StickyNote>
 ```
@@ -1300,7 +1291,7 @@ title: Dev-Only Sticky Notes
 
 # Dev-Only Sticky Notes
 
-<StickyNote color="rose-light" textAlign="left" width="200px" title="Dev Note" devOnly v-drag="[650,150,200,200]">
+<StickyNote color="rose" textAlign="left" width="200px" title="Dev Note" devOnly v-drag="[650,150,200,200]">
 
 This note only appears in **dev mode**! It won't show in exports or production builds.
 </StickyNote>
@@ -1308,7 +1299,7 @@ This note only appears in **dev mode**! It won't show in exports or production b
 Use the `devOnly` prop to create sticky notes that only appear during development. These are perfect for speaker notes, reminders, or TODOs that you don't want in your final presentation.
 
 ```vue
-<StickyNote color="rose-light" title="Dev Note" devOnly>
+<StickyNote color="rose" title="Dev Note" devOnly>
   This note only appears in dev mode!
 </StickyNote>
 ```
@@ -1948,11 +1939,11 @@ color: navy
 
 :: quote::
 
-# "The image survives the dynasty."
+The ==image survives%% the dynasty==. %% After the Mughals came the British; after the Fatimids came the Ayyubids. %% ==Stone minarets and white-marble tombs== outlasted both.
 
 :: author::
 
-After the Mughals came the British; after the Fatimids came the Ayyubids. The images — stone minarets and white-marble tombs — outlasted both.
+the closing epigraph of the timeline lecture — the quote is visible whole, each click washes the next phrase, and this line is the final click
 
 ---
 layout: cover
@@ -2043,6 +2034,7 @@ color: black
 ---
 layout: two-cols
 color: indigo
+transition: fade
 ---
 
 ::left::

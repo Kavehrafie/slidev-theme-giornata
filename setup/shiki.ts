@@ -7,8 +7,5 @@ export default defineShikiSetup(() => {
       dark: 'slack-dark',
       light: 'snazzy-light',
     },
-    transformers: [
-      // ...
-    ],
   }
 })

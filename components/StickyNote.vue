@@ -5,7 +5,7 @@ import { compute_color_scheme } from '../layoutHelper'
 const props = defineProps({
   color: {
     type: String,
-    default: 'amber-light',
+    default: 'amber',
   },
   colorMode: {
     type: String,

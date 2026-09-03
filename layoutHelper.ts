@@ -177,7 +177,7 @@ export function compute_column_size(val: string): ColumnSize | 'error' {
 /**
  * Build the class string for a color + optional mode.
  *
- * `color` is a scheme name like "red", "amber-light", "navy".
+ * `color` is a scheme name like "red", "amber", "navy".
  * `mode` is one of "mono" (default), "complement", "analogous", "triadic".
  * Returns the base scheme class plus the mode class when mode is non-default.
  */

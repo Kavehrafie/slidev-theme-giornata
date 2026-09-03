@@ -32,18 +32,18 @@ But of course you can customise it:
 <Box shape='r-d-8-0' width='200px' custom='m-10 ' />
 
 ```vue
-<Box shape="f-o-5-0" color="sky-light" custom="m-10" />
+<Box shape="f-o-5-0" color="sky" custom="m-10" />
 ```
 
-<Box shape='f-o-5-0' color='sky-light' custom='m-10' />
+<Box shape='f-o-5-0' color='sky' custom='m-10' />
 
 more transparent:
 
 ```vue
-<Box shape="f-o-5-75" color="sky-light" custom="m-10" />
+<Box shape="f-o-5-75" color="sky" custom="m-10" />
 ```
 
-<Box shape='f-o-5-75' color='sky-light' custom='m-10' />
+<Box shape='f-o-5-75' color='sky' custom='m-10' />
 
 If can include text as well using a slot
 

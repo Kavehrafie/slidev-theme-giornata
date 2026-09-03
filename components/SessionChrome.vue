@@ -68,12 +68,10 @@ const colorClasses = computed(() => {
   if (color === 'navy') return { fg: 'text-gray-300', bg: 'bg-gray-600' }
   if (color === 'light') return { fg: 'text-neutral-600', bg: 'bg-neutral-300' }
 
-  if (color.includes('-light')) {
-    const parts = color.split('-')
-    const base = parts[0]
-    return { fg: `text-${base}-100`, bg: `bg-${base}-500` }
-  }
-
+  // Per-color schemes: chip gets dark fg on light bg (in light mode).
+  // Schemes now auto-adapt to dark mode via L-target vars, so the chip
+  // will be on a dark bg in dark mode — Tailwind classes provide a
+  // reasonable fallback.
   return { fg: `text-${color}-500`, bg: `bg-${color}-100` }
 })
 

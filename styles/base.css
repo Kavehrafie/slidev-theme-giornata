@@ -2,7 +2,7 @@
   --giornata-title-font: 'Inter', sans-serif;
   --giornata-main-font: 'Inter', sans-serif;
   --giornata-mono-font: 'Fira Code', monospace;
-  --giornata-quote-font: 'Fira Code', monospace;
+  --giornata-quote-font: 'EB Garamond', Georgia, 'Times New Roman', serif;
   --font-mono: 'Courier New', Courier, monospace;
   color-scheme: light only; /* prevent browser dark mode auto-adjustments */
   @apply giornata-white-scheme; /* apply the default white scheme everywhere */
@@ -238,3 +238,114 @@ html:not(.dark) {
   max-height: 100%;
   object-fit: contain;
 }
+
+/* ============================================================
+   Quotations — blockquote look with accent rule and comma-quote
+   glyphs. Applies to markdown `>` quotes and the Quote component's
+   blockquote alike. The glyphs are alpha-only masked SVG painted
+   with --giornata-text-color, so they retune automatically in dark
+   mode (no black-on-dark glyphs).
+   ============================================================ */
+
+.slidev-layout,
+.giornata-quote {
+  --giornata-quote-glyph: url("data:image/svg+xml,%3Csvg viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.86,16.55a4.31,4.31,0,0,0-2.11.56,14.44,14.44,0,0,1,4.36-6,1.1,1.1,0,0,0-1.4-1.7c-4,3.25-5.78,7.75-5.78,10.54A5.08,5.08,0,0,0,10,24.58a4.4,4.4,0,0,0,1.88.44,4.24,4.24,0,1,0,0-8.47Z' fill='black'/%3E%3Cpath d='M23,16.55a4.29,4.29,0,0,0-2.11.56,14.5,14.5,0,0,1,4.35-6,1.1,1.1,0,1,0-1.39-1.7c-4,3.25-5.78,7.75-5.78,10.54a5.08,5.08,0,0,0,3,4.61A4.37,4.37,0,0,0,23,25a4.24,4.24,0,1,0,0-8.47Z' fill='black'/%3E%3C/svg%3E");
+}
+
+.slidev-layout blockquote,
+.giornata-quote blockquote {
+  position: relative;
+  padding: 0.5rem 1rem 0.5rem 3.5rem;
+  margin: 2rem 0;
+  font-family: var(--giornata-quote-font);
+  font-style: italic;
+  border-left: 5px solid var(--giornata-mode-accent-color, var(--giornata-accent));
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  color: var(--giornata-text-color);
+  animation: giornata-quote-border-in 600ms ease-out both;
+}
+
+.slidev-layout blockquote::before,
+.giornata-quote blockquote::before {
+  content: '';
+  position: absolute;
+  left: 0.3rem;
+  top: -0.5rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--giornata-text-color);
+  -webkit-mask: var(--giornata-quote-glyph) center / contain no-repeat;
+  mask: var(--giornata-quote-glyph) center / contain no-repeat;
+  opacity: 0.3;
+  animation: giornata-quote-fade-in 600ms ease-out both;
+  pointer-events: none;
+}
+
+.slidev-layout blockquote::after,
+.giornata-quote blockquote::after {
+  content: '';
+  position: absolute;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--giornata-text-color);
+  -webkit-mask: var(--giornata-quote-glyph) center / contain no-repeat;
+  mask: var(--giornata-quote-glyph) center / contain no-repeat;
+  opacity: 0.3;
+  transform: rotate(180deg);
+  animation: giornata-quote-fade-in-rotated 600ms ease-out both;
+  pointer-events: none;
+}
+
+/* wavy accent underline for <u> emphasis */
+.slidev-layout u {
+  text-decoration: underline wavy;
+  text-decoration-color: var(--giornata-mode-accent-color, var(--giornata-accent));
+}
+
+@keyframes giornata-quote-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+
+@keyframes giornata-quote-fade-in-rotated {
+  from {
+    opacity: 0;
+    transform: rotate(180deg) scale(0.5);
+  }
+  to {
+    opacity: 0.3;
+    transform: rotate(180deg) scale(1);
+  }
+}
+
+@keyframes giornata-quote-border-in {
+  from {
+    border-left-color: transparent;
+  }
+  to {
+    border-left-color: var(--giornata-mode-accent-color, var(--giornata-accent));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slidev-layout blockquote,
+  .giornata-quote blockquote,
+  .slidev-layout blockquote::before,
+  .giornata-quote blockquote::before,
+  .slidev-layout blockquote::after,
+  .giornata-quote blockquote::after {
+    animation: none;
+  }
+}
+
+

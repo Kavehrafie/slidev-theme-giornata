@@ -28,6 +28,28 @@ export default defineConfig({
           rightDelimiter: '}',
           allowedAttributes: [],
         })
+        // markdown-it-attrs parks disallowed `{...}` groups — including
+        // code-fence line ranges like `{1|2|3|4}` and options like
+        // `{maxHeight:'100px'}` — as junk attrs on fence tokens, which breaks
+        // Slidev's fence-info parsing (click ranges, {monaco}, ```quote, ...).
+        // Snapshot each fence's info before attrs runs and restore it verbatim
+        // after (reconstruction from the parked attrs loses quotes/colons).
+        parser.core.ruler.before('curly_attributes', 'giornata_save_fence_info', (state) => {
+          for (const token of state.tokens) {
+            if (token.type === 'fence') token.meta = { ...token.meta, giornataInfo: token.info }
+          }
+        })
+        parser.core.ruler.after('curly_attributes', 'giornata_restore_fence_info', (state) => {
+          for (const token of state.tokens) {
+            if (token.type === 'fence' && token.meta?.giornataInfo != null) {
+              token.info = token.meta.giornataInfo
+              // nothing was legitimately applied (allowedAttributes is []),
+              // so any parked attrs are junk
+              token.attrs = null
+              token.meta = { ...token.meta, giornataInfo: undefined }
+            }
+          }
+        })
         parser.use(sub)
         parser.use(Mark)
         parser.use(ImageCaptionPlugin, {

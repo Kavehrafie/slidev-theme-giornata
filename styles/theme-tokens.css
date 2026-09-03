@@ -17,11 +17,7 @@
   --giornata-accent-c: 0.177;
 
   /* the accent itself — derives from the three knobs above */
-  --giornata-accent: oklch(
-    var(--giornata-accent-l)
-    var(--giornata-accent-c)
-    var(--giornata-hue)
-  );
+  --giornata-accent: oklch(var(--giornata-accent-l) var(--giornata-accent-c) var(--giornata-hue));
 
   /* relational palette — hue rotations of the accent, L/C preserved */
   --giornata-accent-complement: oklch(from var(--giornata-accent) L C calc(mod(H + 180, 360)));
@@ -33,16 +29,16 @@
   /* tint/shade scale — constant hue, perceptually-spaced L, chroma eased
      toward the extremes so the lightest tints don't blow out and the
      darkest shades don't muddy. */
-  --giornata-accent-50: oklch(from var(--giornata-accent) 0.98 calc(C * 0.30) H);
+  --giornata-accent-50: oklch(from var(--giornata-accent) 0.98 calc(C * 0.3) H);
   --giornata-accent-100: oklch(from var(--giornata-accent) 0.95 calc(C * 0.45) H);
-  --giornata-accent-200: oklch(from var(--giornata-accent) 0.88 calc(C * 0.60) H);
+  --giornata-accent-200: oklch(from var(--giornata-accent) 0.88 calc(C * 0.6) H);
   --giornata-accent-300: oklch(from var(--giornata-accent) 0.82 calc(C * 0.75) H);
-  --giornata-accent-400: oklch(from var(--giornata-accent) 0.79 calc(C * 0.90) H);
+  --giornata-accent-400: oklch(from var(--giornata-accent) 0.79 calc(C * 0.9) H);
   --giornata-accent-500: var(--giornata-accent);
   --giornata-accent-600: oklch(from var(--giornata-accent) 0.66 calc(C * 0.95) H);
   --giornata-accent-700: oklch(from var(--giornata-accent) 0.56 calc(C * 0.88) H);
   --giornata-accent-800: oklch(from var(--giornata-accent) 0.46 calc(C * 0.75) H);
-  --giornata-accent-900: oklch(from var(--giornata-accent) 0.36 calc(C * 0.60) H);
+  --giornata-accent-900: oklch(from var(--giornata-accent) 0.36 calc(C * 0.6) H);
 
   /* navy is a brand color — fixed OKLCH, not hue-derived, so it stays
      stable when --giornata-hue is retuned. */
@@ -62,19 +58,15 @@
 
   /* Lightness targets for per-color schemes. The schemes in uno.config.ts
      read these via var(--giornata-l-{role}) — overriding them in html.dark
-     retunes every scheme at once, so dark mode lives in one place instead
-     of being duplicated per color. */
-  --giornata-l-regular-bg: 0.50;
-  --giornata-l-regular-bg-code: 0.40;
-  --giornata-l-regular-text: 0.95;
-  --giornata-l-regular-border: 0.78;
-  --giornata-l-regular-admon-border: 0.70;
-
-  --giornata-l-light-bg: 0.97;
-  --giornata-l-light-bg-code: 0.92;
-  --giornata-l-light-text: 0.38;
-  --giornata-l-light-border: 0.60;
-  --giornata-l-light-admon-border: 0.55;
+     retunes every scheme at once. In light mode (here), the targets produce
+     a light tinted bg with dark text. In dark mode, html.dark overrides
+     them to produce a dark saturated bg with light text. No separate
+     -light variants needed. */
+  --giornata-l-bg: 0.97;
+  --giornata-l-bg-code: 0.92;
+  --giornata-l-text: 0.38;
+  --giornata-l-border: 0.6;
+  --giornata-l-admon-border: 0.55;
 }
 
 /* mono: explicit class equivalent to the default. Hue offsets stay 0,
@@ -85,23 +77,31 @@
   --giornata-mode-accent-color: var(--giornata-accent);
 }
 
-/* complement: text/border/accent rotate 180° from the scheme hue. */
+/* complement: text/border/accent rotate 180° from the scheme hue.
+   accent L/C derive from the brand accent knobs so mode accents match the
+   brand accent's perceptual weight and retune automatically in dark mode. */
 .g-c-mode-complement {
   --giornata-mode-text-offset: 180;
   --giornata-mode-border-offset: 180;
-  --giornata-mode-accent-color: oklch(0.75 0.18 calc(var(--giornata-scheme-hue) + 180));
+  --giornata-mode-accent-color: oklch(
+    var(--giornata-accent-l) var(--giornata-accent-c) calc(var(--giornata-scheme-hue) + 180)
+  );
 }
 
 /* analogous: border/accent shift +30° (cool side). Subtle sibling feel. */
 .g-c-mode-analogous {
   --giornata-mode-text-offset: 0;
   --giornata-mode-border-offset: 30;
-  --giornata-mode-accent-color: oklch(0.75 0.18 calc(var(--giornata-scheme-hue) + 30));
+  --giornata-mode-accent-color: oklch(
+    var(--giornata-accent-l) var(--giornata-accent-c) calc(var(--giornata-scheme-hue) + 30)
+  );
 }
 
 /* triadic: border/accent shift +120°. Three-color pop. */
 .g-c-mode-triadic {
   --giornata-mode-text-offset: 0;
   --giornata-mode-border-offset: 120;
-  --giornata-mode-accent-color: oklch(0.75 0.18 calc(var(--giornata-scheme-hue) + 120));
+  --giornata-mode-accent-color: oklch(
+    var(--giornata-accent-l) var(--giornata-accent-c) calc(var(--giornata-scheme-hue) + 120)
+  );
 }

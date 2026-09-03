@@ -24,7 +24,7 @@ by **My Author**
 
 ---
 layout: cover
-color: emerald-light
+color: emerald
 ---
 
 # It's not easy being green
@@ -190,7 +190,7 @@ align: c-rm-lt
 color: dark
 ---
 
-<StickyNote color="amber-light" textAlign="left" width="180px" title="Hi" v-drag="[689,277,180,180,18]">
+<StickyNote color="amber" textAlign="left" width="180px" title="Hi" v-drag="[689,277,180,180,18]">
 
 Hello, I'm a **sticky note**.
 </StickyNote>
@@ -355,7 +355,7 @@ This has no title or left column, but still has a color band.
 
 ---
 layout: top-title-two-cols
-color: violet-light
+color: violet
 align: r-rm-lt
 columns: is-3
 ---
@@ -377,10 +377,10 @@ About this content on the right
 layout: top-title-two-cols
 columns: is-2
 align: l-rm-lt
-color: violet-light
+color: violet
 ---
 
-<StickyNote color="violet-light" textAlign="left" width="180px" title="Hi" v-drag="[689,277,180,180,18]">
+<StickyNote color="violet" textAlign="left" width="180px" title="Hi" v-drag="[689,277,180,180,18]">
 
 Hello, I'm a matchy-matchy **sticky note**.
 </StickyNote>
@@ -421,7 +421,7 @@ This is `layout: side-title` with `side: l` in the front matter.
 ---
 layout: side-title
 side: r
-color: pink-light
+color: pink
 titlewidth: is-6
 align: lm-lb
 title: Side Title Layout (Another)
@@ -443,7 +443,7 @@ panel at the lower right has changed to match the color scheme!
 ---
 layout: side-title
 side: l
-color: amber-light
+color: amber
 titlewidth: is-6
 align: lt-lb
 title: Side Title Layout (Another)
@@ -463,7 +463,7 @@ and the left column `lt` (left-top) and the right column `lb` (left-bottom) alig
 ---
 layout: side-title
 side: l
-color: green-light
+color: green
 titlewidth: is-3
 align: auto
 ---
@@ -476,7 +476,7 @@ This slide doesn't have a title but still has a color block.
 
 ---
 layout: quote
-color: sky-light
+color: sky
 quotesize: text-m
 authorsize: text-s
 author: 'Todd Gureckis'
@@ -548,12 +548,12 @@ title: Full with Arbitrary Layout
 
 <div class='v-full h-full'>
 
-<SpeechBubble position="l" shape="round"  color='pink-light' v-drag="[555,342,274,58]">
+<SpeechBubble position="l" shape="round"  color='pink' v-drag="[555,342,274,58]">
 
 Hello, I'm an **ice cream**!
 </SpeechBubble>
 
-<SpeechBubble position="bl" shape="round"  color='emerald-light' v-drag="[445,258,274,57]">
+<SpeechBubble position="bl" shape="round"  color='emerald' v-drag="[445,258,274,57]">
 
 Hello, I'm **kawaii**.
 </SpeechBubble>
@@ -669,7 +669,7 @@ dragPos:
   "'admon'": 55,300,287,106
 ---
 
-<Admonition title="Moveable" color='teal-light' width="300px" v-drag="[93,303,300,145,-14]">
+<Admonition title="Moveable" color='teal' width="300px" v-drag="[93,303,300,145,-14]">
 If you want to `v-drag` an admonition, you should set the width to a fixed value.
 </Admonition>
 
@@ -681,7 +681,7 @@ If you want to `v-drag` an admonition, you should set the width to a fixed value
 
 - Admonitions are boxes that you can use to call out things.
 
-<Admonition title="Custom title" color='amber-light'>
+<Admonition title="Custom title" color='amber'>
 This is my admon message
 </Admonition>
 
@@ -735,7 +735,7 @@ Hello, I'm a **speech bubble**! I'm a longer speech bubble. I'm still going.
 
 :: right ::
 
-<SpeechBubble position="bl" color='amber-light' shape="round">
+<SpeechBubble position="bl" color='amber' shape="round">
 
 Hello, I'm a **speech bubble**! I'm a longer speech bubble. I'm still going.
 Hello, I'm a **speech bubble**! I'm a longer speech bubble. I'm still going.
@@ -747,17 +747,17 @@ layout: default
 title: Sticky Notes
 ---
 
-<StickyNote color="amber-light" textAlign="left" width="180px" title="Title" v-drag="[66,318,185,171]">
+<StickyNote color="amber" textAlign="left" width="180px" title="Title" v-drag="[66,318,185,171]">
 
 Hello, I'm a **sticky note**.
 </StickyNote>
 
-<StickyNote color="sky-light" textAlign="left" width="180px" title="This is my title" v-drag="[375,306,180,180,-15]">
+<StickyNote color="sky" textAlign="left" width="180px" title="This is my title" v-drag="[375,306,180,180,-15]">
 
 Hello, I'm also a **sticky note** but am blue sky title.
 </StickyNote>
 
-<StickyNote color="pink-light" textAlign="left" width="180px"  v-drag="[667,299,185,171,8]">
+<StickyNote color="pink" textAlign="left" width="180px"  v-drag="[667,299,185,171,8]">
 
 Hello, I'm also a **sticky note** but I lack a title.
 </StickyNote>
@@ -768,7 +768,7 @@ Hello, I'm also a **sticky note** but I lack a title.
 - Syntax is
 
 ```js
-<StickyNote color="amber-light" textAlign="left" width="180px" title="Title" v-drag>
+<StickyNote color="amber" textAlign="left" width="180px" title="Title" v-drag>
   Hello, I'm a **sticky note**.
 </StickyNote>
 ```

@@ -82,12 +82,12 @@ title: Full with Arbitrary Layout
 
 <div class='v-full h-full'>
 
-<SpeechBubble position="l" shape="round"  color='pink-light' v-drag="[555,342,274,58]">
+<SpeechBubble position="l" shape="round"  color='pink' v-drag="[555,342,274,58]">
 
 Hello, I'm an **ice cream**!
 </SpeechBubble>
 
-<SpeechBubble position="bl" shape="round"  color='emerald-light' v-drag="[445,258,274,57]">
+<SpeechBubble position="bl" shape="round"  color='emerald' v-drag="[445,258,274,57]">
 
 Hello, I'm **kawaii**.
 </SpeechBubble>

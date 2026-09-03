@@ -19,7 +19,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: 'red-light',
+    default: 'red',
   },
   textAlign: {
     type: String,

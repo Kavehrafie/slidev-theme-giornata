@@ -43,7 +43,7 @@ Example:
 layout: top-title-two-cols
 columns: is-5
 align: l-lr-lr
-color: amber-light
+color: amber
 ---
 ```
 
@@ -117,7 +117,7 @@ Renders as:
 ```md
 ---
 layout: top-title-two-cols
-color: violet-light
+color: violet
 align: r-rm-lt
 columns: is-3
 ---
@@ -145,10 +145,10 @@ About this content on the right
 layout: top-title-two-cols
 columns: is-2
 align: l-rm-lt
-color: violet-light
+color: violet
 ---
 
-<StickyNote color="violet-light" textAlign="left" width="180px" title="Hi" v-drag="[689,277,180,180,18]">
+<StickyNote color="violet" textAlign="left" width="180px" title="Hi" v-drag="[689,277,180,180,18]">
 
 Hello, I'm a matchy-matchy **sticky note**.
 </StickyNote>
