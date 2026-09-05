@@ -82,15 +82,19 @@ function split_one(v: VNode, delimiter: string): Part[] {
     // A boundary falls inside this element (e.g. `==foo %% bar==`): group the
     // inner parts into runs between boundaries and rebuild the element once per
     // run (cloneVNode has no children override — children must go through h()),
-    // so formatting survives on both sides of the cut.
+    // so formatting survives on both sides of the cut. The markdown paragraph
+    // wrapper (`p`) is the exception: re-wrapping each run in a block-level
+    // <p> would put every chunk on its own line, so its runs are emitted as
+    // transparent fragments and the chunks keep flowing inline.
     const out: Part[] = []
     let run: VNode[] = []
     let run_index = 0
+    const inline = v.type !== 'p'
     const flush = () => {
       if (chunk_has_visible_content(run)) {
         out.push({
           startsChunk: run_index > 0,
-          vnode: h(v.type as string, v.props, run),
+          vnode: inline ? h(v.type as string, v.props, run) : h(Fragment, null, run),
         })
       } else if (run_index > 0) {
         // boundary inside an invisible run (e.g. `%%` at the element's edge) —

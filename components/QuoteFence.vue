@@ -99,7 +99,9 @@ const lines = computed<FenceLine[]>(() => {
       if (group !== -1) click = group + 1
     }
     if (ATTRIBUTION_RE.test(text)) {
-      return { segs: decorate_attribution(text.replace(ATTRIBUTION_RE, '')), attr: true, click }
+      // attribution is always visible — it never costs a click and never
+      // takes the wash (range steps apply to quote lines only)
+      return { segs: decorate_attribution(text.replace(ATTRIBUTION_RE, '')), attr: true, click: null }
     }
     return { segs: split_emphasis(text), attr: false, click }
   })

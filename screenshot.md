@@ -918,3 +918,18 @@ layout: default
 margin: none
 ---
 ```
+
+---
+layout: center
+color: red
+title: Center Layout
+---
+
+# Centered content
+
+This slide uses the `center` layout with `color: red`. Content is centered
+horizontally and vertically, and the layout accepts `color`, `color-mode`,
+and `margin` like the other Giornata layouts.
+
+- One perfectly centered bullet
+- Another one, right below it

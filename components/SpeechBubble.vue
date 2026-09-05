@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { compute_color_scheme } from '../layoutHelper'
 
 const props = defineProps({
   position: {
@@ -21,6 +22,10 @@ const props = defineProps({
     type: String,
     default: 'red',
   },
+  colorMode: {
+    type: String,
+    default: undefined,
+  },
   textAlign: {
     type: String,
     default: 'left',
@@ -35,9 +40,7 @@ const props = defineProps({
   },
 })
 
-const colorscheme = computed(() => {
-  return `giornata-${props.color}-scheme`
-})
+const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 
 const bubbleClasses = computed(() => {
   return [colorscheme.value, 'speech-bubble', props.position, props.shape, props.animation]
@@ -101,8 +104,10 @@ const bubbleStyles = computed(() => ({
 .speech-bubble:after {
   content: '';
   position: absolute;
-  bottom: calc(-1 * var(--arrow-h) * 2 + 0.5px);
-  left: 50%;
+  bottom: calc(-1 * var(--arrow-h) * 2 + 0.5 * var(--border-size));
+  /* the tail element is 2*arrow-w wide — anchor its CENTER (left minus
+     half its width) or the tail sits off the bubble border */
+  left: calc(50% - var(--arrow-w));
   border-style: solid;
   border-width: var(--arrow-h) var(--arrow-w);
   border-color: var(--bubble-color) transparent transparent;
@@ -111,72 +116,72 @@ const bubbleStyles = computed(() => ({
 .speech-bubble:before {
   border-width: calc(var(--arrow-h) + var(--border-size)) calc(var(--arrow-w) + var(--border-size));
   border-color: var(--border-color) transparent transparent;
-  bottom: calc(-1 * var(--arrow-h) * 2 - 2.5 * var(--border-size));
-  left: calc(50% - var(--border-size));
+  bottom: calc(-1 * var(--arrow-h) * 2 - 1.5 * var(--border-size));
+  left: calc(50% - var(--arrow-w) - var(--border-size));
 }
 
 .speech-bubble.bl:after {
-  left: 10%;
+  left: calc(10% - var(--arrow-w));
   border-style: solid;
   border-width: var(--arrow-h) var(--arrow-w);
   border-color: var(--bubble-color) transparent transparent;
 }
 
 .speech-bubble.bl:before {
-  left: calc(10% - var(--border-size));
+  left: calc(10% - var(--arrow-w) - var(--border-size));
 }
 
 .speech-bubble.br:after {
-  left: 88%;
+  left: calc(90% - var(--arrow-w));
   border-style: solid;
   border-width: var(--arrow-h) var(--arrow-w);
   border-color: var(--bubble-color) transparent transparent;
 }
 
 .speech-bubble.br:before {
-  left: calc(88% - var(--border-size));
+  left: calc(90% - var(--arrow-w) - var(--border-size));
 }
 .speech-bubble.t:after {
   border-color: transparent transparent var(--bubble-color);
   bottom: auto;
-  top: calc(-1 * var(--arrow-h) * 2 + 0.5px);
+  top: calc(-1 * var(--arrow-h) * 2 + 0.5 * var(--border-size));
 }
 
 .speech-bubble.t:before {
   border-width: calc(var(--arrow-h) + var(--border-size)) calc(var(--arrow-w) + var(--border-size));
   border-color: transparent transparent var(--border-color);
   bottom: auto;
-  top: calc(-1 * var(--arrow-h) * 2 - 2.5 * var(--border-size));
+  top: calc(-1 * var(--arrow-h) * 2 - 1.5 * var(--border-size));
 }
 
 .speech-bubble.tl:after {
   border-color: transparent transparent var(--bubble-color);
   bottom: auto;
-  left: 10%;
-  top: calc(-1 * var(--arrow-h) * 2 + 0.5px);
+  left: calc(10% - var(--arrow-w));
+  top: calc(-1 * var(--arrow-h) * 2 + 0.5 * var(--border-size));
 }
 
 .speech-bubble.tl:before {
   border-width: calc(var(--arrow-h) + var(--border-size)) calc(var(--arrow-w) + var(--border-size));
   border-color: transparent transparent var(--border-color);
   bottom: auto;
-  left: calc(10% - var(--border-size));
-  top: calc(-1 * var(--arrow-h) * 2 - 2.5 * var(--border-size));
+  left: calc(10% - var(--arrow-w) - var(--border-size));
+  top: calc(-1 * var(--arrow-h) * 2 - 1.5 * var(--border-size));
 }
 
 .speech-bubble.tr:after {
   border-color: transparent transparent var(--bubble-color);
   bottom: auto;
-  left: 90%;
-  top: calc(-1 * var(--arrow-h) * 2 + 0.5px);
+  left: calc(90% - var(--arrow-w));
+  top: calc(-1 * var(--arrow-h) * 2 + 0.5 * var(--border-size));
 }
 
 .speech-bubble.tr:before {
   border-width: calc(var(--arrow-h) + var(--border-size)) calc(var(--arrow-w) + var(--border-size));
   border-color: transparent transparent var(--border-color);
   bottom: auto;
-  left: calc(90% - var(--border-size));
-  top: calc(-1 * var(--arrow-h) * 2 - 2.5 * var(--border-size));
+  left: calc(90% - var(--arrow-w) - var(--border-size));
+  top: calc(-1 * var(--arrow-h) * 2 - 1.5 * var(--border-size));
 }
 
 .speech-bubble.l:after {
@@ -184,7 +189,7 @@ const bubbleStyles = computed(() => ({
   bottom: auto;
   border-width: var(--arrow-w) var(--arrow-h);
   top: calc(50% - var(--arrow-w));
-  left: calc(-1 * var(--arrow-h) * 2 + 0.5px);
+  left: calc(-1 * var(--arrow-h) * 2 + 0.5 * var(--border-size));
 }
 
 .speech-bubble.l:before {
@@ -192,7 +197,7 @@ const bubbleStyles = computed(() => ({
   border-color: transparent var(--border-color) transparent transparent;
   bottom: auto;
   top: calc(50% - var(--arrow-w) - var(--border-size));
-  left: calc(-1 * var(--arrow-h) * 2 - 2.5 * var(--border-size));
+  left: calc(-1 * var(--arrow-h) * 2 - 1.5 * var(--border-size));
 }
 
 .speech-bubble.r:after {
@@ -201,7 +206,7 @@ const bubbleStyles = computed(() => ({
   left: auto;
   border-width: var(--arrow-w) var(--arrow-h);
   top: calc(50% - var(--arrow-w));
-  right: calc(-1 * var(--arrow-h) * 2 + 0.5px);
+  right: calc(-1 * var(--arrow-h) * 2 + 0.5 * var(--border-size));
 }
 
 .speech-bubble.r:before {
@@ -210,7 +215,7 @@ const bubbleStyles = computed(() => ({
   bottom: auto;
   left: auto;
   top: calc(50% - var(--arrow-w) - var(--border-size));
-  right: calc(-1 * var(--arrow-h) * 2 - 2.5 * var(--border-size));
+  right: calc(-1 * var(--arrow-h) * 2 - 1.5 * var(--border-size));
 }
 
 .speech-bubble.pop {

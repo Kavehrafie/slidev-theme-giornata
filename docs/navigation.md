@@ -137,6 +137,8 @@ This requires `markdown-it-attrs` in your Slidev project config. The theme's own
 
 When `data-morph-id` is present on any element on the destination slide, the auto-derivation is skipped and only the explicit matches are used. This lets you bind a morph to a `<div>` with a background image, an inline `<img>` in a custom component, or any other element.
 
+If your markdown pipeline strips `{...}` image attributes (comark does), use the [`<Morph>` component](/components/morph) instead — it takes the id as a prop and renders the same morph-paired figure.
+
 ## Compatibility with TOC
 
 Slidev's built-in `<Toc />` and `level:` hierarchy continue to work unchanged. The three navigational lenses are orthogonal:

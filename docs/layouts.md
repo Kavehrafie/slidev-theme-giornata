@@ -71,6 +71,7 @@ In the following section, we detail specific layouts that are available in this 
 - [`layout: cover`](layouts/cover.md)
 - [`layout: intro`](layouts/intro.md)
 - [`layout: default`](layouts/default.md)
+- [`layout: center`](layouts/center.md)
 - [`layout: two-cols-title`](layouts/two-cols-title.md)
 - [`layout: top-title`](layouts/top-title.md)
 - [`layout: top-title-two-cols`](layouts/top-title-two-cols.md)

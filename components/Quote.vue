@@ -1,21 +1,21 @@
 <script setup lang="ts">
-// Quote — literary/theory quotation with click-through emphasis.
+// Quote — literary/theory quotation with click-through focus.
 //
 // The quote text arrives as markdown (default slot). `%%` in the text marks
-// chunk boundaries; `reveal` picks the interaction:
-//   highlight — the whole quote is visible from the start and each click moves
-//               an accent "wash" to the next chunk (code-block-line-highlight
-//               style, the default)
-//   appear    — chunks fade in one per click
-//   none      — static, zero added clicks
-// `==text==` (markdown-it-mark) renders as persistent accent emphasis
-// regardless of clicks. The attribution gets its own final click.
+// chunk boundaries; each click moves the FOCUS to the next chunk: the focused
+// chunk sits at full contrast while the rest of the quote dims, so the
+// emphasized phrase separates from both the background and the surrounding
+// text. `==text==` (markdown-it-mark) renders as persistent accent emphasis
+// regardless of clicks. Chunks are plain inline spans flowing as one
+// continuous line — v-click is applied as a directive on the span, so no
+// block-level wrapper breaks the text into separate paragraphs. The
+// attribution is always visible and never costs a click. Pass
+// `reveal="none"` for a fully static quote with zero added clicks.
 import { computed, useSlots } from 'vue'
 import type { VNode } from 'vue'
+import { useSlideContext } from '@slidev/client/context.ts'
 import { compute_color_scheme } from '../layoutHelper'
 import { chunk_has_visible_content, split_vnodes } from './quoteSplit'
-
-const VALID_REVEAL = ['highlight', 'appear', 'none'] as const
 
 const props = withDefaults(
   defineProps<{
@@ -35,7 +35,7 @@ const props = withDefaults(
     year: null,
     reveal: 'highlight',
     quoteSize: 'text-xl',
-    authorSize: 'text-base',
+    authorSize: '',
   },
 )
 
@@ -46,20 +46,21 @@ const VNodes = (p: { vnodes: VNode[] }) => p.vnodes
 
 const slots = useSlots()
 
+const { $clicks } = useSlideContext()
+
 const colorscheme = computed(() => compute_color_scheme(props.color, props.colorMode))
 
-const reveal_ = computed(() => {
-  const lower = props.reveal.trim().toLowerCase()
-  if ((VALID_REVEAL as readonly string[]).includes(lower)) return lower
-  console.warn(
-    `[giornata] Quote: invalid reveal "${props.reveal}" (expected highlight|appear|none), falling back to "highlight"`,
-  )
-  return 'highlight'
-})
+// `none` = static quote, no click machinery; any other value = focus model.
+const is_static = computed(() => props.reveal.trim().toLowerCase() === 'none')
+
+// Before the first click the whole quote shows at full opacity; once clicking
+// begins, the non-focused chunks dim. Driven by the slide's click counter so
+// the initial state stays clean without per-chunk class gymnastics.
+const focusing = computed(() => !is_static.value && $clicks.value > 0)
 
 // Markdown slot content is static per page load, so split ONCE at setup —
 // a reactive computed here re-invokes the slot function on every update,
-// re-mounts the <v-click> elements and floods Slidev's click context with
+// re-mounts the clicked elements and floods Slidev's click context with
 // late-registration warnings.
 const chunks = split_vnodes(slots.default?.() ?? []).filter(chunk_has_visible_content)
 
@@ -67,28 +68,15 @@ const has_attribution = !!slots.author || props.author != null
 </script>
 
 <template>
-  <figure class="giornata-quote" :class="[colorscheme, `reveal-${reveal_}`, quoteSize]">
+  <figure class="giornata-quote" :class="[colorscheme, quoteSize, { focusing }]">
     <blockquote class="quote-body">
       <template v-for="(chunk, i) in chunks" :key="i">
-        <v-click v-if="reveal_ !== 'none'">
-          <span class="quote-chunk"><VNodes :vnodes="chunk" /></span>
-        </v-click>
+        <span v-if="!is_static" v-click class="quote-chunk"><VNodes :vnodes="chunk" /></span>
         <span v-else class="quote-chunk"><VNodes :vnodes="chunk" /></span>
       </template>
     </blockquote>
     <footer v-if="has_attribution" class="quote-attrib">
-      <v-click v-if="reveal_ !== 'none'">
-        <span class="quote-attrib-inner" :class="authorSize">
-          <slot name="author" />
-          <template v-if="!slots.author">
-            <span v-if="author != null && work">— <em>{{ author }}</em>, </span>
-            <span v-else-if="author != null">— <em>{{ author }}</em></span>
-            <em v-if="work">{{ work }}</em>
-            <span v-if="(work || author != null) && year != null">, {{ year }}</span>
-          </template>
-        </span>
-      </v-click>
-      <span v-else class="quote-attrib-inner" :class="authorSize">
+      <span class="quote-attrib-inner" :class="authorSize">
         <slot name="author" />
         <template v-if="!slots.author">
           <span v-if="author != null && work">— <em>{{ author }}</em>, </span>
@@ -102,9 +90,8 @@ const has_attribution = !!slots.author || props.author != null
 </template>
 
 <style scoped>
-/* Box look (accent border, italic serif, decorative glyphs) comes from the
-   global blockquote rules in styles/base.css — this scope adds the chunk
-   machinery only. */
+/* Box look (italic serif, decorative glyphs) comes from the global blockquote
+   rules in styles/base.css — this scope adds the chunk machinery only. */
 .giornata-quote {
   position: relative;
   display: block; /* opt out of the global figure flex-centering rule */
@@ -130,37 +117,37 @@ const has_attribution = !!slots.author || props.author != null
   margin-bottom: 0;
 }
 
+/* Chunks are inline spans — the whole quote reads as one continuous line.
+   v-click is a directive on the span, not a wrapper component, so nothing
+   introduces block-level boxes between chunks. */
 .quote-chunk {
-  display: inline; /* inline flow — whitespace collapses across chunk boundaries */
-  padding: 0.12em 0.22em; /* constant in both wash states — zero reflow on click */
-  border-radius: 0.3em;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone; /* wash wraps per line, like a highlighter */
-  background-color: transparent;
-  transition: background-color 280ms ease;
+  display: inline;
+  transition: opacity 350ms ease;
 }
 
-/* highlight mode: the whole quote is visible from click 0. Slidev's client CSS
-   hides vclick-hidden elements with `opacity: 0 !important`; win the cascade
-   back with equal !important + higher specificity (the chunk classes are
-   authored here, so they carry this component's scope attribute). */
-.reveal-highlight .quote-chunk.slidev-vclick-hidden {
+/* click 0 — the whole quote at full opacity. Slidev's client CSS hides
+   vclick-hidden elements with `opacity: 0 !important`; win the cascade back
+   with equal importance from this higher-specificity selector. */
+.giornata-quote:not(.focusing) .quote-chunk.slidev-vclick-hidden {
   opacity: 1 !important;
+  pointer-events: auto !important;
   user-select: auto !important;
 }
 
-/* the wash — paints exactly the latest-revealed chunk */
-.reveal-highlight .quote-chunk.slidev-vclick-current {
-  background-color: color-mix(
-    in srgb,
-    var(--giornata-highlight-color, var(--giornata-accent)) 24%,
-    transparent
-  );
+/* once clicking begins, non-focused chunks dim to a ghost */
+.giornata-quote.focusing .quote-chunk.slidev-vclick-hidden {
+  opacity: 0.35 !important;
+  pointer-events: auto !important;
+  user-select: auto !important;
 }
 
-/* appear mode: the client's default hiding (opacity 0) is correct; soften the fade */
-.reveal-appear .quote-chunk {
-  transition: opacity 350ms ease, background-color 280ms ease;
+.giornata-quote.focusing .quote-chunk.slidev-vclick-prior {
+  opacity: 0.35;
+}
+
+/* the focused chunk — full contrast against the dimmed rest */
+.giornata-quote .quote-chunk.slidev-vclick-current {
+  opacity: 1;
 }
 
 .quote-attrib {
@@ -168,12 +155,13 @@ const has_attribution = !!slots.author || props.author != null
   z-index: 1;
   margin-top: 1.2em;
   text-align: right;
+  /* proportional to the quote — the main font's larger x-height would
+     otherwise make an absolute small size read BIGGER than the quote face */
+  font-size: 0.75em;
   font-family: var(--giornata-main-font);
   color: color-mix(in srgb, var(--giornata-text-color) 82%, transparent);
 }
-.quote-attrib-inner {
-  transition: opacity 400ms ease;
-}
+
 .quote-attrib em {
   font-style: italic;
 }

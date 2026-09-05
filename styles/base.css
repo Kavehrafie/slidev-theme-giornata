@@ -240,11 +240,11 @@ html:not(.dark) {
 }
 
 /* ============================================================
-   Quotations — blockquote look with accent rule and comma-quote
-   glyphs. Applies to markdown `>` quotes and the Quote component's
-   blockquote alike. The glyphs are alpha-only masked SVG painted
-   with --giornata-text-color, so they retune automatically in dark
-   mode (no black-on-dark glyphs).
+   Quotations — blockquote look with comma-quote glyphs. Applies to
+   markdown `>` quotes and the Quote component's blockquote alike.
+   The glyphs are alpha-only masked SVG painted with
+   --giornata-text-color, so they retune automatically in dark mode
+   (no black-on-dark glyphs).
    ============================================================ */
 
 .slidev-layout,
@@ -259,12 +259,15 @@ html:not(.dark) {
   margin: 2rem 0;
   font-family: var(--giornata-quote-font);
   font-style: italic;
-  border-left: 5px solid var(--giornata-mode-accent-color, var(--giornata-accent));
+  /* beat Slidev's default `text-sm` on blockquotes — the size must follow
+     the quoteSize class on the ancestor instead of being pinned here */
+  font-size: inherit;
+  line-height: inherit;
   background: transparent;
   box-shadow: none;
+  border-left: 0; /* beat Slidev's default border-primary border-l */
   border-radius: 0;
   color: var(--giornata-text-color);
-  animation: giornata-quote-border-in 600ms ease-out both;
 }
 
 .slidev-layout blockquote::before,
@@ -279,7 +282,6 @@ html:not(.dark) {
   -webkit-mask: var(--giornata-quote-glyph) center / contain no-repeat;
   mask: var(--giornata-quote-glyph) center / contain no-repeat;
   opacity: 0.3;
-  animation: giornata-quote-fade-in 600ms ease-out both;
   pointer-events: none;
 }
 
@@ -287,8 +289,9 @@ html:not(.dark) {
 .giornata-quote blockquote::after {
   content: '';
   position: absolute;
-  right: -0.5rem;
-  bottom: -0.5rem;
+  /* parked in the corner margin so the glyph clears the last text line */
+  right: -2rem;
+  bottom: -1rem;
   width: 3rem;
   height: 3rem;
   background-color: var(--giornata-text-color);
@@ -296,7 +299,6 @@ html:not(.dark) {
   mask: var(--giornata-quote-glyph) center / contain no-repeat;
   opacity: 0.3;
   transform: rotate(180deg);
-  animation: giornata-quote-fade-in-rotated 600ms ease-out both;
   pointer-events: none;
 }
 
@@ -304,48 +306,6 @@ html:not(.dark) {
 .slidev-layout u {
   text-decoration: underline wavy;
   text-decoration-color: var(--giornata-mode-accent-color, var(--giornata-accent));
-}
-
-@keyframes giornata-quote-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  to {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-}
-
-@keyframes giornata-quote-fade-in-rotated {
-  from {
-    opacity: 0;
-    transform: rotate(180deg) scale(0.5);
-  }
-  to {
-    opacity: 0.3;
-    transform: rotate(180deg) scale(1);
-  }
-}
-
-@keyframes giornata-quote-border-in {
-  from {
-    border-left-color: transparent;
-  }
-  to {
-    border-left-color: var(--giornata-mode-accent-color, var(--giornata-accent));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .slidev-layout blockquote,
-  .giornata-quote blockquote,
-  .slidev-layout blockquote::before,
-  .giornata-quote blockquote::before,
-  .slidev-layout blockquote::after,
-  .giornata-quote blockquote::after {
-    animation: none;
-  }
 }
 
 

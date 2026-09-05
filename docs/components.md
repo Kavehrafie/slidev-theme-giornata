@@ -12,7 +12,7 @@ The current components are:
 
 - [CreditScroll](/components/creditscroll) - a scrolling credits slide simliar to the end of a movive.
 
-- [QRCore](/components/qrcode) - a QR code generator that can be used to add QR codes to slides.
+- [QRCode](/components/qrcode) - a QR code generator that can be used to add QR codes to slides.
 
 - [Kawaii](/components/kawaii) - Modification of select [Vue Kawaii](https://github.com/youngtailors/vue-kawaii) figures that add cute characters to slides.
 
@@ -30,11 +30,19 @@ The current components are:
 
 - [Box](/components/box) - draws a box or rectangle shape
 
+- [Quote / QuoteFence](/components/quote) - literary/theory quotations with click-through accent reveals.
+
+- [MapFigure](/components/mapfigure) - a themed, interactive reference map (GeoJSON features on a Natural Earth basemap).
+
+- [Morph](/components/morph) - pairs two images across slides for a view-transition morph.
+
+- [NWPLogo](/components/nwplogo) - the NWP wordmark as inline SVG.
+
 Most component can just be included in-line in your markdown. However, in some cases it can make sense to position these components using the `v-drag` directive. For example, the `SpeechBubble` component can be positioned using the `v-drag` directive to place it in a specific location on the slide. This can be useful for creating custom layouts or animations. In that case, it makes sense to keep the component in the [default slot](/layouts#slots) of each layout.
 
 ## Color modes
 
-Components that take a `color` prop (`Admonition`, `StickyNote`, `Box`) also accept an optional `color-mode` prop with one of four values: `mono` (default), `complement`, `analogous`, `triadic`. See [Color modes](/colors#color-modes) for what each mode does.
+Components that take a `color` prop (`Admonition`, `StickyNote`, `Box`, `SpeechBubble`, `Quote`, `MapFigure`) also accept an optional `color-mode` prop with one of four values: `mono` (default), `complement`, `analogous`, `triadic`. See [Color modes](/colors#color-modes) for what each mode does.
 
 ```vue
 <Admonition color="amber" color-mode="triadic" title="Note">

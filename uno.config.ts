@@ -58,11 +58,14 @@ const schemeHues: Record<string, { hue: number; chroma: number; short: string }>
   fuchsia: { hue: 325, chroma: 0.16, short: 'fu' },
   pink: { hue: 355, chroma: 0.15, short: 'pi' },
   rose: { hue: 15, chroma: 0.16, short: 'ro' },
-  slate: { hue: 250, chroma: 0.04, short: 'sl' },
-  gray: { hue: 0, chroma: 0.015, short: 'gy' },
-  zinc: { hue: 0, chroma: 0.015, short: 'zi' },
+  // Neutral family — near-achromatic, matching the Tailwind ramps at light
+  // shades (slate-100 is ~C 0.014, the rest lower). Higher chromas read as
+  // colorful paper in light mode, which defeats the point of a gray scheme.
+  slate: { hue: 250, chroma: 0.012, short: 'sl' },
+  gray: { hue: 220, chroma: 0.005, short: 'gy' },
+  zinc: { hue: 286, chroma: 0.006, short: 'zi' },
   neutral: { hue: 0, chroma: 0.0, short: 'ne' },
-  stone: { hue: 60, chroma: 0.015, short: 'st' },
+  stone: { hue: 70, chroma: 0.006, short: 'st' },
 }
 
 // Function to generate classes

@@ -2,7 +2,7 @@
 colorSchema: auto
 layout: cover
 routerMode: hash
-title: Base Template
+title: Giornata Example Deck
 theme: ./
 transition: view-transition
 giornata_string: 'Giornata Example Deck'
@@ -10,8 +10,8 @@ giornata_string: 'Giornata Example Deck'
 
 # Giornata
 
-A [Slidev](https://sli.dev) theme designed by **Todd Gureckis**  
-_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
+A [Slidev](https://sli.dev) theme for teaching art history
+Forked from **slidev-theme-neversink** by Todd Gureckis
 
 ---
 color: amber
@@ -23,45 +23,32 @@ color: amber
 layout: default
 ---
 
-# Why use it?
+# The `default` layout
 
-- Giornata has several configurable ==layouts== that build upon the Slidev defaults and which make it easier to quickly throw together common slide layouts without having to write a lot of custom CSS/HTML.
+This is kind of the basic slide. The main content is interpreted as markdown and rendered in the center of the slide.
 
-- It has a variety of ==color themes== to choose from that make your visual identity more coherent.
+Speaking of markdown, you can use markdown to make things **bold** or _italic_ or even `code` like `this`. In **Giornata** you can also ==highlight things using the double equals signs like this== thanks to the `markdown-it-mark` plugin.
 
-- It also has some whimsical elements like movie-style scrolling credits, animated speech bubbles, and admonitions that make your presentations more memorable.
+Of course you can make bullet lists:
 
-- It strives to be well documented and easy to use!
+- Hi
+- There
 
-You can find the source code on [GitHub](https://github.com/Kavehrafie/slidev-theme-giornata).
+Also there's a little helper class `g-c-tight` you can add to make the bullet spacing a bit tighter:
 
----
-layout: default
----
+<div class="g-c-tight">
 
-# How to install
+- Hi
+- There
+- I need space
 
-The theme depends on Slidev. So you need to have that [installed first](https://sli.dev/guide/install). Then you can install the theme with npm:
-
-```bash
-npm install slidev-theme-giornata
-```
-
-Then create a slidev markdown file (e.g., `slides.md`) and add the theme to the frontmatter of your first slide:
-
-```md
----
-theme: giornata
----
-```
-
-Then you are basically ready to go!
+</div>
 
 ---
 layout: default
 ---
 
-# Color schemes — Regular
+# Color schemes
 
 <div class="leading-[1.5em]">
 <span class="bg-slate-500 text-slate-100 p-1 pl-3 pr-3 m-1 rounded font-size-3">slate</span>
@@ -247,218 +234,19 @@ border/accent shift +120° — a three-color pop against the red base.
 </div>
 
 ---
-layout: top-title
-color: amber
-align: l
----
-
-:: title ::
-
-# Layouts
-
-:: content ::
-
-The theme includes many layouts. Layouts set the overall structure of the page. For example, this slide is using the `top-title` layout with the `amber` color scheme. You can see the frontmatter for this slide below:
-
-```md
----
-layout: top-title
-color: amber
-align: l
----
-```
-
-The previous slide used the `side-title` layout with the `emerald` color scheme. You can see the frontmatter for that slide below:
-
-```md
----
-layout: side-title
-color: emerald
-align: rm-lm
-titlewidth: is-3
----
-```
-
----
-layout: top-title-two-cols
-color: amber
-align: l-lt-lt
----
-
-:: title ::
-
-# Two things about layouts
-
-:: left ::
-
-There are two important parts of slides to know about.
-
-## Frontmatter
-
-First is **frontmatter**, which are configuration options
-that appear at the start of each slide (see [Slidev docs](https://sli.dev/guide/syntax#frontmatter-layouts)). These configure things like
-alignment, color, and spacing:
-
-```md
----
-layout: top-title
-color: sky
-align: l
----
-```
-
-:: right ::
-
-# Slots
-
-The other aspect is **slots**. Slots are a basic part of [Vue.js](https://vuejs.org/guide/components/slots.html). In Slidev slots can be marked using `:: slotname ::` and then filled in with content. For example, the `:: left ::` and `:: right ::` slots on this slide are filled with content.
-
-Slots effectively help you map parts of your slide to different parts of a layout. The most common case is to say which content appears in the left column and which appears in the right column. But different layouts can have different slots and different content.
-
----
-layout: top-title
-color: amber
-align: lt
----
-
-:: title ::
-
-# Available Layouts
-
-:: content ::
-
-The available layouts in **Giornata** currently are:
-
-<div class="g-c-tight">
-
-<div class='flex flex-wrap'>
-
-<div class='w-1/3'>
-
-- `cover`
-- `intro`
-- `default`
-- `section`
-- `quote`
-- `full`
-- `credits`
-
-</div>
-
-<div class='w-1/3'>
-
-- `two-cols-title`
-- `top-title`
-- `top-title-two-cols`
-- `side-title`
-
-</div>
-
-<div class='w-1/3'>
-
-- `image-right`
-- `image-left`
-- `image`
-- `iframe-right`
-- `iframe-left`
-- `iframe`
-- `none`
-- `end`
-- `fact`
-
-</div>
-</div>
-</div>
-
-We will step through these one by one showing several examples
-and how to configure the frontmatter for each.
-
----
 layout: cover
 ---
 
 # This is the `cover` layout
 
-**Todd Gureckis**  
-_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
+**Giornata**  
+_theme: giornata_ <a href="https://github.com/Kavehrafie/slidev-theme-giornata" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 :: note ::
 
 <div class="fw-200" >
 
-\* Optional `:: note ::` slot for mentioning ==notes== at the bottom.
-
-</div>
-
----
-layout: cover
-color: dark
----
-
-# This is the `cover` layout
-
-**Todd Gureckis**  
-_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
-
-:: note ::
-
-<div class="fw-200" >
-
-\* Here we set `color: dark` in the frontmatter.
-
-</div>
-
----
-layout: cover
-color: amber
----
-
-# This is the `cover` layout
-
-**Todd Gureckis**  
-_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
-
-:: note ::
-
-<div class="fw-200">
-
-\* Here we set `color: amber` in the frontmatter.
-
-</div>
-
----
-layout: cover
-color: amber
----
-
-# This is the `cover` layout
-
-**Todd Gureckis**  
-_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
-
-:: note ::
-
-<div class="fw-200" >
-
-\* Here we set `color: amber` in the frontmatter. Notice how the color scheme brings along many of the elements on the page.
-
-</div>
-
----
-layout: cover
-color: pink
----
-
-### This is the `cover` layout with a longer title for your talk you just use more `#`s
-
-**Todd Gureckis**  
-_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
-
-:: note ::
-
-<div class="fw-200" >
-
-\* Here we set `color: pink` in the frontmatter. Different choices convey a different vibe for the intro of your talk. There's lots of choices available.
+\* Optional `:: note ::` slot for mentioning ==notes== at the bottom. Add `color:` in the frontmatter to restyle the whole slide.
 
 </div>
 
@@ -469,8 +257,8 @@ color: emerald
 
 # This is the `intro` layout
 
-**Todd Gureckis**  
-_New York University_ <a href="https://todd.gureckislab.org" class="g-c-iconlink"><mdi-open-in-new /></a>
+**Giornata**  
+_a Slidev theme_ <a href="https://github.com/Kavehrafie/slidev-theme-giornata" class="g-c-iconlink"><mdi-open-in-new /></a>
 
 <br />
 
@@ -478,65 +266,13 @@ This is like the cover slide but with a little less decoration.
 It also has a frontmatter option of `color: emerald`.
 
 ---
-layout: default
+layout: center
+color: red
 ---
 
-# This is the `default` layout
+# The `center` layout
 
-This is kind of the basic slide. The main content is interpreted as markdown and rendered in the center of the slide.
-
-Speaking of markdown, you can use markdown to make things **bold** or _italic_ or even `code` like `this`. In **Giornata** you can also ==highlight things using the double equals signs like this==
-thanks to the `markdown-it-mark` plugin.
-
-Of course you can make bullet lists:
-
-- Hi
-- There
-
-Also there's a little helper class `g-c-tight` you can add to make the bullet spacing a bit tighter:
-
-<div class="g-c-tight">
-
-- Hi
-- There
-- I need space
-
-</div>
-
----
-layout: default
-color: sky
----
-
-# The `default` layout
-
-The default layout also has an optional `color` option in the frontmatter.
-For example this is
-
-```md
----
-layout: default
-color: sky
----
-```
-
----
-layout: default
-color: light
----
-
-# The `default` layout
-
-Things don't have to be so dramatic. For more conservative presentations you can use color schemes like `light`:
-
-```md
----
-layout: default
-color: light
----
-```
-
-And of course you don't have to change the color scheme every slide!
+Vertically and horizontally centered content, with `color`, `color-mode` and `margin` like the other layouts.
 
 ---
 layout: section
@@ -557,42 +293,14 @@ color: navy
 It has a `hr` which is color matched to the color scheme.  For example, this slide is using the `navy` color scheme and the line is white.
 
 ---
-layout: section
-color: indigo
----
-
-# The `section` layout
-
-<hr>
-
-This is `color: indigo` and the line and font is a light indigo shade.
-
----
-layout: section
-color: navy
----
-
-<div class="w-2/3 ml-30">
-
-# The `section` layout
-
-<hr>
-
-<span class='text-amber-300'>
-You can use HTML and inline CSS to modify the look and feel.
-</span>
-
-</div>
-
----
 layout: quote
 color: sky
-quotesize: text-sm
-authorsize: text-sm
-author: 'Todd Gureckis'
+authorsize: text-xs
+quotesize: text-xl
+author: 'John Berger'
 ---
 
-"This is a quote slide. It has a frontmatter option of `quote` which is the text that appears in the quote box and `author` and options for the size of the text(`quotesize: text-2xl` and `authorsize: text-l`). I feel it is a little uninspired but might save you some time."
+Seeing comes before words. %% The child looks and recognizes ==before it can speak==.
 
 ---
 layout: two-cols
@@ -603,15 +311,7 @@ color: emerald
 
 The same engine as the `quote` layout, dropped into any slide. Click through the reveal:
 
-<Quote
-color="emerald"
-author="John Berger"
-work="Ways of Seeing"
-year="1972"
-reveal="appear"
-quote-size="text-2xl"
-
->
+<Quote color="emerald" author="John Berger" work="Ways of Seeing" year="1972" quote-size="text-2xl">
 
 Seeing comes before words. %% The child looks %% and recognizes ==before it can speak==.
 </Quote>
@@ -621,10 +321,10 @@ Seeing comes before words. %% The child looks %% and recognizes ==before it can 
 ## How it works
 
 - `%%` marks chunk boundaries — one chunk per click
-- `reveal="appear"` fades chunks in
-- `reveal="highlight"` (default) keeps the whole quote visible and moves an accent wash through it, like line highlighting in a code block
+- the clicked chunk sits at full contrast while the rest of the quote dims
+- chunks flow inline as one continuous line
 - `==marked phrases==` stay emphasized regardless of clicks
-- the attribution is its own final click
+- the attribution is always visible; add `reveal="none"` for a fully static quote
 
 ---
 layout: default
@@ -707,42 +407,6 @@ I'm v-dragged out and ==floating==.
 </div>
 
 ---
-layout: full
-title: Full Layout - 2 Col Fig
----
-
-This is an example of using unocss atomic classes to put two figures side by side.
-
-<div class="grid w-full h-fit grid-cols-2 grid-rows-2 mt-10 mb-auto">
-<div class="grid-item grid-col-span-1"><img src="/images/scatter1.svg" /></div>
-<div class="grid-item grid-col-span-1"><img src="/images/scatter1.svg" /></div>
-<div class="grid-item grid-col-span-2 text-center h-fit">
-
-**Figure show this**: this is a two column figure
-
-</div>
-</div>
-
----
-layout: full
-title: Full Layout - 3 Col Fig
----
-
-This is an example of using unocss atomic classes to put three figures side by side.
-
-<div class="grid w-full h-fit grid-cols-3 grid-rows-2 mt-20 mb-auto">
-<div class="grid-item grid-col-span-1"><img src="/images/scatter1.svg" /></div>
-<div class="grid-item grid-col-span-1"><img src="/images/scatter1.svg" /></div>
-<div class="grid-item grid-col-span-1"><img src="/images/scatter1.svg" /></div>
-<div class="grid-item grid-col-span-3 text-center h-fit">
-
-**Figure show this**: this is a three column figure
-
-</div>
-
-</div>
-
----
 layout: credits
 color: light
 ---
@@ -777,110 +441,6 @@ Vite<br/>
 </div>
 
 ---
-layout: credits
-color: navy
-speed: 4.0
-loop: true
----
-
-<div class="grid text-size-4 grid-cols-3 w-3/4 gap-y-10 auto-rows-min ml-auto mr-auto">
-<div class="grid-item text-center mr-0- col-span-3">
-
-This one has `speed: 4.0` and `loop: true` in the front matter
-</div>
-<div class="grid-item text-center mr-0- col-span-3">
-  <strong>Cast</strong><br> 
-  <span class="font-size-3 mt-0">(In order of appearance)</span>
-</div>
-<div class="grid-item text-right mr-4 col-span-1"><strong>Study 1</strong></div>
-<div class="grid-item col-span-2">Person 1 <i>as PhD student</i>&nbsp;<mdi-open-in-new class="font-size-3 mb-0.5" /><br/>Person 2 <i>as Co-PI</i>&nbsp;<mdi-open-in-new class="font-size-3 mb-0.5" /></div>
-<div class="grid-item text-right mr-4 col-span<SessionChrome />-1"><strong>Study 2</strong></div>
-<div class="grid-item col-span-2">Person 3 <i>as Postdoc</i>&nbsp;<mdi-open-in-new class="font-size-3 mb-0.5" /><br/>Person 4 <i>as Co-PI</i>&nbsp;<mdi-open-in-new class="font-size-3 mb-0.5" /></div>
-<div class="grid-item text-right mr-4 col-span-1"><strong>Experiments</strong></div>
-<div class="grid-item col-span-2">Smile 🫠</div>
-<div class="grid-item text-right mr-4 col-span-1"><strong>Funding</strong></div>
-<div class="grid-item col-span-2">National Science Foundation<br/>
-National Institute of Health</div>
-<div class="grid-item text-right mr-4 col-span-1"><strong>Slides</strong></div>
-<div class="grid-item col-span-2">
-Slidev<br/>
-Unocss<br/>
-Figma<br/>
-Vuejs<br/>
-Vite<br/>
-</div>
-<div class="grid-item col-span-3 text-center mt-180px mb-auto font-size-1.5rem"><strong>Questions?</strong></div>
-</div>
-
----
-layout: image-left
-image: /images/photo.png
-class: mycoolclass
----
-
-<br />
-
-# Image left
-
-This is the `layout: image-left` layout.
-
----
-layout: image-right
-image: /images/photo2.png
-slide_info: false
-class: mycoolclass
----
-
-# Image right
-
-This is the `layout: image-right` layout.
-
----
-layout: image
-image: /images/photo.png
-title: Image Layout
----
-
----
-layout: iframe-left
-title: iframe Left Layout
-# the web page source
-url: https://gureckislab.org
-
-# a custom class name to the content
-class: my-cool-content-on-the-right
----
-
-<br />
-
-# This is a website on the left
-
-This is useful for showing a website but loads live on the web so requires and internet connection.
-
----
-layout: iframe-right
-title: iframe Right Layout
-# the web page source
-url: https://gureckislab.org
-
-# a custom class name to the content
-class: my-cool-content-on-the-right
-slide_info: false
----
-
-# This is a website on the right
-
-This is useful for showing a website but loads live on the web so requires and internet connection.
-
----
-layout: iframe
-title: iframe Layout
-# the web page source
-url: https://gureckislab.org
-slide_info: false
----
-
----
 layout: two-cols-title
 columns: is-6
 align: l-lt-lt
@@ -911,143 +471,6 @@ This is `layout: two-cols-title`.
   is vertical alignment (<code>t</code> for top, <code>m</code> for middle, <code>b</code> for bottom). Only c/l/r works for the header.
 
 ---
-layout: two-cols-title
-columns: is-2
-align: l-lt-lt
-title: Two Cols Title - Header (is-2)
----
-
-:: title ::
-
-<div class='w-full h-20 bg-indigo-100'>
-</div>
-
-:: left ::
-
-<div class='w-full h-100 bg-gray-300'></div>
-
-:: right ::
-
-<div class='w-full h-100 bg-pink-300'></div>
-
----
-layout: two-cols-title
-columns: is-4
-align: l-lt-lt
-title: Two Cols Title - Header (is-4)
----
-
-:: title ::
-
-<div class='w-full h-20 bg-indigo-100'>
-</div>
-
-:: left ::
-
-<div class='w-full h-100 bg-gray-300'></div>
-
-:: right ::
-
-<div class='w-full h-100 bg-pink-300'></div>
-
----
-layout: two-cols-title
-columns: is-6
-align: l-lt-lt
-title: Two Cols Title - Header (is-6)
----
-
-:: title ::
-
-<div class='w-full h-20 bg-indigo-100'>
-</div>
-
-:: left ::
-
-<div class='w-full h-100 bg-gray-300'></div>
-
-:: right ::
-
-<div class='w-full h-100 bg-pink-300'></div>
-
----
-layout: two-cols-title
-columns: is-8
-align: l-lt-lt
-title: Two Cols Title - Header (is-8)
----
-
-:: title ::
-
-<div class='w-full h-20 bg-indigo-100'>
-</div>
-
-:: left ::
-
-<div class='w-full h-100 bg-gray-300'></div>
-
-:: right ::
-
-<div class='w-full h-100 bg-pink-300'></div>
-
----
-layout: two-cols-title
-columns: is-10
-align: l-lt-lt
-title: Two Cols Title - Header (is-10)
----
-
-:: title ::
-
-<div class='w-full h-20 bg-indigo-100'>
-</div>
-
-:: left ::
-
-<div class='w-full h-100 bg-gray-300'></div>
-
-:: right ::
-
-<div class='w-full h-100 bg-pink-300'></div>
-
----
-layout: two-cols-title
-columns: is-10
-align: l-lt-lt
-titlepos: b
-title: Two Cols Title - Footer (is-10)
----
-
-:: title ::
-
-<div class='w-full h-20 bg-indigo-100'>
-</div>
-
-:: left ::
-
-<div class='w-full h-100 bg-gray-300'></div>
-
-:: right ::
-
-<div class='w-full h-100 bg-pink-300'></div>
-
----
-layout: two-cols-title
-columns: is-4
-align: l-lt-lt
-titlepos: b
-title: Two Cols Title - no title (is-4)
----
-
-:: left ::
-
-<div class='w-full h-120 bg-gray-300'></div>
-
-:: right ::
-
-<div class='w-full h-120 bg-pink-300'></div>
-
----
 layout: side-title
 side: l
 color: violet
@@ -1071,32 +494,6 @@ side: left
 color: violet
 titlewidth: is-4
 align: rm-lm
-```
-
----
-layout: side-title
-side: r
-color: pink
-titlewidth: is-6
-align: lm-lb
-title: Side Title Layout (Another)
----
-
-:: title ::
-
-# `side-title`
-
-# <mdi-arrow-right />
-
-:: content ::
-
-This is `layout: side-title` with `side: right` in the front matter.
-
-```yaml
-side: right
-color: pink
-titlewidth: is-6
-align: lm-lb
 ```
 
 ---
@@ -1147,24 +544,6 @@ title: Top Title (Another)
 - This is a nice way to add color and distinction to a slide
 
 ---
-layout: default
----
-
-# Extras
-
-In addition to these custom layouts, the **Giornata** theme includes a few custom components that can be used in your slides. These include sticky notes, speech bubbles, cute icons, QR codes, and more. The next few slides walks through them:
-
-<div class="g-c-tight">
-
-- admonitions
-- sticky notes
-- speech bubbles
-- cute icons
-- QR codes
-
-</div>
-
----
 layout: two-cols-title
 columns: is-6
 title: Admonitions
@@ -1194,11 +573,6 @@ This is my admon message
 <AdmonitionType type='note' >
 This is note text
 </AdmonitionType>
-
-<!--
-> [!note]
-> This is note text
--->
 
 <AdmonitionType type='important' >
 This is important text
@@ -1326,14 +700,6 @@ title: Kawaii 1
 <IceCream :size="80" mood="excited" color="#FDA7DC" />
 <IceCream :size="80" mood="ko" color="#FDA7DC" /><br/>
 
-<BackPack :size="80" mood="sad" color="#FFD882" />
-<BackPack :size="80" mood="shocked" color="#FFD882" />
-<BackPack :size="80" mood="happy" color="#FFD882"/>
-<BackPack :size="80" mood="blissful" color="#FFD882" />
-<BackPack :size="80" mood="lovestruck" color="#FFD882" />
-<BackPack :size="80" mood="excited" color="#FFD882" />
-<BackPack :size="80" mood="ko" color="#FFD882" /><br/>
-
 <Cat :size="80" mood="sad" color="#FFD882" />
 <Cat :size="80" mood="shocked" color="#FFD882" />
 <Cat :size="80" mood="happy" color="#FFD882"/>
@@ -1345,9 +711,7 @@ title: Kawaii 1
 <Browser :size="50" mood="lovestruck" color="#61DDBC" />
 <Mug :size="50" mood="lovestruck" color="#61DDBC" />
 <Planet :size="50" mood="lovestruck" color="#61DDBC" />
-<SpeechBubbleGuy :size="50" mood="lovestruck" color="#d3d3d3" />
 <Ghost :size="50" mood="blissful" color="#E0E4E8" />
-<CreditCard :size="50" mood="blissful" color="#E0E4E8" />
 
 ---
 layout: default
@@ -1436,89 +800,6 @@ Maps draw real coastlines from a bundled Natural Earth basemap and render as cri
 
 ---
 layout: default
-title: Slide Margins - Normal
----
-
-# Slide Margins: `normal` (default)
-
-Sometimes you need more space on a slide. Use the `margin` frontmatter option to control slide padding.
-
-- This slide uses the default `margin: normal`
-- Notice the standard padding around the content
-- Good for most slides with typical content
-
-```yaml
----
-layout: default
-margin: normal # or just omit this line
----
-```
-
----
-layout: default
-margin: tight
-title: Slide Margins - Tight
----
-
-# Slide Margins: `tight`
-
-This slide uses `margin: tight` for reduced padding.
-
-- More horizontal and vertical space for content
-- Useful when you need to fit more on a slide
-- Notice how the content extends closer to the edges
-
-```yaml
----
-layout: default
-margin: tight
----
-```
-
----
-layout: default
-margin: tighter
-title: Slide Margins - Tighter
----
-
-# Slide Margins: `tighter`
-
-This slide uses `margin: tighter` for even smaller margins.
-
-- Maximum content space while still having some padding
-- Good for dense information or larger diagrams
-- Compare to the previous slides to see the difference
-
-```yaml
----
-layout: default
-margin: tighter
----
-```
-
----
-layout: default
-margin: none
-title: Slide Margins - None
----
-
-# Slide Margins: `none`
-
-This slide uses `margin: none` to remove all padding.
-
-- Content goes edge-to-edge
-- Useful for full-bleed images or custom layouts
-- Be careful with readability near edges
-
-```yaml
----
-layout: default
-margin: none
----
-```
-
----
-layout: default
 title: Lines
 ---
 
@@ -1535,16 +816,9 @@ align: rm-lt
 title: Code Example
 ---
 
-<SpeechBubble position="br" shape="round" borderWidth="0" animation="float" v-drag="[19,335,261,83]">
-
-Slidev is great at code formatting!
-</SpeechBubble>
-
 :: title ::
 
 # <mdi-code-braces /> Code
-
-<IceCream :size="80" mood="excited" color="#FDA7DC" v-drag="[232,444,50,80]" />
 
 :: content ::
 
@@ -1580,56 +854,6 @@ function helloworld() {
 ---
 layout: side-title
 side: left
-color: violet
-titlewidth: is-4
-align: rm-lt
-title: Code Example
----
-
-:: title ::
-
-# <mdi-code-braces /> Code
-
-More cool code stuff
-
-:: content ::
-
-Scrollable with clicks 🤯
-
-```ts {2|3|7|12}{maxHeight:'100px'}
-function helloworld() {
-  console.log('Hello, World 1!')
-  console.log('Hello, World 2!')
-  console.log('Hello, World 3!')
-  console.log('Hello, World 4!')
-  console.log('Hello, World 5!')
-  console.log('Hello, World 6!')
-  console.log('Hello, World 7!')
-  console.log('Hello, World 8!')
-  console.log('Hello, World 9!')
-  console.log('Hello, World 10!')
-  console.log('Hello, World 11!')
-}
-```
-
-You can even edit the code in the browser
-
-```ts {monaco}
-console.log('HelloWorld')
-```
-
-You can even run the code in the browser
-
-```ts {monaco-run} {showOutputAt:'+1'}
-function distance(x: number, y: number) {
-  return Math.sqrt(x ** 2 + y ** 2)
-}
-console.log(distance(3, 4))
-```
-
----
-layout: side-title
-side: left
 color: lime
 titlewidth: is-4
 align: rm-lt
@@ -1639,10 +863,6 @@ title: LaTeX Example
 :: title ::
 
 # <mdi-math-integral-box /> LaTeX Equations
-
-Yeah it does this fine
-
-<Mug :size="80" mood="excited" color="#FDA7DC" v-drag="[342,288,77,80]" />
 
 :: content ::
 
@@ -1663,18 +883,6 @@ $$
 \end{array}
 $$
 
-Line highlighting with clicks!
-
-$$
-{1|3|all}
-\begin{array}{c}
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
-= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-\nabla \cdot \vec{\mathbf{B}} & = 0
-\end{array}
-$$
-
 ---
 layout: side-title
 side: left
@@ -1687,8 +895,6 @@ title: Mermaid Example
 :: title ::
 
 # Mermaid Diagrams
-
-Everyone is talking about this
 
 :: content ::
 
@@ -1698,35 +904,11 @@ sequenceDiagram
   Note over Alice,John: A typical interaction
 ```
 
----
-layout: side-title
-side: left
-color: sky
-titlewidth: is-4
-align: rm-cm
-title: Mermaid Example
----
-
-:: title ::
-
-# Mermaid Diagrams
-
-Everyone is talking about this
-
-:: content ::
-
 ```mermaid {theme: 'neutral', scale: 0.8}
 graph TD
 B[Text] --> C{Decision}
 C -->|One| D[Result 1]
 C -->|Two| E[Result 2]
-```
-
-A mermaid diagram with two circles side by side horizontally with an arrow pointing from the left circle to the right circle
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph LR
-A([Circle 1]) --> B((Circle 2))
 ```
 
 ---
@@ -1943,7 +1125,7 @@ The ==image survives%% the dynasty==. %% After the Mughals came the British; aft
 
 :: author::
 
-the closing epigraph of the timeline lecture — the quote is visible whole, each click washes the next phrase, and this line is the final click
+the closing epigraph of the timeline lecture — the quote is visible whole, and each click brings the next phrase to full contrast while the rest dims
 
 ---
 layout: cover
@@ -1968,7 +1150,7 @@ color: navy-light
 
 # View-Transition Morph → Comparison
 
-When `transition: view-transition` is set (it is — headmatter line 6), any `<img>` with a matching `data-morph-id` on consecutive slides morphs between them via the browser's [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API). `global-top.vue` stamps the `view-transition-name` CSS property automatically.
+When `transition: view-transition` is set (it is — see the headmatter), any `<img>` with a matching `data-morph-id` on consecutive slides morphs between them via the browser's [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API). `global-top.vue` stamps the `view-transition-name` CSS property automatically.
 
 <v-clicks>
 
@@ -2023,24 +1205,3 @@ color: indigo
   />
   <figcaption>Qutb Minar</figcaption>
 </figure>
-
----
-layout: full
-color: black
----
-
-![Taj Mahal, Agra, 1632–53](https://smarthistory.org/wp-content/uploads/2022/04/Taj_Mahal-10-scaled.jpg){data-morph-id="taj-md"}
-
----
-layout: two-cols
-color: indigo
-transition: fade
----
-
-::left::
-
-![Taj Mahal](https://smarthistory.org/wp-content/uploads/2022/04/Taj_Mahal-10-scaled.jpg){data-morph-id="taj-md"}
-
-::right::
-
-![Qutb Minar](https://res.cloudinary.com/image-solar/image/upload/v1772011970/2026nwp-ar1205/32709403483_d9a6a5ab37_k_cgzsbe.jpg)

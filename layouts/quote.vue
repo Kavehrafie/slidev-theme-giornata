@@ -24,7 +24,7 @@ const props = withDefaults(
     year: null,
     reveal: 'highlight',
     quotesize: 'text-4xl',
-    authorsize: 'text-base',
+    authorsize: '',
   },
 )
 
