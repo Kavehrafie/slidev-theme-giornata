@@ -27,6 +27,8 @@ const marginClass = computed(() => compute_margin_class(props.margin))
 .slidev-layout.section {
   display: grid;
   height: 100%;
+  font-family: var(--giornata-main-font);
+  font-weight: 300;
 }
 
 .slidev-layout.section hr {
@@ -37,7 +39,7 @@ const marginClass = computed(() => compute_margin_class(props.margin))
   margin-top: 0.5rem;
 }
 
-/* cover slide type */
+/* section slide type */
 .slidev-layout.section h1 {
   font-family: var(--giornata-title-font);
   font-weight: 500;
@@ -58,11 +60,6 @@ const marginClass = computed(() => compute_margin_class(props.margin))
   font-weight: 500;
   font-size: 1.9em;
   line-height: normal;
-}
-
-.slidev-layout.section {
-  font-family: var(--giornata-main-font);
-  font-weight: 300;
 }
 
 .slidev-layout.section strong {

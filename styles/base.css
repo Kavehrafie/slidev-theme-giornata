@@ -3,7 +3,10 @@
   --giornata-main-font: 'Inter', sans-serif;
   --giornata-mono-font: 'Fira Code', monospace;
   --giornata-quote-font: 'EB Garamond', Georgia, 'Times New Roman', serif;
-  --font-mono: 'Courier New', Courier, monospace;
+  /* wind4's font-mono utility reads this var — route it through the brand
+     mono var instead of pinning Courier New (the files come from
+     styles/fonts.css, Fontsource) */
+  --font-mono: var(--giornata-mono-font);
   color-scheme: light only; /* prevent browser dark mode auto-adjustments */
   @apply giornata-white-scheme; /* apply the default white scheme everywhere */
 }
@@ -126,11 +129,6 @@
   margin-top: 1.5em;
 }
 
-.bwimg {
-  filter: grayscale(100%) contrast(150%) brightness(120%);
-  display: inline;
-}
-
 /* customize the v-clicks */
 .slidev-vclick-target {
   transition: opacity 100ms ease;
@@ -190,7 +188,9 @@ html:not(.dark) {
    <figure><img><figcaption>caption</figcaption></figure>. Contain the image
    so tall portraits don't overflow the slide canvas — fit inside available
    height, preserve aspect ratio, and reserve space for the caption so it
-   isn't pushed off-slide by a max-height:100% image. */
+   isn't pushed off-slide by a max-height:100% image. `min-height: 0`
+   lets the figure shrink as a flex item (flex items default to
+   min-height:auto = intrinsic image size, which blocks shrinking). */
 .slidev-layout figure {
   margin: 0 auto;
   display: flex;
@@ -198,6 +198,7 @@ html:not(.dark) {
   align-items: center;
   justify-content: center;
   max-height: 100%;
+  min-height: 0;
   gap: 0.5rem;
 }
 
@@ -232,10 +233,13 @@ html:not(.dark) {
   flex: 0 0 auto;
 }
 
-/* Plain inline images (not in a figure) — also contain, no clipping */
+/* Plain inline images (not in a figure) — also contain, no clipping.
+   min-height:0 so a bare image shrinks when it is a flex item of a
+   column layout (same min-height:auto block as for figures above). */
 .slidev-layout img:not(figure img) {
   max-width: 100%;
   max-height: 100%;
+  min-height: 0;
   object-fit: contain;
 }
 

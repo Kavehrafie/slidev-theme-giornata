@@ -11,7 +11,7 @@ const colorscheme = computed(() => compute_color_scheme(props.color, props.color
 
 <template>
   <div class="slidev-layout cover h-full slidecolor" :class="colorscheme">
-    <div class="myauto w-full">
+    <div class="my-auto w-full">
       <slot />
     </div>
     <div class="note absolute bottom-3">
@@ -26,9 +26,6 @@ const colorscheme = computed(() => compute_color_scheme(props.color, props.color
 .slidev-layout.cover {
   font-family: var(--giornata-main-font);
   font-weight: 300;
-}
-
-.slidev-layout.cover {
   margin-bottom: 0px;
 }
 

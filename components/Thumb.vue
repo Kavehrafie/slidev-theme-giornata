@@ -22,9 +22,6 @@ const colorscheme = computed(() => {
 const thumbRotation = computed(() => {
   return props.dir === 'down' ? 'rotate(180deg)' : 'rotate(0deg)'
 })
-
-// const colorFill = computed(() => resolveColor(props.color))
-// const colorEdge = computed(() => resolveColor(props.edge))
 </script>
 
 <template>

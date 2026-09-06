@@ -67,7 +67,11 @@ const marginClass = computed(() => compute_margin_class(props.margin))
 
     <p>The <code>color</code> parameter determines color of the title.</p>
   </div>
-  <div v-else>
+  <!-- h-full is load-bearing: this root sits directly in .slidev-page
+       (absolute, inset 0). Without it the root is auto-height, the inner
+       h-full column cannot resolve, and the whole layout stays
+       content-sized — which is why tall images overflowed the slide. -->
+  <div v-else class="h-full">
     <div class="flex flex-col h-full w-full">
       <div class="w-full h-fit min-h-13 pt-2 pb-2 slidecolor" :class="colorscheme">
         <div class="slidev-layout toptitle title p-0 ml-6 mr-6 mt-auto mb-auto" :class="alignment.t">
@@ -169,13 +173,28 @@ li li {
 </style>
 
 <style scoped>
+/* Flex columns capped at the row height: without the cap the g-c-*
+   auto-margin alignment sizes each column to its content, so a tall image
+   overflows the slide (max-height on the image has nothing to resolve
+   against). With min-height 0 + max-height 100% the column clamps to the
+   definite row height when content exceeds it and the image shrinks. */
 .slidev-layout.toptitle.content .col-left {
   flex: v-bind(colsL); /* Makes each column take up equal space */
   margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .slidev-layout.toptitle.content .col-right {
   flex: v-bind(colsR); /*Makes each column take up equal space */
   margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
 }
 </style>

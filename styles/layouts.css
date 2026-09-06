@@ -1,3 +1,9 @@
+/* layouts.css — inherited neversink typography layer.
+   NOTE: base.css is imported after this file, so where the two disagree
+   (h1/h2/h4 sizes, h1+p spacing) base.css wins; the rules kept here are the
+   ones base.css does not cover (h3/h5/h6 sizing, p+h2 rhythm, and the
+   cover/intro/quote/section layout primitives). */
+
 .slidev-layout {
   h1 + p {
     @apply -mt-2 opacity-50 mb-4;
@@ -45,23 +51,6 @@
   }
 }
 
-
-.slidev-layout.fact {
-  @apply text-center grid h-full;
-  h1 {
-    @apply text-8xl font-700;
-  }
-  h1 + p {
-    @apply font-700 text-2xl;
-  }
-}
-.slidev-layout.statement {
-  @apply text-center grid h-full;
-
-  h1 {
-    @apply text-6xl font-700;
-  }
-}
 .slidev-layout.quote {
   @apply grid h-full;
 

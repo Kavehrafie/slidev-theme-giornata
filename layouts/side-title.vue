@@ -96,7 +96,7 @@ const marginClass = computed(() => compute_margin_class(props.margin))
         <div class="slidev-layout sidetitle w-full p-6" :class="alignment.l"><slot name="title" /></div>
       </div>
       <div class="column-content min-h-0">
-        <div class="slidev-layout h-fit w-full" :class="[alignment.r, marginClass]">
+        <div class="slidev-layout side-content h-fit w-full" :class="[alignment.r, marginClass]">
           <slot name="content" />
           <slot name="default" />
         </div>
@@ -104,7 +104,7 @@ const marginClass = computed(() => compute_margin_class(props.margin))
     </div>
     <div v-else class="flex h-full w-full">
       <div class="column-content min-h-0">
-        <div class="slidev-layout h-fit w-full" :class="[alignment.l, marginClass]">
+        <div class="slidev-layout side-content h-fit w-full" :class="[alignment.l, marginClass]">
           <slot name="content" />
           <slot name="default" />
         </div>
@@ -145,5 +145,17 @@ const marginClass = computed(() => compute_margin_class(props.margin))
 .column-content {
   flex: v-bind(colsR); /* although this is mapped to 'right' it is reversed when needed in the template*/
   display: flex;
+}
+
+/* The content wrapper is h-fit so the g-c-* auto-margin alignment can
+   position it — but that makes its height content-based, so a tall image
+   overflows the slide. Cap it at the (definite) column height: when content
+   exceeds the cap the clamped height acts as definite and the image shrinks
+   instead of spilling over. */
+.side-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
 }
 </style>

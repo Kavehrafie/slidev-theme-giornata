@@ -26,11 +26,3 @@ const colorscheme = computed(() => compute_color_scheme(props.color, props.color
     </div>
   </div>
 </template>
-
-<style scoped>
-.quote {
-  background-color: var(--giornata-bg-color);
-  color: var(--giornata-text-color);
-  border-color: var(--giornata-border-color);
-}
-</style>

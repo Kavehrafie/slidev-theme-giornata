@@ -37,17 +37,25 @@ const marginClass = computed(() => compute_margin_class(props.margin))
 
     <p>The <code>color</code> parameter determines color of the title.</p>
   </div>
-  <div v-else>
+  <!-- h-full is load-bearing: this root sits directly in .slidev-page
+       (absolute, inset 0). Without it the root is auto-height, the inner
+       h-full column cannot resolve, and the whole layout stays
+       content-sized — which is why tall images overflowed the slide. -->
+  <div v-else class="h-full">
     <div class="flex flex-col h-full w-full">
       <div class="w-full h-fit min-h-13 pt-2 pb-2 slidecolor" :class="colorscheme">
         <div class="slidev-layout toptitle title p-0 pt-0 ml-6 mr-6 mt-auto mb-auto" :class="alignment">
           <slot name="title" />
         </div>
       </div>
-      <div class="slidev-layout toptitle content h-fit w-full" :class="marginClass">
+      <!-- content is flex-1 min-h-0 (not h-fit): a content-sized wrapper gives
+           images no definite height to resolve max-height against, so tall
+           images rendered at natural size and got clipped by the global
+           overflow:hidden. The flex column lets figures shrink to fit. -->
+      <div class="slidev-layout toptitle content flex-1 min-h-0 flex flex-col w-full" :class="marginClass">
         <slot name="content" />
       </div>
-      <div v-if="$slots.default" class="slidev-layout default h-full w-full" :class="marginClass">
+      <div v-if="$slots.default" class="slidev-layout default h-fit w-full" :class="marginClass">
         <slot name="default" />
       </div>
     </div>

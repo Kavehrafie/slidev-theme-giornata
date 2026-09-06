@@ -11,7 +11,7 @@ const colorscheme = computed(() => compute_color_scheme(props.color, props.color
 
 <template>
   <div class="slidev-layout intro slidecolor" :class="colorscheme">
-    <div class="my-auto">
+    <div class="my-auto intro-wrap">
       <slot />
     </div>
     <div class="absolute bottom-10">
@@ -19,6 +19,17 @@ const colorscheme = computed(() => compute_color_scheme(props.color, props.color
     </div>
   </div>
 </template>
+
+<style scoped>
+/* Cap the vertically-centered wrapper (same pattern as center.vue) so any
+   image in an intro slide shrinks inside the slide instead of being clipped. */
+.intro-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+}
+</style>
 
 <style>
 /* intro slide type */

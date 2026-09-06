@@ -116,13 +116,16 @@ const flexclass = computed(() => {
 .slidev-layout.two-cols-footer {
   display: grid;
   grid-template-columns: repeat(12, 1fr); /* 12 columns */
-  grid-template-rows: auto 1fr auto; /* top header and content */
+  /* content row is minmax(0, 1fr): a bare 1fr grows to a tall image's
+     content and pushes the grid past the slide — cap the min so images
+     shrink inside the columns instead */
+  grid-template-rows: auto minmax(0, 1fr) auto; /* top header and content */
 }
 
 .slidev-layout.two-cols {
   display: grid;
   grid-template-columns: repeat(12, 1fr); /* 12 columns */
-  grid-template-rows: auto auto; /* top header and content */
+  grid-template-rows: minmax(0, 1fr) auto; /* content row capped, end row auto */
 }
 
 .slidev-layout.two-cols-header .title {
@@ -151,12 +154,19 @@ const flexclass = computed(() => {
   margin-bottom: 0;
 }
 
+/* Columns capped like two-cols.vue: the g-c-* auto-margin alignment sizes
+   them to content, which defeats max-height on child images. max-height +
+   min-height 0 keep the column at track height when content overflows so the
+   image shrinks; auto margins still align when it fits. */
 .slidev-layout.two-cols .left-col,
 .slidev-layout.two-cols-header .left-col,
 .slidev-layout.two-cols-footer .left-col {
   margin-right: 2rem;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .slidev-layout.two-cols .right-col,
@@ -164,6 +174,9 @@ const flexclass = computed(() => {
 .slidev-layout.two-cols-footer .right-col {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .slidev-layout.two-cols-header .end,

@@ -61,8 +61,6 @@ const borderstyle = computed(() => {
 const style = computed(() => {
   let s = ''
   let parts = props.shape.split('-')
-  console.log(parts)
-  console.log(parts[0])
   // no validation currently!
 
   // square versus rounded vs full

@@ -635,7 +635,7 @@ Hello, I'm a **sticky note**.
 Hello, I'm also a **sticky note** but am blue sky title.
 </StickyNote>
 
-<StickyNote color="pink" textAlign="left" width="180px"  v-drag="[549,292,185,171,8]">
+<StickyNote color="pink" textAlign="left" width="180px"  v-drag="[549,292,185,171,-35]">
 
 Hello, I'm also a **sticky note** but I lack a title.
 </StickyNote>
@@ -665,7 +665,7 @@ title: Dev-Only Sticky Notes
 
 # Dev-Only Sticky Notes
 
-<StickyNote color="rose" textAlign="left" width="200px" title="Dev Note" devOnly v-drag="[650,150,200,200]">
+<StickyNote color="rose" textAlign="left" width="200px" title="Dev Note" devOnly v-drag="[645,150,200,200]">
 
 This note only appears in **dev mode**! It won't show in exports or production builds.
 </StickyNote>
@@ -1205,3 +1205,15 @@ color: indigo
   />
   <figcaption>Qutb Minar</figcaption>
 </figure>
+
+---
+layout: top-title
+---
+
+:: title ::
+
+## The Romantic Revolt
+
+:: content ::
+
+![Eugène Delacroix, _The Barque of Dante_](https://res.cloudinary.com/image-solar/image/upload/t_1400fill/v1788463361/2026fall-nwp/Eug%C3%A8ne_Delacroix_-_The_Barque_of_Dante_riinbx.jpg)

@@ -82,7 +82,10 @@ const colorscheme = computed(() => compute_color_scheme(props.color, props.color
 .two-cols {
   display: grid;
   grid-template-columns: repeat(12, 1fr); /* 12 columns */
-  grid-template-rows: 1fr; /* no footer and content */
+  /* minmax(0,…) — a bare `1fr` track has an auto minimum and grows to fit a
+     tall image, pushing the grid past the slide bottom. Capping the min at 0
+     keeps the row at slide height so images must shrink inside the columns. */
+  grid-template-rows: minmax(0, 1fr); /* no footer and content */
 }
 
 .end-footer {
@@ -90,40 +93,27 @@ const colorscheme = computed(() => compute_color_scheme(props.color, props.color
   margin-bottom: 1rem;
 }
 
-.footer {
-  grid-area: 3 / 1 / 4 / span 12; /* full width */
-  margin-bottom: 1rem;
-}
-
-.two-cols-footer .left-col {
-  margin-right: 2rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.two-cols-footer .right-col {
-  display: flex;
-  flex-direction: column;
-}
-
+/* The columns are flex columns, but the g-c-top/middle/bottom alignment
+   classes size them with auto margins — that makes their height content-based,
+   so max-height on child images never resolves and images overflow. Capping
+   with max-height + min-height 0 keeps the column at track height when content
+   exceeds it (the cap then acts as a definite height and the image shrinks),
+   while auto margins still align the column when content fits. */
 .two-cols .left-col {
   margin-right: 2rem;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .two-cols .right-col {
   display: flex;
   flex-direction: column;
-}
-
-/* 1-11 */
-.two-cols-footer .left-col {
-  grid-area: 2 / 1 / 3 / span v-bind(colsL);
-}
-
-.two-cols-footer .right-col {
-  grid-area: 2 / calc(v-bind(colsL) + 1) / 3 / span v-bind(colsR);
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
 }
 
 .two-cols .left-col {
@@ -132,9 +122,5 @@ const colorscheme = computed(() => compute_color_scheme(props.color, props.color
 
 .two-cols .right-col {
   grid-area: 1 / calc(v-bind(colsL) + 1) / 2 / span v-bind(colsR);
-}
-
-.footnotes-sep {
-  visibility: hidden;
 }
 </style>

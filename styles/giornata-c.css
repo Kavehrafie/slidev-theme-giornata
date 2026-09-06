@@ -47,9 +47,6 @@
 .g-c-warning {
   color: red;
 }
-.g-c-error {
-  font-size: 0.9em;
-}
 
 .g-c-left {
   justify-content: left; /* Left align the content */
@@ -157,8 +154,7 @@
   pointer-events: none;
 }
 
-.g-c-bind-scheme,
-.g-c-mixin {
+.g-c-bind-scheme {
   background-color: var(--giornata-bg-color);
   color: var(--giornata-text-color);
   border-color: var(--giornata-border-color);

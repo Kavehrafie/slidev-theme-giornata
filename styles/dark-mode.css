@@ -3,7 +3,7 @@
 
    Per-color schemes (red, blue, etc.) don't need explicit dark overrides
    here: their OKLCH formulas in uno.config.ts read lightness from CSS vars
-   (--giornata-l-regular-bg, --giornata-l-light-text, …) defined in
+   (--giornata-l-bg, --giornata-l-text, …) defined in
    theme-tokens.css. The html.dark block below simply overrides those L
    targets, and every scheme retunes at once — including the relational
    mode offsets (--giornata-mode-text-offset / -border-offset), which keep
