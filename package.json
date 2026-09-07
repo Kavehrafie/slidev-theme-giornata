@@ -1,6 +1,6 @@
 {
   "name": "slidev-theme-giornata",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Kaveh Rafie",
   "description": "A Slidev theme for teaching art history — color schemes, layouts, sticky notes, admonitions, and more.",
   "license": "MIT",
@@ -42,7 +42,8 @@
     "markdown-it-attrs": "^5.0.1",
     "markdown-it-implicit-figures": "^0.12.0",
     "markdown-it-mark": "^4.0.0",
-    "qrcode.vue": "^3.10.0"
+    "qrcode.vue": "^3.10.0",
+    "yaml": "^2.9.0"
   },
   "repository": {
     "type": "git",
