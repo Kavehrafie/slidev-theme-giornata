@@ -58,11 +58,24 @@ const is_static = computed(() => props.reveal.trim().toLowerCase() === 'none')
 // the initial state stays clean without per-chunk class gymnastics.
 const focusing = computed(() => !is_static.value && $clicks.value > 0)
 
+// Markdown authors naturally write quotes as `> text`, which would nest a
+// blockquote inside .quote-body's own blockquote — double glyphs and padding,
+// since the global blockquote rules decorate every blockquote. Unwrap a single
+// top-level blockquote; anything more complex stays as authored.
+const unwrap_blockquote = (vnodes: VNode[]): VNode[] => {
+  const [first] = vnodes
+  if (vnodes.length === 1 && first?.type === 'blockquote' && Array.isArray(first.children))
+    return first.children as VNode[]
+  return vnodes
+}
+
 // Markdown slot content is static per page load, so split ONCE at setup —
 // a reactive computed here re-invokes the slot function on every update,
 // re-mounts the clicked elements and floods Slidev's click context with
 // late-registration warnings.
-const chunks = split_vnodes(slots.default?.() ?? []).filter(chunk_has_visible_content)
+const chunks = split_vnodes(unwrap_blockquote(slots.default?.() ?? [])).filter(
+  chunk_has_visible_content,
+)
 
 const has_attribution = !!slots.author || props.author != null
 </script>

@@ -134,3 +134,7 @@ dist
 
 # Local-only map data (CC-BY-NC, see public/data/README.md) — not committed/published
 /public/data/
+docs/.obsidian/app.json
+docs/.obsidian/appearance.json
+docs/.obsidian/core-plugins.json
+docs/.obsidian/workspace.json

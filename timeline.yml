@@ -1,0 +1,31 @@
+# Context events for timeline slides — events with no dedicated slide.
+#
+# The whole course's background events live here in one place instead of being
+# scattered across slides; each timeline slide opts in by group name:
+#
+#   ---
+#   layout: timeline
+#   useGroups: [revolution]
+#   ---
+#
+# An entry may belong to several groups (group: [revolution, empire]) and then
+# appears once even when both groups are selected. Artwork slides carry their
+# own `timeline:` frontmatter and are unaffected by this file.
+
+- year: 1792
+  label: 'First Republic (1792-94)'
+  group: fr-rev 
+  image: https://cdn.kavehrafie.com/2026FALL-AR2105/flags-of-the-first-french-republic-1792-1804-v0-uscohvezpgca1.webp/w_400
+  image_fit: contain
+  
+- year: 1799
+  label: "Napoleon Bonaparte seizes power in a coup d'état"
+  group: fr-rev
+
+- year: 1815
+  label: "Napoleon Bonaparte is defeated at Waterloo and Banished to Saint Helena"
+  group: fr-rev
+
+- year: 1870
+  label: "Third Republic (1870-1940)"
+

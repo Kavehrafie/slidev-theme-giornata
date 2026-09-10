@@ -1,29 +1,31 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick } from 'vue'
+import { computed, ref, watch, nextTick, onMounted, onActivated } from 'vue'
 import type { CSSProperties } from 'vue'
 import { useSlideContext } from '@slidev/client/context.ts'
 import { compute_color_scheme } from '../layoutHelper'
+import deckEvents from 'virtual:giornata-events'
 
 interface TimelineEvent {
   year: number
   label: string
-  region?: string
   image?: string
   image_fit?: string
   color?: string
   id?: string
 }
 
-// Shape of a `timeline:` frontmatter block. YAML values are loosely typed, so
-// year/label are wider here than in TimelineEvent and coerced on read.
+// Shape of a `timeline:` frontmatter block and a timeline.yml entry. YAML
+// values are loosely typed, so year/label are wider here than in TimelineEvent
+// and coerced on read.
 interface TimelineFrontmatter {
   year?: string | number
   label?: string
-  region?: string
   image?: string
   image_fit?: string
   color?: string
   id?: string
+  /** timeline.yml only — group names this context event belongs to. */
+  group?: string | string[]
 }
 
 interface FlatEvent extends TimelineEvent {
@@ -46,6 +48,10 @@ const props = withDefaults(
     color?: string
     colorMode?: string
     events?: TimelineEvent[] | null
+    /** Initial date (a year, negative for BCE). See initialRevealCount. */
+    initial?: string | number
+    /** Groups to pull from the deck's timeline.yml context events. */
+    useGroups?: string | string[]
   }>(),
   {
     color: 'white',
@@ -55,12 +61,103 @@ const props = withDefaults(
 
 const slides = computed(() => $slidev.nav.slides)
 
+// Context events from the deck's timeline.yml, indexed by group name — the
+// course's full set of background events in one place, selected per timeline
+// slide via `useGroups`. An entry may carry several group names; the same
+// object is indexed under each, and the aggregator dedupes on selection.
+const deckGroups = new Map<string, TimelineFrontmatter[]>()
+for (const entry of deckEvents) {
+  const groups = Array.isArray(entry.group) ? entry.group : entry.group ? [entry.group] : []
+  for (const raw of groups) {
+    const name = typeof raw === 'string' ? raw.trim().toLowerCase() : ''
+    if (!name) continue
+    deckGroups.set(name, [...(deckGroups.get(name) ?? []), entry])
+  }
+}
+
+// A lowercased name set from a string or string[] prop (null = not set).
+const normalize_names = (raw: string | string[] | null | undefined): Set<string> | null => {
+  if (raw == null) return null
+  const list = (Array.isArray(raw) ? raw : [raw])
+    .map(r => (typeof r === 'string' ? r.trim().toLowerCase() : ''))
+    .filter(Boolean)
+  return list.length ? new Set(list) : null
+}
+
+// Flatten one loose timeline.yml entry into a context event — an event with no
+// slide of its own (slideNo 0 → marker click is a no-op). Null if no year.
+const contextEvent = (e: TimelineFrontmatter | undefined, id: string): FlatEvent | null => {
+  if (e?.year == null) return null
+  return {
+    year: Number(e.year),
+    label: String(e.label ?? ''),
+    image: e.image,
+    image_fit: normalize_fit(e.image_fit),
+    color: e.color,
+    id,
+    slideNo: 0,
+  }
+}
+
+// A timeline slide placed BEFORE artwork slides caps its rail at the date of
+// the next artwork slide in deck order — a mid-lecture timeline never runs
+// past where the lecture currently stands (the next artwork is "you are
+// here", and its date is included). A timeline after the last artwork slide
+// (the end-of-lecture recap) is uncapped. The `:events` override path below
+// returns before the cap applies — its slide numbers are positional fakes.
+//
+// Capture the page number ONCE, non-reactively: making the rail react to
+// currentPage would re-render it (and re-register every v-click) when
+// navigating away. Layouts mount with their page already current.
+const mySlideNo = $slidev.nav.currentPage
+
+// `timeline:` year of the slide at deck index i, if it is an artwork slide.
+const timeline_year = (i: number): number | undefined => {
+  const t = slides.value[i]?.meta?.slide?.frontmatter?.timeline as TimelineFrontmatter | undefined
+  return t && !Array.isArray(t) && t.year != null ? Number(t.year) : undefined
+}
+
+const nextArtworkYear = computed(() => {
+  // slides are 0-indexed, slide numbers 1-indexed — index mySlideNo is the
+  // slide right after this one
+  for (let i = mySlideNo; i < slides.value.length; i++) {
+    const year = timeline_year(i)
+    if (year != null) return year
+  }
+  return undefined
+})
+
+// Where the PREVIOUS timeline slide (nearest `layout: timeline` before this
+// one, deck order) stood: the date it was capped to, i.e. its next artwork.
+// This timeline initializes its reveal there — the rail begins where the
+// story got to (e.g. at the Tennis Court Oath), instead of restarting from
+// zero. If the previous timeline was uncapped (an end-of-deck recap that
+// already showed everything), or there is no previous timeline, fall back to
+// the last artwork before this slide — everything the audience has covered.
+const autoInitialYear = computed(() => {
+  let prevTimeline = -1
+  for (let i = mySlideNo - 2; i >= 0; i--) {
+    if (slides.value[i]?.meta?.slide?.frontmatter?.layout === 'timeline') {
+      prevTimeline = i
+      break
+    }
+  }
+  for (let i = prevTimeline + 1; prevTimeline >= 0 && i < slides.value.length; i++) {
+    const year = timeline_year(i)
+    if (year != null) return year
+  }
+  for (let i = mySlideNo - 2; i >= 0; i--) {
+    const year = timeline_year(i)
+    if (year != null) return year
+  }
+  return undefined
+})
+
 const aggregatedEvents = computed<FlatEvent[]>(() => {
   if (Array.isArray(props.events) && props.events.length) {
     return props.events.map((e, i) => ({
       year: Number(e.year),
       label: String(e.label ?? ''),
-      region: e.region,
       image: e.image,
       image_fit: normalize_fit(e.image_fit),
       color: e.color,
@@ -68,7 +165,28 @@ const aggregatedEvents = computed<FlatEvent[]>(() => {
       slideNo: i + 1,
     }))
   }
+
   const out: FlatEvent[] = []
+
+  // Context events selected by group name. Selecting two groups that share an
+  // entry (group: [revolution, empire]) must not duplicate it — select through
+  // a Set of the entry objects themselves.
+  const wanted = normalize_names(props.useGroups)
+  if (wanted) {
+    const selected = new Set<TimelineFrontmatter>()
+    for (const [name, entries] of deckGroups) {
+      if (!wanted.has(name)) continue
+      entries.forEach(e => selected.add(e))
+    }
+    let gi = 0
+    selected.forEach(e => {
+      const ev = contextEvent(e, e.id ?? `grp-${++gi}`)
+      if (ev) out.push(ev)
+    })
+  }
+
+  // Artwork slides tagged with `timeline:` frontmatter — the events with a
+  // slide of their own (marker click jumps there, image morphs on entry).
   slides.value.forEach((slide, idx) => {
     const fm = slide?.meta?.slide?.frontmatter ?? {}
     const t = fm.timeline as TimelineFrontmatter | undefined
@@ -77,7 +195,6 @@ const aggregatedEvents = computed<FlatEvent[]>(() => {
     out.push({
       year: Number(t.year),
       label: String(t.label ?? ''),
-      region: t.region,
       image: t.image,
       image_fit: normalize_fit(t.image_fit),
       color: t.color,
@@ -85,22 +202,77 @@ const aggregatedEvents = computed<FlatEvent[]>(() => {
       slideNo: idx + 1,
     })
   })
-  return out.sort((a, b) => a.year - b.year)
+
+  // Positional cap from nextArtworkYear — see its comment above.
+  const cap = nextArtworkYear.value
+  const scoped = cap == null ? out : out.filter(e => e.year <= cap)
+  return scoped.sort((a, b) => a.year - b.year)
 })
 
-const imgStyle = (ev: FlatEvent): CSSProperties => ({
+// Number of events already revealed when the slide is entered (click 0).
+// - Explicit `initial` (a year): opens caught up through the first event
+//   LATER than that year — that "next" event is the current one.
+// - No `initial`: auto-initialize at autoInitialYear (the previous timeline's
+//   position) — everything up to AND INCLUDING that year is revealed, since
+//   that position is an already-covered artwork; clicking continues past it.
+const initialRevealCount = computed(() => {
+  const events = aggregatedEvents.value
+  const explicit = props.initial
+  if (explicit != null && explicit !== '') {
+    const year = Number(explicit)
+    if (!Number.isFinite(year)) return 0
+    const next = events.findIndex(e => e.year > year)
+    if (next === -1) return events.length
+    return next + 1
+  }
+  const auto = autoInitialYear.value
+  if (auto == null) return 0
+  return events.filter(e => e.year <= auto).length
+})
+
+// Event i appears on click (i - initialRevealCount + 1). Pre-revealed events
+// pass `false`, which the v-click directive treats as "not registered" — they
+// are always visible and never hidden. N events → N - initialRevealCount
+// clicks (no dead step).
+const clickAt = (index: number) =>
+  index < initialRevealCount.value ? false : index - initialRevealCount.value + 1
+
+// Index of the newest revealed event at a given click position.
+const lastVisibleIndex = (currentClick: number) =>
+  Math.min(currentClick + initialRevealCount.value - 1, aggregatedEvents.value.length - 1)
+
+// Highest event index revealed so far this mount — monotonic on purpose:
+// navigating away resets $clicks to 0, but the leaving view-transition capture
+// must still find the name on events revealed during the visit (and clicking
+// backward shouldn't un-pair an already-shown artwork either).
+const maxRevealedIndex = ref(-1)
+watch(
+  $clicks,
+  (currentClick) => {
+    maxRevealedIndex.value = Math.max(maxRevealedIndex.value, lastVisibleIndex(currentClick))
+  },
+  { immediate: true },
+)
+
+const imgStyle = (ev: FlatEvent, index: number): CSSProperties => ({
   objectFit: (ev.image_fit || 'cover') as CSSProperties['objectFit'],
   objectPosition: 'center',
-  viewTransitionName: `artwork-${ev.id}`,
+  // Only artwork events (with a slide) morph. Context/group events have no
+  // destination — and a shared group event rendered on two timeline slides
+  // would stamp duplicate view-transition names, breaking transitions there.
+  // Revealed-only also matters because the browser captures named elements at
+  // their unclipped layout rect: an unrevealed (opacity-0) thumbnail sitting
+  // beyond the rail's right edge would otherwise pull the artwork morph in
+  // from off-screen. See maxRevealedIndex for why eligibility is monotonic.
+  viewTransitionName:
+    ev.slideNo && index <= maxRevealedIndex.value ? `artwork-${ev.id}` : undefined,
 })
 
 
 // Scheme follows the latest revealed event, falling back to the slide-level color.
 const colorscheme = computed(() => {
-  // <v-clicks>: event 0 visible at click 0, event N visible at click N.
-  // The newest revealed event is at index (currentClick).
-  const idx = Math.min($clicks.value, Math.max(0, aggregatedEvents.value.length - 1))
-  const ev = aggregatedEvents.value[idx]
+  const idx = lastVisibleIndex($clicks.value)
+  const ev = idx >= 0 ? aggregatedEvents.value[idx] : undefined
   if (ev?.color) return compute_color_scheme(ev.color, props.colorMode)
   return compute_color_scheme(props.color, props.colorMode)
 })
@@ -114,27 +286,59 @@ const go = (slideNo?: number) => {
   if (slideNo && slideNo >= 1) $slidev.nav.go(slideNo)
 }
 
+// Breathing room between a pinned event and the viewport's right edge: the
+// trailing spacer column (3rem) plus its column gap (1.5rem). An event pinned
+// mid-rail then sits as far from the right edge as the first event sits from
+// the left, instead of flush against the slide edge.
+const RAIL_RIGHT_PAD = 72 // px
+
+// Scroll the rail so the anchor's right edge sits RAIL_RIGHT_PAD inside the
+// viewport, clamped to the rail's scroll range. Manual math instead of
+// scrollIntoView({inline:'end'}), which pins the anchor flush against the
+// right edge with no offset.
+const pin_anchor = (anchor: HTMLElement, behavior: ScrollBehavior) => {
+  const container = containerRef.value
+  if (!container) return
+  const target = anchor.offsetLeft + anchor.offsetWidth - container.clientWidth + RAIL_RIGHT_PAD
+  const max = container.scrollWidth - container.clientWidth
+  container.scrollTo({ left: Math.max(0, Math.min(target, max)), behavior })
+}
+
 watch($clicks, async (currentClick) => {
   await nextTick()
 
-  const container = containerRef.value
-  if (!container) return
-
-  if (currentClick === 0) {
-    container.scrollTo({ left: 0, behavior: 'smooth' })
-    return
-  }
-
-  // <v-clicks>: click 0 → first child visible.  click N → children 0..N visible.
-  // Always pin the last (rightmost) visible event at the end of the viewport.
+  // Pin the last (rightmost) visible event near the end of the viewport.
   // Works for both forward (new event slides in at right) and backward (right
-  // edge collapses to the previous event).
-  const lastVisibleIdx = Math.min(currentClick, eventRefs.value.length - 1)
-  const anchor = eventRefs.value[lastVisibleIdx]
+  // edge collapses to the previous event). Nothing revealed yet → nothing to
+  // pin; entry positioning is pin_to_current's job. There is deliberately no
+  // scroll reset on navigate-away — it churns invisibly and only races the
+  // view-transition capture.
+  const anchor = eventRefs.value[lastVisibleIndex(currentClick)]
   if (!anchor) return
 
-  anchor.scrollIntoView({ behavior: 'smooth', inline: 'end', block: 'nearest' })
+  pin_anchor(anchor, 'smooth')
 })
+
+// Entering or re-entering the slide: jump the rail (instantly, no animation)
+// to wherever the reveal currently stands so the slide opens showing where
+// "now" is. Covers forward entry with a pre-revealed rail, and backward
+// re-entry — Slidev restores the slide's final click state, but $clicks is
+// unchanged since the visit so the watch above never fires, and the rail
+// would otherwise sit at scroll 0 with revealed events piled off the right
+// edge (the next back-press then "jumped" one event).
+const pin_to_current = () => {
+  const anchor = eventRefs.value[lastVisibleIndex($clicks.value)]
+  if (anchor) pin_anchor(anchor, 'instant')
+}
+
+onMounted(async () => {
+  await nextTick()
+  pin_to_current()
+})
+
+// If the page instance is cached (keep-alive), onMounted doesn't re-run on
+// re-entry — onActivated covers that path; harmless no-op without keep-alive.
+onActivated(() => pin_to_current())
 </script>
 
 <template>
@@ -147,25 +351,26 @@ watch($clicks, async (currentClick) => {
       <div class="timeline-line" />
 
       <div v-if="!aggregatedEvents.length" class="timeline-empty">
-        No <code>timeline:</code> slides found. Add <code>timeline: {"{"} year, label {"}"}</code> to artwork slides, or
-        pass <code>:events</code> explicitly.
+        No events found. Tag artwork slides with <code>timeline: &#123; year, label &#125;</code>, list context events in
+        <code>timeline.yml</code> and pull them in with <code>useGroups</code>, or pass <code>:events</code> explicitly.
       </div>
 
-      <!-- <v-clicks> wrapper: first event always visible, each subsequent
-           click reveals the next event.  N events → N clicks (no dead step). -->
-      <v-clicks>
-        <div
-          v-for="(ev, index) in aggregatedEvents"
-          :key="ev.id"
-          :ref="
-            (el) => {
-              if (el) eventRefs[index] = el as HTMLElement
-            }
-          "
-          class="timeline-event"
-          :class="[index % 2 === 0 ? 'is-above' : 'is-below']"
-          :style="{ gridColumnStart: index + 2 }"
-        >
+      <!-- Per-event v-click: event i appears on click (i - initialRevealCount + 1).
+           Pre-revealed events pass `false` (never registered, always visible).
+           N events → N - initialRevealCount clicks (no dead step). -->
+      <div
+        v-for="(ev, index) in aggregatedEvents"
+        :key="ev.id"
+        :ref="
+          (el) => {
+            if (el) eventRefs[index] = el as HTMLElement
+          }
+        "
+        v-click="clickAt(index)"
+        class="timeline-event"
+        :class="[index % 2 === 0 ? 'is-above' : 'is-below']"
+        :style="{ gridColumnStart: index + 2 }"
+      >
         <button
           type="button"
           class="timeline-marker"
@@ -179,18 +384,17 @@ watch($clicks, async (currentClick) => {
             :src="ev.image"
             :alt="ev.label"
             class="timeline-img"
-            :style="imgStyle(ev)"
-            loading="lazy"
+            :style="imgStyle(ev, index)"
+            loading="eager"
+            decoding="async"
             draggable="false"
           />
           <div class="timeline-meta">
             <div class="timeline-year">{{ formatYear(ev.year) }}</div>
             <div class="timeline-label">{{ ev.label }}</div>
-            <div v-if="ev.region" class="timeline-region">{{ ev.region }}</div>
           </div>
         </div>
       </div>
-      </v-clicks>
     </div>
   </div>
 </template>
@@ -221,15 +425,17 @@ watch($clicks, async (currentClick) => {
   /* fixed-width columns: the rail overflows (and auto-scrolls) once there are
      more events than fit the slide, instead of stretching columns to fill */
   grid-template-columns: 3rem repeat(v-bind('aggregatedEvents.length'), 200px) 3rem;
-  width: max-content;
-  min-width: 100%;
+  /* width MUST stay slide-constrained: with max-content the rail grows to its
+     full content width and never scrolls itself (the overflow:hidden .timeline
+     parent becomes the de-facto scroller, which pin_anchor's scrollTo on the
+     rail can't reach) */
+  width: 100%;
   height: 100%;
   gap: 0 1.5rem;
   padding: 1.5rem 0;
   overflow-x: scroll;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  scroll-snap-type: x proximity;
   scrollbar-width: thin;
 }
 
@@ -283,7 +489,10 @@ watch($clicks, async (currentClick) => {
   justify-content: center;
   min-height: 0;
   overflow: hidden;
-  scroll-snap-align: center;
+  /* Calmer reveal than the global 100ms v-click fade — the card fades in as
+     the rail slides it into view. Images are eager-loaded (see the <img>), so
+     opacity is the only thing animating here. */
+  transition: opacity 300ms ease;
 }
 
 .timeline-event.is-above {
@@ -374,14 +583,5 @@ watch($clicks, async (currentClick) => {
   font-weight: 600;
   color: var(--giornata-text-color);
   line-height: 1.25;
-}
-
-.timeline-region {
-  font-family: var(--giornata-main-font, system-ui, sans-serif);
-  font-size: 0.66rem;
-  font-style: italic;
-  color: var(--giornata-text-color);
-  opacity: 0.7;
-  line-height: 1.2;
 }
 </style>

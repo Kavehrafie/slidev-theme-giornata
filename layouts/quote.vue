@@ -40,7 +40,7 @@ const has_author_slot = !!slots.author
 </script>
 
 <template>
-  <div class="slidev-layout quote" :class="colorscheme">
+  <div class="slidev-layout quote slidecolor" :class="colorscheme">
     <Quote
       :color="color"
       :color-mode="colorMode"
