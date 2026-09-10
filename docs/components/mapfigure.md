@@ -17,6 +17,8 @@ Colors come from the `--giornata-*` scheme vars exactly like StickyNote/Admoniti
 - `basemap` (optional) — replace the bundled land basemap with your own `FeatureCollection`, or `:basemap="null"` to disable.
 - `interactive` (optional) — enable pan/zoom/reset. Default `true`.
 - `labelScale` (optional) — multiplier for label font sizes. Default `1`.
+
+Labels and markers are sized in constant screen pixels (not viewBox units), so they stay readable no matter how tall the map box is, and the label/date spacing scales with the font.
 - `labelStroke` (optional) — label halo width as a fraction of font size. `0` disables. Default `0.18`.
 - `pointScale` (optional) — multiplier for point-marker size. Default `1`.
 - `regionOpacity` (optional) — fill opacity of polygon regions, 0–1. Default `0.35`.

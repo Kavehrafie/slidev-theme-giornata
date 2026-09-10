@@ -15,7 +15,7 @@
 // Colours come from the giornata `--giornata-*` scheme vars exactly like
 // StickyNote/Admonition, so dark mode and colour modes work for free.
 
-import { computed, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { FeatureCollection, Geometry, Position } from 'geojson'
 import { compute_color_scheme } from '../layoutHelper'
 import {
@@ -106,21 +106,74 @@ const contentTransform = computed(() => `translate(${tx.value} ${ty.value}) scal
 // while the geography scales underneath them on zoom.
 const invScale = computed(() => 1 / scale.value)
 
-// Style knobs driven by props. The label halo (stroke) is relative to each
-// label's font size so it stays proportional when labelScale changes.
-const labelStyles = computed(() => {
-  const p = 22 * props.labelScale
-  const r = 26 * props.labelScale
-  const d = 19 * props.labelScale
-  const halo = (fs: number) => `${fs * props.labelStroke}px`
-  return {
-    point: { fontSize: `${p}px`, strokeWidth: halo(p) },
-    region: { fontSize: `${r}px`, strokeWidth: halo(r) },
-    date: { fontSize: `${d}px`, strokeWidth: halo(d) },
+// ---- container scale --------------------------------------------------------
+// Labels and markers are sized for the screen, not the viewBox: the SVG fits
+// its (VB_H-tall) viewBox into the container, so a fixed viewBox font size
+// shrinks with a small container — labels became unreadable in short map
+// boxes. We measure the fitted scale and convert screen-pixel sizes into
+// viewBox units, so text and markers keep a constant on-screen size in any
+// container (and through zoom, via the invScale counter-scaling above).
+const rootRef = ref<HTMLElement | null>(null)
+const boxW = ref(0)
+const boxH = ref(0)
+
+let resizeObserver: ResizeObserver | undefined
+onMounted(() => {
+  const el = rootRef.value
+  if (!el) return
+  const update = () => {
+    boxW.value = el.clientWidth
+    boxH.value = el.clientHeight
+  }
+  update()
+  if (typeof ResizeObserver !== 'undefined') {
+    resizeObserver = new ResizeObserver(update)
+    resizeObserver.observe(el)
   }
 })
-const pointR = computed(() => 13 * props.pointScale)
-const pointStrokeW = computed(() => 3 * props.pointScale)
+onBeforeUnmount(() => resizeObserver?.disconnect())
+
+/** Screen pixels per viewBox unit at the current container size (1 pre-mount). */
+const fitScale = computed(() => {
+  const v = svgView.value
+  if (!v || !boxW.value || !boxH.value) return 1
+  return Math.max(1e-6, Math.min(boxW.value / v.w, boxH.value / v.h))
+})
+
+// Base sizes in screen pixels; labelScale / pointScale multiply them.
+const POINT_LABEL_PX = 17
+const REGION_LABEL_PX = 20
+const DATE_LABEL_PX = 13
+const POINT_R_PX = 6
+const POINT_STROKE_PX = 2.5
+
+const pointR = computed(() => (POINT_R_PX * props.pointScale) / fitScale.value)
+const pointStrokeW = computed(() => (POINT_STROKE_PX * props.pointScale) / fitScale.value)
+
+// Font sizes in viewBox units. The label halo (stroke) is relative to each
+// label's font size so it stays proportional when labelScale changes.
+const labelSizes = computed(() => ({
+  point: (POINT_LABEL_PX * props.labelScale) / fitScale.value,
+  region: (REGION_LABEL_PX * props.labelScale) / fitScale.value,
+  date: (DATE_LABEL_PX * props.labelScale) / fitScale.value,
+}))
+const labelStyles = computed(() => {
+  const halo = (fs: number) => `${fs * props.labelStroke}px`
+  const { point, region, date } = labelSizes.value
+  return {
+    point: { fontSize: `${point}px`, strokeWidth: halo(point) },
+    region: { fontSize: `${region}px`, strokeWidth: halo(region) },
+    date: { fontSize: `${date}px`, strokeWidth: halo(date) },
+  }
+})
+
+// Baselines track the font sizes so the label hugs its marker and the date
+// sits a comfortable line-spacing below the label at any labelScale /
+// container size (fixed offsets used to drift apart as fonts grew).
+const pointLabelY = computed(() => pointR.value + labelSizes.value.point * 0.95)
+const pointDateY = computed(() => pointLabelY.value + labelSizes.value.date * 1.5)
+const regionDateY = computed(() => labelSizes.value.date * 1.5)
+
 const regionOpacityStyle = computed(() => ({ fillOpacity: props.regionOpacity }))
 
 function resetView() {
@@ -285,7 +338,7 @@ function dateOf(p: unknown): string | undefined {
 </script>
 
 <template>
-  <div class="map-figure" :class="colorscheme" :style="{ height: cssHeight }">
+  <div ref="rootRef" class="map-figure" :class="colorscheme" :style="{ height: cssHeight }">
     <svg
       ref="svgRef"
       class="mf-svg"
@@ -340,11 +393,11 @@ function dateOf(p: unknown): string | undefined {
             :transform="`translate(${f.labelX} ${f.labelY}) scale(${invScale})`"
           >
             <text class="mf-label mf-label-region" :style="labelStyles.region" x="0" y="0">{{ f.label }}</text>
-            <text v-if="f.date" class="mf-label mf-label-date" :style="labelStyles.date" x="0" y="24">{{ f.date }}</text>
+            <text v-if="f.date" class="mf-label mf-label-date" :style="labelStyles.date" x="0" :y="regionDateY">{{ f.date }}</text>
           </g>
           <g v-else-if="f.kind === 'point'" :transform="`translate(${f.x} ${f.y}) scale(${invScale})`">
-            <text v-if="f.label" class="mf-label" :style="labelStyles.point" x="0" y="36">{{ f.label }}</text>
-            <text v-if="f.date" class="mf-label mf-label-date" :style="labelStyles.date" x="0" y="58">{{ f.date }}</text>
+            <text v-if="f.label" class="mf-label" :style="labelStyles.point" x="0" :y="pointLabelY">{{ f.label }}</text>
+            <text v-if="f.date" class="mf-label mf-label-date" :style="labelStyles.date" x="0" :y="pointDateY">{{ f.date }}</text>
           </g>
         </template>
       </g>
@@ -405,7 +458,6 @@ function dateOf(p: unknown): string | undefined {
 
 .mf-label {
   fill: var(--giornata-text-color);
-  font-size: 22px;
   text-anchor: middle;
   font-family: var(--giornata-main-font);
   paint-order: stroke;
@@ -415,12 +467,10 @@ function dateOf(p: unknown): string | undefined {
 }
 
 .mf-label-region {
-  font-size: 26px;
   font-weight: 600;
 }
 
 .mf-label-date {
-  font-size: 19px;
   fill: var(--giornata-fg-color);
   opacity: 0.85;
 }
