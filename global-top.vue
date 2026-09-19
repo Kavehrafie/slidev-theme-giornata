@@ -1,11 +1,13 @@
 <template>
   <SessionChrome />
+  <Asterisk v-if="importantPos" :position="importantPos" />
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { useSlideContext } from '@slidev/client/context.ts'
 import SessionChrome from './components/SessionChrome.vue'
+import Asterisk, { ASTERISK_POSITIONS, type AsteriskPosition } from './components/Asterisk.vue'
 
 const { $slidev, $page } = useSlideContext()
 
@@ -45,4 +47,18 @@ function syncMorphTarget() {
 
 onMounted(syncMorphTarget)
 watch($page, syncMorphTarget, { flush: 'post' })
+
+// `important` frontmatter stamps an asterisk marker on the slide at the given
+// position, using the same lt/lm/lb/ct/cm/cb/rt/rm/rb vocabulary as `align`.
+// Absent frontmatter means no marker. Lives here (not in each layout) so it
+// works on every layout, including future ones, exactly like SessionChrome.
+const isAsteriskPosition = (v: unknown): v is AsteriskPosition =>
+  typeof v === 'string' && (ASTERISK_POSITIONS as readonly string[]).includes(v)
+
+const importantPos = computed<AsteriskPosition | null>(() => {
+  const idx = ($page.value ?? 1) - 1
+  const slide = $slidev.nav.slides[idx]
+  const v = slide?.meta?.slide?.frontmatter?.important
+  return isAsteriskPosition(v) ? v : null
+})
 </script>

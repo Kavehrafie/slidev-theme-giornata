@@ -234,3 +234,42 @@ transition: view-transition
 ## Haussmann's Renovation of Paris
 
 <Morph id="pissarro-opera" alt="Camille Pissaro, L'Avenue de l'Opéra, 1898. Oil on canvas" src="https://cdn.kavehrafie.com/2026FALL-AR2105/PISSARRO_Camille_L'Avenue_de_l'Op%C3%A9ra_Huile_sur_toile.jpg/w_1400" />
+
+---
+important: rb
+---
+
+## `important: rb`
+
+Any layout accepts the `important` frontmatter to stamp an asterisk marker on the slide. Positions use the same vocabulary as `align`: `lt`, `lm`, `lb`, `ct`, `cm`, `cb`, `rt`, `rm`, `rb`.
+
+No `important` key — no marker.
+
+---
+layout: center
+important: lt
+---
+
+## `important: lt`
+
+The marker renders in the theme accent color and appears on **every** layout.
+
+---
+layout: two-cols-title
+columns: is-6
+important: rm
+---
+
+:: title ::
+
+## `important: rm`
+
+:: left ::
+
+Middle-of-edge positions (`lm`, `cm`, `rm`) center on their anchor.
+
+:: right ::
+
+The marker is chrome-level: it never reflows slide content.
+
+
