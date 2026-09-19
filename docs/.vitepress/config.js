@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 import Unocss from 'unocss/vite'
 import { sub } from '@mdit/plugin-sub'
 import Mark from 'markdown-it-mark'
-import { version } from '../../package.json'
+import pkg from '../../package.json'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -16,7 +16,7 @@ export default defineConfig({
       { text: 'Getting started', link: '/getting-started' },
       { text: 'Example Deck', link: 'https://Kavehrafie.github.io/slidev-theme-giornata/example/#1', target: '_self' },
       {
-        text: `v${version}`,
+        text: `v${pkg.version}`,
         items: [{ text: 'Release Notes', link: 'https://github.com/Kavehrafie/slidev-theme-giornata/releases' }],
       },
     ],

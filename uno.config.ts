@@ -1,7 +1,8 @@
 // uno.config.ts
 import { defineConfig, presetWind4, transformerDirectives } from 'unocss'
 import { colors } from '@unocss/preset-wind4/colors'
-import { version } from './package.json'
+// Default import only — JSON modules expose no named exports per spec
+import pkg from './package.json'
 
 // Tailwind CSS color palette
 const colornames = [
@@ -229,7 +230,7 @@ const generateRows = (max: number): string[] => {
 
 const schemes = generate_color_schemes()
 
-console.log(`Loading Giornata ${version} theme uno.config.ts...`)
+console.log(`Loading Giornata ${pkg.version} theme uno.config.ts...`)
 export default defineConfig({
   // ...UnoCSS options
   presets: [

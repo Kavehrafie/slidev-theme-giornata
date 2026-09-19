@@ -5,9 +5,11 @@ import Mark from 'markdown-it-mark'
 import MarkdownItAttrs from 'markdown-it-attrs'
 import ImageCaptionPlugin from 'markdown-it-implicit-figures'
 import inlineImageAttrsPlugin from './setup/inline-image-attrs.ts'
-import { version } from './package.json' with { type: 'json' }
+// Default import only — JSON modules expose no named exports per spec, and
+// named imports break under Vite's native config loader.
+import pkg from './package.json' with { type: 'json' }
 
-console.log(`Loading Giornata ${version} theme vite.config.ts...`)
+console.log(`Loading Giornata ${pkg.version} theme vite.config.ts...`)
 export default defineConfig({
   slidev: {
     markdown: {
