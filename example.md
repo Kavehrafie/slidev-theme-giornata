@@ -19,7 +19,7 @@ Timeline test deck — `initial` · `timeline.yml` groups · artwork morph
 layout: timeline
 color: navy
 transition: view-transition
-useGroup:
+useGroups:
   - fr-rev
 ---
 
@@ -64,7 +64,7 @@ timeline:
 layout: timeline
 color: navy
 transition: view-transition
-useGroup:
+useGroups:
   - fr-rev
 ---
 
@@ -116,6 +116,7 @@ timeline:
   label: 'Napoleon Crowned Emperor'
   id: napoleon-crowned
   image: https://cdn.kavehrafie.com/2026FALL-AR2105/Jacques-Louis_David_-_The_Coronation_of_Napoleon_(1805-1807).jpg/w_860
+  group: fr-rev
 ---
 
 ![Jacques-Louis David, *The Coronation of Napoleon*, 1805--7, oil on canvas](<https://cdn.kavehrafie.com/2026FALL-AR2105/Jacques-Louis_David_-_The_Coronation_of_Napoleon_(1805-1807).jpg/w_860>)
@@ -229,11 +230,32 @@ Napoleon III (1808–1873) was the nephew of Napoleon Bonaparte and became the f
 
 ---
 transition: view-transition
+timeline:
+  year: 1898
+  label: "Pissarro paints L'Avenue de l'Opéra"
+  id: pissarro-opera
+  image: https://cdn.kavehrafie.com/2026FALL-AR2105/PISSARRO_Camille_L'Avenue_de_l'Op%C3%A9ra_Huile_sur_toile.jpg/w_400
+  group: haussmann
 ---
 
 ## Haussmann's Renovation of Paris
 
 <Morph id="pissarro-opera" alt="Camille Pissaro, L'Avenue de l'Opéra, 1898. Oil on canvas" src="https://cdn.kavehrafie.com/2026FALL-AR2105/PISSARRO_Camille_L'Avenue_de_l'Op%C3%A9ra_Huile_sur_toile.jpg/w_1400" />
+
+---
+layout: timeline
+color: navy
+transition: view-transition
+useGroups:
+  - haussmann
+---
+
+#### Scoped rail — `useGroups: [haussmann]`
+
+<!--
+- only the 1853 context event and this lecture's artwork appear; the fr-rev
+  artworks stay off this scoped rail (ungrouped artworks would ride every rail)
+-->
 
 ---
 important: rb

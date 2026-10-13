@@ -77,6 +77,7 @@ timeline:
 | `image_fit` | no       | `cover` \| `contain` \| `fill` \| `scale-down` \| `none` | How the thumbnail crops its image. Defaults to `cover` with `object-position: center`. Use `contain` for full artworks that shouldn't crop.                                 |
 | `color`     | no       | scheme name                                              | If set, the timeline slide retunes its palette when this event is the active click.                                                                                         |
 | `id`        | no       | string                                                   | Stable ID; defaults to `slide-<n>`. **Set this explicitly** if you want the artwork to morph to/from its timeline thumbnail — the morph matches names derived from this id. |
+| `group`     | no       | string \| string[]                                       | Groups this artwork belongs to. A timeline slide's `useGroups` shows a grouped artwork only when it selects one of its groups; ungrouped artworks appear on every rail. |
 
 The frontmatter is dormant on the artwork slide itself — it just labels the slide as belonging to the chronological axis. The visual timeline only appears when you add a slide with `layout: timeline`.
 
@@ -97,11 +98,41 @@ Click to advance through the timeline.
 
 Behavior:
 
-- **Click-driven reveal** — the first event is always visible; each click fades/slides in the next event in chronological order. Unrevealed events stay dimmed so the spine structure remains visible.
-- **Auto-scroll** — when a new event is revealed, the rail smooth-scrolls (eased, with scroll-snap) to bring it into the left ~45% of the viewport. The rail only overflows once there are more events than fit the slide, so short timelines simply stay put.
-- **Click a marker** — jumps to that event's source slide.
+- **Click-driven reveal** — each click reveals the next event in chronological order; unrevealed events are fully hidden. The rail usually opens pre-revealed (see auto-initialization below).
+- **Positional cap** — a timeline placed before artwork slides never runs past the next artwork slide in deck order ("you are here"); a timeline after the last artwork slide is an uncapped end-of-lecture recap.
+- **Auto-initialization** — the rail opens pre-revealed through wherever the previous timeline slide in the deck stood (its cap), so a mid-course rail starts at "where we got to" instead of zero. Pin it explicitly with `initial: <year>`.
+- **Auto-scroll** — when a new event is revealed, the rail smooth-scrolls to bring the newest event in from the right edge. The rail only overflows once there are more events than fit the slide, so short timelines simply stay put.
+- **Click a marker** — jumps to that event's source slide (`timeline.yml` context events have no slide; their markers don't navigate).
 - **Optional per-event color** — if a `timeline:` block sets `color: sky`, the timeline slide's palette retunes when that event is the active click.
-- **Explicit events override** — pass `:events="[{year, label, ...}, ...]"` as a prop on the layout slide to bypass the auto-aggregation (useful for one-off timelines not tied to artwork slides).
+- **Explicit events override** — pass `:events="[{year, label, ...}, ...]"` as a prop on the layout slide to bypass the auto-aggregation (useful for one-off timelines not tied to artwork slides). The events' click targets are positional (marker *n* jumps to slide *n*), so this is best for display-only rails.
+
+### Context events (`timeline.yml`) and `useGroups`
+
+Background events with no slide of their own (wars, revolutions, manifestos) live in `timeline.yml` at the deck root — override the path with `timeline_yml:` in your headmatter. Each entry takes `year`, `label`, optional `image` / `image_fit`, and one or more `group` names:
+
+```yaml
+- year: 1799
+  label: "Napoleon seizes power in a coup d'état"
+  group: fr-rev
+- year: 1853
+  label: 'Haussmann begins the renovation of Paris'
+  group: haussmann
+```
+
+A timeline slide opts in with `useGroups`:
+
+```yaml
+---
+layout: timeline
+useGroups:
+  - fr-rev
+---
+```
+
+`useGroups` does two things:
+
+- pulls the selected groups' `timeline.yml` entries in as events (no slide of their own, so their markers don't navigate), and
+- **scopes the artwork events**: an artwork whose `timeline:` block sets `group: fr-rev` appears only on rails selecting `fr-rev`, while ungrouped artworks appear on every rail. Tag artworks per lecture to keep each rail focused; leave them ungrouped to keep the whole-deck course-spine behavior.
 
 The layout's default slot (any markdown content above the rail) renders as an absolutely-positioned header in the top-left of the slide.
 

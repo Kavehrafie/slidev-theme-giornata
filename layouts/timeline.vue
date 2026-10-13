@@ -24,7 +24,10 @@ interface TimelineFrontmatter {
   image_fit?: string
   color?: string
   id?: string
-  /** timeline.yml only — group names this context event belongs to. */
+  /** Group names this event belongs to — on timeline.yml entries and artwork
+   * slides alike. A timeline slide's useGroups selects context entries AND
+   * scopes artwork events: a grouped artwork shows only on rails selecting
+   * one of its groups; an ungrouped artwork shows on every rail. */
   group?: string | string[]
 }
 
@@ -50,7 +53,9 @@ const props = withDefaults(
     events?: TimelineEvent[] | null
     /** Initial date (a year, negative for BCE). See initialRevealCount. */
     initial?: string | number
-    /** Groups to pull from the deck's timeline.yml context events. */
+    /** Groups to select: pulls timeline.yml context events in, and scopes
+     * artwork events — grouped artworks show only on rails selecting one of
+     * their groups, ungrouped artworks show everywhere. */
     useGroups?: string | string[]
   }>(),
   {
@@ -84,6 +89,21 @@ const normalize_names = (raw: string | string[] | null | undefined): Set<string>
   return list.length ? new Set(list) : null
 }
 
+// Groups this timeline slide selects via useGroups (null = unscoped — every
+// artwork slide in the deck rides the rail, the original course-spine mode).
+const wanted = normalize_names(props.useGroups)
+
+// Does an event's `timeline:` block / timeline.yml entry pass this slide's
+// useGroups selection? Ungrouped events ride every rail (most artwork slides
+// carry no group); grouped events only ride rails that select one of theirs.
+const in_scope = (t: TimelineFrontmatter): boolean => {
+  if (!wanted) return true
+  const groups = (Array.isArray(t.group) ? t.group : t.group ? [t.group] : [])
+    .map(g => (typeof g === 'string' ? g.trim().toLowerCase() : ''))
+    .filter(Boolean)
+  return groups.length === 0 || groups.some(g => wanted.has(g))
+}
+
 // Flatten one loose timeline.yml entry into a context event — an event with no
 // slide of its own (slideNo 0 → marker click is a no-op). Null if no year.
 const contextEvent = (e: TimelineFrontmatter | undefined, id: string): FlatEvent | null => {
@@ -105,6 +125,8 @@ const contextEvent = (e: TimelineFrontmatter | undefined, id: string): FlatEvent
 // here", and its date is included). A timeline after the last artwork slide
 // (the end-of-lecture recap) is uncapped. The `:events` override path below
 // returns before the cap applies — its slide numbers are positional fakes.
+// On a scoped rail (useGroups) only rail-eligible artworks set the cap — see
+// timeline_year's on_rail flag.
 //
 // Capture the page number ONCE, non-reactively: making the rail react to
 // currentPage would re-render it (and re-register every v-click) when
@@ -112,16 +134,22 @@ const contextEvent = (e: TimelineFrontmatter | undefined, id: string): FlatEvent
 const mySlideNo = $slidev.nav.currentPage
 
 // `timeline:` year of the slide at deck index i, if it is an artwork slide.
-const timeline_year = (i: number): number | undefined => {
+// Pass on_rail to also require the slide's group to pass this timeline's
+// useGroups filter — the cap uses this so a scoped rail's horizon is set by
+// the next artwork IT could show, not by a foreign-lecture artwork that
+// happens to sit later in deck order.
+const timeline_year = (i: number, on_rail = false): number | undefined => {
   const t = slides.value[i]?.meta?.slide?.frontmatter?.timeline as TimelineFrontmatter | undefined
-  return t && !Array.isArray(t) && t.year != null ? Number(t.year) : undefined
+  if (!t || Array.isArray(t) || t.year == null) return undefined
+  if (on_rail && !in_scope(t)) return undefined
+  return Number(t.year)
 }
 
 const nextArtworkYear = computed(() => {
   // slides are 0-indexed, slide numbers 1-indexed — index mySlideNo is the
   // slide right after this one
   for (let i = mySlideNo; i < slides.value.length; i++) {
-    const year = timeline_year(i)
+    const year = timeline_year(i, true)
     if (year != null) return year
   }
   return undefined
@@ -134,6 +162,8 @@ const nextArtworkYear = computed(() => {
 // zero. If the previous timeline was uncapped (an end-of-deck recap that
 // already showed everything), or there is no previous timeline, fall back to
 // the last artwork before this slide — everything the audience has covered.
+// Unfiltered on purpose: the previous rail's position is a deck-level fact
+// ("the lecture got to 1852") even when that artwork isn't on this rail.
 const autoInitialYear = computed(() => {
   let prevTimeline = -1
   for (let i = mySlideNo - 2; i >= 0; i--) {
@@ -171,7 +201,6 @@ const aggregatedEvents = computed<FlatEvent[]>(() => {
   // Context events selected by group name. Selecting two groups that share an
   // entry (group: [revolution, empire]) must not duplicate it — select through
   // a Set of the entry objects themselves.
-  const wanted = normalize_names(props.useGroups)
   if (wanted) {
     const selected = new Set<TimelineFrontmatter>()
     for (const [name, entries] of deckGroups) {
@@ -186,12 +215,15 @@ const aggregatedEvents = computed<FlatEvent[]>(() => {
   }
 
   // Artwork slides tagged with `timeline:` frontmatter — the events with a
-  // slide of their own (marker click jumps there, image morphs on entry).
+  // slide of their own (marker click jumps there, image morphs on entry),
+  // scoped by the same useGroups selection (ungrouped artworks ride every
+  // rail; see in_scope).
   slides.value.forEach((slide, idx) => {
     const fm = slide?.meta?.slide?.frontmatter ?? {}
     const t = fm.timeline as TimelineFrontmatter | undefined
     if (!t || Array.isArray(t)) return
     if (t.year == null) return
+    if (!in_scope(t)) return
     out.push({
       year: Number(t.year),
       label: String(t.label ?? ''),

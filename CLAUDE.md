@@ -100,7 +100,7 @@ To add more persistent chrome (e.g., brand watermark, progress indicator), exten
 
 - `giornata_slug`, `giornata_string` — read by `slide-bottom.vue`.
 - `session` (object: `{week, day?, date?, label?}`) — set on a lecture cover; `SessionChrome` inherits it forward until the next cover.
-- `timeline` (object: `{year, label, region?, image?, image_fit?, color?, id?}`) — labels a slide as belonging to the chronological axis. Dormant on the artwork slide itself; the `timeline` layout reads it across the deck to build the overview. `id` doubles as the morph-pairing key when the deck sets `transition: view-transition`. `image_fit` accepts `cover` (default, with `object-position: center`), `contain`, `fill`, `scale-down`, `none`.
+- `timeline` (object: `{year, label, region?, image?, image_fit?, color?, id?, group?}`) — labels a slide as belonging to the chronological axis. Dormant on the artwork slide itself; the `timeline` layout reads it across the deck to build the overview. `id` doubles as the morph-pairing key when the deck sets `transition: view-transition`. `image_fit` accepts `cover` (default, with `object-position: center`), `contain`, `fill`, `scale-down`, `none`. `group` scopes the artwork to timeline slides whose `useGroups` selects it; ungrouped artworks appear on every rail.
 - `session_placement` — corner placement of the session chip (`tr`/`tl`/`br`/`bl`/`false`); per-slide wins, deck-level falls back, hardcoded default last.
 
 Renaming any of these breaks old decks (accepted — clean break, no compat aliases).
